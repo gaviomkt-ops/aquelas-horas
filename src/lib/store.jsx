@@ -1,0 +1,136 @@
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { api } from './backend/index.js';
+import { computeProgress } from './progress.js';
+
+const Ctx = createContext(null);
+
+export function StoreProvider({ children }) {
+  const [user, setUser] = useState(undefined); // undefined = carregando
+  const [profile, setProfile] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [counts, setCounts] = useState({});
+  const [interactions, setInteractions] = useState([]);
+  const [certificates, setCertificates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState(null);
+  const [recovery, setRecovery] = useState(false); // chegou pelo link de "esqueci a senha"
+
+  const notify = useCallback((message, tone = 'ok') => {
+    setToast({ message, tone, id: Date.now() });
+  }, []);
+
+  const loadEvents = useCallback(async () => {
+    try {
+      const [ev, ct] = await Promise.all([api.listPublicEvents(), api.eventCounts()]);
+      setEvents(ev || []);
+      setCounts(ct || {});
+    } catch (e) {
+      notify(e.message, 'error');
+    }
+  }, [notify]);
+
+  const loadMine = useCallback(async (u) => {
+    if (!u) {
+      setProfile(null);
+      setInteractions([]);
+      setCertificates([]);
+      return;
+    }
+    try {
+      const p = await api.getMyProfile();
+      setProfile(p);
+      const [inter, certs] = await Promise.all([api.myInteractions(), p?.role === 'student' ? api.listCertificates() : Promise.resolve([])]);
+      setInteractions(inter || []);
+      setCertificates(certs || []);
+    } catch (e) {
+      notify(e.message, 'error');
+    }
+  }, [notify]);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const u = await api.getUser();
+      if (!alive) return;
+      setUser(u);
+      await Promise.all([loadMine(u), loadEvents()]);
+      if (alive) setLoading(false);
+    })();
+    const off = api.onAuthChange(async (u, evt) => {
+      if (evt === 'PASSWORD_RECOVERY') setRecovery(true);
+      setUser((prev) => (prev?.id === u?.id ? prev : u));
+      await loadMine(u);
+    });
+    return () => {
+      alive = false;
+      off?.();
+    };
+  }, [loadEvents, loadMine]);
+
+  const refreshProfile = useCallback(async () => {
+    const p = await api.getMyProfile();
+    setProfile(p);
+    if (p?.role === 'student') setCertificates(await api.listCertificates());
+    return p;
+  }, []);
+
+  const refreshCertificates = useCallback(async () => {
+    setCertificates(await api.listCertificates());
+  }, []);
+
+  const toggle = useCallback(
+    async (eventId, kind) => {
+      if (!user) {
+        notify('Entre na sua conta para marcar eventos.', 'error');
+        return false;
+      }
+      const on = !interactions.some((i) => i.event_id === eventId && i.kind === kind);
+      // atualização otimista
+      setInteractions((prev) => (on ? [...prev, { user_id: user.id, event_id: eventId, kind }] : prev.filter((i) => !(i.event_id === eventId && i.kind === kind))));
+      setCounts((prev) => {
+        const c = { going: 0, saved: 0, ...(prev[eventId] || {}) };
+        c[kind] = Math.max(0, c[kind] + (on ? 1 : -1));
+        return { ...prev, [eventId]: c };
+      });
+      try {
+        await api.setInteraction(eventId, kind, on);
+      } catch (e) {
+        notify(e.message, 'error');
+        setInteractions(await api.myInteractions());
+      }
+      return on;
+    },
+    [user, interactions, notify],
+  );
+
+  const has = useCallback((eventId, kind) => interactions.some((i) => i.event_id === eventId && i.kind === kind), [interactions]);
+
+  const progress = useMemo(() => (profile?.role === 'student' ? computeProgress(profile, certificates) : null), [profile, certificates]);
+
+  const value = {
+    api,
+    user,
+    profile,
+    events,
+    counts,
+    interactions,
+    certificates,
+    progress,
+    loading,
+    toast,
+    recovery,
+    setRecovery,
+    setToast,
+    notify,
+    loadEvents,
+    refreshProfile,
+    refreshCertificates,
+    toggle,
+    has,
+  };
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+}
+
+export function useStore() {
+  return useContext(Ctx);
+}

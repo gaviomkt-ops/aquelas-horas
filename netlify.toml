@@ -1,0 +1,18 @@
+# Usado só se o site for publicado pela Netlify (repositório privado).
+# As chaves do Supabase ficam em Site configuration > Environment variables.
+[build]
+  command = "npm ci && npm test && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Cabeçalhos de segurança (a Netlify aplica; o GitHub Pages não permite cabeçalhos próprios).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(self)"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
