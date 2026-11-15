@@ -18,6 +18,9 @@ import Admin from './screens/Admin.jsx';
 import { Privacy, Terms } from './screens/Legal.jsx';
 import Splash from './screens/Splash.jsx';
 import NewPassword from './screens/NewPassword.jsx';
+import Regras from './screens/Regras.jsx';
+import RegrasFicha from './screens/RegrasFicha.jsx';
+import Secretaria from './screens/Secretaria.jsx';
 
 const STUDENT_TABS = [
   { to: '/', label: 'Início', icon: 'House', end: true },
@@ -36,6 +39,12 @@ const ADMIN_TABS = [
   { to: '/', label: 'Painel', icon: 'Gauge', end: true },
   { to: '/explorar', label: 'Vitrine', icon: 'Sparkles' },
   { to: '/evento/novo', label: 'Criar', icon: 'Plus', main: true },
+  { to: '/perfil', label: 'Perfil', icon: 'UserRound' },
+];
+
+const SECRETARIA_TABS = [
+  { to: '/', label: 'Painel', icon: 'ListChecks', end: true },
+  { to: '/regras', label: 'Regras', icon: 'ScrollText' },
   { to: '/perfil', label: 'Perfil', icon: 'UserRound' },
 ];
 
@@ -81,6 +90,8 @@ function Shell() {
     <>
       <Route path="/privacidade" element={<Privacy />} />
       <Route path="/termos" element={<Terms />} />
+      <Route path="/regras" element={<Regras />} />
+      <Route path="/regras/:instId" element={<RegrasFicha />} />
     </>
   );
 
@@ -110,7 +121,7 @@ function Shell() {
   }
 
   const role = profile.role;
-  const tabs = role === 'admin' ? ADMIN_TABS : role === 'organizer' ? ORG_TABS : STUDENT_TABS;
+  const tabs = role === 'admin' ? ADMIN_TABS : role === 'organizer' ? ORG_TABS : role === 'secretaria' ? SECRETARIA_TABS : STUDENT_TABS;
 
   return (
     <>
@@ -118,8 +129,8 @@ function Shell() {
         <Routes>
           {publicRoutes}
           <Route path="/explorar" element={<Explore />} />
-          <Route path="/evento/novo" element={role === 'student' ? <Navigate to="/" /> : <EventForm />} />
-          <Route path="/evento/:id/editar" element={role === 'student' ? <Navigate to="/" /> : <EventForm />} />
+          <Route path="/evento/novo" element={role === 'student' || role === 'secretaria' ? <Navigate to="/" /> : <EventForm />} />
+          <Route path="/evento/:id/editar" element={role === 'student' || role === 'secretaria' ? <Navigate to="/" /> : <EventForm />} />
           <Route path="/evento/:id" element={<EventDetail />} />
           <Route path="/perfil" element={<Profile />} />
           {role === 'student' && (
@@ -132,6 +143,8 @@ function Shell() {
           )}
           {role === 'organizer' && <Route path="/" element={<OrgHome />} />}
           {role === 'admin' && <Route path="/" element={<Admin />} />}
+          {role === 'admin' && <Route path="/secretaria" element={<Secretaria />} />}
+          {role === 'secretaria' && <Route path="/" element={<Secretaria />} />}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

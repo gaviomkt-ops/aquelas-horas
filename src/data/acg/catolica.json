@@ -1,0 +1,360 @@
+{
+  "id": "catolica_sc",
+  "nome": "Católica SC (Centro Universitário Católica de Santa Catarina em Joinville)",
+  "sigla": "Católica",
+  "tipo": "centro_universitario",
+  "campus": "Joinville",
+  "pasta_documentos": "Catolica SC",
+  "requisito_nome": "Atividades Acadêmicas Complementares (AAC)",
+  "resumo": "Cargas publicadas nas matrizes, mas os regulamentos de AAC de todos os cursos não estão publicados. As matrizes dizem que as AAC são validadas conforme \"Regulamento próprio do Curso\" e podem ser feitas a partir da 1ª fase.",
+  "normas": [
+    {
+      "id": "reg-proprio",
+      "numero": "Regulamento próprio do Curso",
+      "data": "",
+      "status": "nao_publicada",
+      "nota": "Citado em todas as matrizes. O Regimento Geral (2011, alterado até 2021) não trata de AAC.",
+      "url": "https://www.catolicasc.org.br/wp-content/uploads/2023/11/Regimento-Geral-do-Centro-Universitario-Catolica-Joinville.pdf",
+      "pdf": "Catolica SC/CatolicaSC_Joinville_Regimento_Geral_2011_atualizado.pdf"
+    }
+  ],
+  "regras_gerais": [
+    {
+      "texto": "AAC validadas conforme Regulamento próprio do Curso; podem ser realizadas a partir da 1ª fase.",
+      "fonte": "Matriz Direito JOI"
+    }
+  ],
+  "como_enviar": {
+    "sistema": "Não publicado",
+    "prazo": "Não publicado",
+    "quem_aprova": "Não publicado",
+    "taxa": "Não publicado",
+    "fonte": "Relatório de pesquisa"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A extensão é curricularizada pelos Projetos de Aprendizagem Colaborativa Extensionista (PAC), com horas próprias na coluna Extensão (70 h por semestre no Direito). Uma resolução de 2016 da Católica de Jaraguá do Sul diz que as horas do Projeto Comunitário não são computadas como AC; não há regra equivalente publicada para Joinville.",
+    "fonte": "Matriz Direito JOI; Res. 26/16 (Jaraguá do Sul)"
+  },
+  "sistemas_academicos": "Não identificado na pesquisa.",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Regulamentos de AAC de todos os cursos não estão publicados. Categorias, tetos e procedimento de envio são desconhecidos publicamente: peça à coordenação o regulamento do seu curso, com número e data, antes de acumular horas."
+    },
+    {
+      "nivel": "medio",
+      "texto": "Não foi possível confirmar se Administração, Contábeis, Design e as engenharias têm turma presencial em Joinville com matriz diferente da de Jaraguá do Sul."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "DIR",
+      "nome": "Direito",
+      "matriz": {
+        "codigo": "Matriz 2023/1"
+      },
+      "horas": {
+        "valor": 150,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "http://app.catolicasc.org.br/apps/integra_site/matrizes/pdf/ac328fb2c2c027caf522bb213320ca16_Pres_Bac_d28802ace04b02b853438434420d7120_Matutino.pdf",
+        "carga_total_curso": 3880
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Direito_20231.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "ARQ",
+      "nome": "Arquitetura e Urbanismo",
+      "matriz": {
+        "codigo": "Matriz 2023/1"
+      },
+      "horas": {
+        "valor": 150,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/",
+        "carga_total_curso": 3640
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Arquitetura_e_Urbanismo_20231.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "NUT",
+      "nome": "Nutrição",
+      "matriz": {
+        "codigo": "Matriz 2023/1"
+      },
+      "horas": {
+        "valor": 95,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/",
+        "carga_total_curso": 3210
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Nutricao_20231.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "BIOM",
+      "nome": "Biomedicina",
+      "matriz": {
+        "codigo": "Matriz 2023/1"
+      },
+      "horas": {
+        "valor": 70,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/",
+        "carga_total_curso": 3200
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Biomedicina_20231.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "ENF",
+      "nome": "Enfermagem",
+      "matriz": {
+        "codigo": "Matriz 2024/1"
+      },
+      "horas": {
+        "valor": 70,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/enfermagem/",
+        "carga_total_curso": 4050
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Enfermagem_20241.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "ESOFT",
+      "nome": "Engenharia de Software",
+      "matriz": {
+        "codigo": "Matriz 2023/1"
+      },
+      "horas": {
+        "valor": 60,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/",
+        "carga_total_curso": 3200
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Engenharia_de_Software_20231.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "PSI",
+      "nome": "Psicologia",
+      "matriz": {
+        "codigo": "Matriz 2024/1"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "zero_a_confirmar",
+        "fonte": "https://www.catolicasc.org.br/cursos/graduacao/",
+        "nota": "Sem linha de AAC na matriz."
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_Joinville_Matriz_Psicologia_20241.pdf"
+      ],
+      "norma_aplicavel": "reg-proprio",
+      "a_confirmar": [
+        "O regulamento de AAC do curso não está publicado: categorias, tetos e envio são desconhecidos. Pedir à coordenação, com número e data."
+      ]
+    },
+    {
+      "id": "ADM-JGS",
+      "nome": "Administração (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2026/1"
+      },
+      "horas": {
+        "valor": 60,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "http://app.catolicasc.org.br/apps/integra_site/matrizes/pdf/c7925d5a8f32cc1695cef6df8f502098_Pres_Bac_c99747914037495b72ceff0eb2523e36_Noturno.pdf"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Administracao_20261.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "CONT-JGS",
+      "nome": "Ciências Contábeis (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2026/1"
+      },
+      "horas": {
+        "valor": 100,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "catolicasc.org.br (matrizes Jaraguá do Sul)"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Ciencias_Contabeis_20261.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "DES-JGS",
+      "nome": "Design (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2023/1"
+      },
+      "horas": {
+        "valor": 60,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "catolicasc.org.br (matrizes Jaraguá do Sul)"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Design_20231.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "ECIV-JGS",
+      "nome": "Engenharia Civil (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2023/1"
+      },
+      "horas": {
+        "valor": 35,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "http://app.catolicasc.org.br/apps/integra_site/matrizes/pdf/9cc089d66600febf8b6ef08253ec5103_Pres_Bac_c99747914037495b72ceff0eb2523e36_Noturno.pdf"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Engenharia_Civil_20231.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "EELE-JGS",
+      "nome": "Engenharia Elétrica (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2023/1"
+      },
+      "horas": {
+        "valor": 35,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "catolicasc.org.br (matrizes Jaraguá do Sul)"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Engenharia_Eletrica_20231.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "EMEC-JGS",
+      "nome": "Engenharia Mecânica (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2023/1"
+      },
+      "horas": {
+        "valor": 35,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "catolicasc.org.br (matrizes Jaraguá do Sul)"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Engenharia_Mecanica_20231.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "EPROD-JGS",
+      "nome": "Engenharia de Produção (referência: Jaraguá do Sul)",
+      "matriz": {
+        "codigo": "Matriz Jaraguá do Sul 2025/1"
+      },
+      "horas": {
+        "valor": 35,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "catolicasc.org.br (matrizes Jaraguá do Sul)"
+      },
+      "pdf": [
+        "Catolica SC/CatolicaSC_JARAGUA_Matriz_Engenharia_de_Producao_20251.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    }
+  ]
+}

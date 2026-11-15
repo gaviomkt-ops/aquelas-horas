@@ -1,0 +1,138 @@
+{
+  "id": "ufsc_joinville",
+  "nome": "UFSC Joinville (Centro Tecnológico de Joinville, CTJ)",
+  "sigla": "UFSC",
+  "tipo": "universidade",
+  "campus": "Joinville",
+  "pasta_documentos": "UFSC Joinville",
+  "requisito_nome": "Atividades Complementares (Engenharia Naval: Atividades Acadêmicas Complementares, AAC)",
+  "resumo": "A UFSC não tem tabela geral. A RN 227/2026/CUn entregou a regra aos colegiados: a carga e os limites vêm do PPC ou do regulamento de cada curso e de cada grade.",
+  "normas": [
+    {
+      "id": "rn-227-2026-cun",
+      "numero": "Resolução Normativa 227/2026/CUn",
+      "data": "2026-06-16",
+      "status": "vigente",
+      "nota": "Novo Regulamento dos Cursos de Graduação. Define a AC como componente regulamentado pelo curso (PPC ou documento próprio). Revogou a Res. 17/CUn/97. Horas acima do limite do PPC aparecem no histórico mas não contam. AC e extensão curricularizada devem ser integralmente cursadas na UFSC (art. 132). Membro do NDE ganha 1 hora semanal de AC.",
+      "url": "https://coordlinguasestrangeiras.ufsc.br/files/2026/07/RESOLU%C3%87%C3%83O-NORMATIVA-227-2026-CUn.pdf",
+      "pdf": "UFSC Joinville/UFSC_Resolucao_Normativa_227-2026-CUn_Regulamento_Cursos_Graduacao.pdf"
+    },
+    {
+      "id": "rn-01-2020-cgrad-cex",
+      "numero": "RN 01/2020/CGRAD/CEx (curricularização da extensão)",
+      "data": "2020",
+      "status": "vigente",
+      "nota": "Extensão no mínimo 10% da carga total; a carga total inclui as atividades complementares.",
+      "url": "https://curricularizacaodaextensao.ufsc.br/files/2020/03/RESOLU%C3%87%C3%83O-CURRICULARIZA%C3%87%C3%83O-DA-EXTENS%C3%83O-2-1.pdf",
+      "pdf": "UFSC Joinville/UFSC_Resolucao_Normativa_01-2020-CGRAD-CEx_Curricularizacao_Extensao.pdf"
+    }
+  ],
+  "regras_gerais": [
+    { "texto": "Horas acima do limite do PPC aparecem no histórico, mas não contam.", "fonte": "RN 227/2026/CUn" },
+    { "texto": "AC e extensão curricularizada devem ser integralmente cursadas na UFSC; ficam fora da validação de estudos externos.", "fonte": "RN 227/2026/CUn, art. 132" },
+    { "texto": "O fluxo do CTJ é de uma vez só: ao completar as horas, o aluno envia à Secretaria Acadêmica o formulário de validação assinado no AssinaUFSC, a planilha do curso assinada e todos os comprovantes, por e-mail.", "fonte": "Secretaria Acadêmica CTJ" },
+    { "texto": "Mecatrônica: não serão aceitos certificados paulatinamente.", "fonte": "Página da Mecatrônica" }
+  ],
+  "como_enviar": {
+    "sistema": "E-mail à Secretaria Acadêmica do CTJ com formulário assinado no AssinaUFSC, planilha e comprovantes. BCT (CienTec): chamado no Portal de Atendimentos (PAI).",
+    "prazo": "Sem prazo geral. Ferroviária: até a 8ª fase e 30 dias antes do término do semestre letivo. Naval: preferencialmente com antecedência mínima de um semestre.",
+    "quem_aprova": "Secretaria Acadêmica do CTJ com a coordenação do curso (a pesquisa não detalha o órgão que decide)",
+    "taxa": "Não informada",
+    "fonte": "https://secretariaacademica.joinville.ufsc.br/atividades-complementares/"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A extensão curricularizada ocupa no mínimo 10% da carga total, que inclui as AC (RN 01/2020). A Engenharia Naval (PPC 2025-1) é explícita: só contam como AAC as atividades que não tenham sido computadas para atividades de extensão. Para os demais cursos a pesquisa não localizou regra equivalente.",
+    "fonte": "RN 01/2020/CGRAD/CEx; Regimento AAC da Naval"
+  },
+  "sistemas_academicos": "AssinaUFSC (assinatura), PAI (chamados do BCT), e-mail da Secretaria Acadêmica.",
+  "alertas": [
+    { "nivel": "medio", "texto": "A cópia da RN 227/2026 foi baixada de um site de coordenação da UFSC, não do Boletim Oficial. Conferir no Boletim Oficial." },
+    { "nivel": "medio", "texto": "Aeroespacial, Mecatrônica, Infraestrutura e Transportes e Logística só publicam regras das grades de 2016; a carga de AC dos PPCs 2025 desses cursos não foi localizada." },
+    { "nivel": "medio", "texto": "Transportes e Logística diz '240 ou 288 h/a' sem explicar quando vale cada número." },
+    { "nivel": "medio", "texto": "O regimento da Naval traz duas datas: o nome do arquivo diz Ata 156 de 2024-04-24 e o texto diz 'Aprovado em 24/abr./2026'." },
+    { "nivel": "medio", "texto": "O documento que o BCT chama de 'Grade 2025' é uma resolução de setembro de 2021 (Res. 02/CIENTEC/2021)." },
+    { "nivel": "info", "texto": "Planilhas e formulários editáveis (.xlsx, .docx, .zip) não foram baixados: pegue a versão atual no site do curso." }
+  ],
+  "cursos": [
+    {
+      "id": "BCT-2016", "nome": "Ciência e Tecnologia (BCT / CienTec)", "matriz": { "codigo": "Grade 2016" },
+      "horas": { "valor": 360, "unidade": "h", "equivalente": { "valor": 432, "unidade": "h/a" }, "situacao": "verificado", "fonte": "http://cientec.paginas.ufsc.br/files/2016/05/Tabela.pdf" },
+      "limites_destaque": "Estágio até 400 h/a, IC até 200 h/a, eventos até 50 h/a, idiomas até 40 h/a por língua; só atividades após o ingresso.",
+      "pdf": ["UFSC Joinville/CienTec_Tabela_Atividades_Complementares_Grade_2016.pdf", "UFSC Joinville/Pagina_CienTec_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "BCT-2025", "nome": "Ciência e Tecnologia (BCT / CienTec)", "matriz": { "codigo": "Grade 2025" },
+      "horas": { "valor": 240, "unidade": "h", "equivalente": { "valor": 288, "unidade": "h/a" }, "creditos": 16, "situacao": "verificado", "fonte": "https://drive.google.com/file/d/1AbBV4bqOV2kwJ93QLQw742YgI9ZQmXa3/view?usp=sharing" },
+      "norma_texto": "Res. 02/CIENTEC/2021",
+      "limites_destaque": "Estágio até 400 h/a, IC até 200 h/a, eventos até 50 h/a, idiomas até 40 h/a por língua; só atividades após o ingresso.",
+      "alertas": [{ "nivel": "medio", "texto": "O regulamento da 'Grade 2025' é de setembro de 2021." }],
+      "pdf": ["UFSC Joinville/CienTec_Regulamento_Atividades_Complementares_Grade_2025.pdf", "UFSC Joinville/Pagina_CienTec_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "AERO-2016", "nome": "Engenharia Aeroespacial", "matriz": { "codigo": "Tabela v2 (2020)" },
+      "horas": { "valor": 150, "unidade": "h", "equivalente": { "valor": 180, "unidade": "h/a" }, "situacao": "verificado", "fonte": "http://aeroespacialjoi.paginas.ufsc.br/files/2020/11/Tabela-de-Horas-Complementares-Tabela-de-Horas_v2.pdf" },
+      "limites_destaque": "Sete grupos; atividades profissionais a 0,2 h/a por hora, até 90 h/a; esportivas e culturais até 50 h/a.",
+      "a_confirmar": ["Carga de AC do PPC 2025 não localizada."],
+      "pdf": ["UFSC Joinville/Aeroespacial_Tabela_Horas_Complementares_v2_2020.pdf", "UFSC Joinville/Pagina_Aeroespacial_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "AUTO-2016", "nome": "Engenharia Automotiva", "matriz": { "codigo": "PPC 2016" },
+      "horas": { "valor": 180, "unidade": "h", "equivalente": { "valor": 216, "unidade": "h/a" }, "creditos": 12, "situacao": "verificado", "fonte": "https://automotiva.joinville.ufsc.br/atividades-complementares/" },
+      "limites_destaque": "Formulário v2.4 (11/2020) para o PPC 2016.",
+      "pdf": ["UFSC Joinville/Pagina_Automotiva_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "AUTO-2025", "nome": "Engenharia Automotiva", "matriz": { "codigo": "PPC 2025" },
+      "horas": { "valor": 90, "unidade": "h", "equivalente": { "valor": 108, "unidade": "h/a" }, "creditos": 6, "situacao": "verificado", "fonte": "https://automotiva.joinville.ufsc.br/atividades-complementares/" },
+      "pdf": ["UFSC Joinville/Pagina_Automotiva_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "EFM-2016", "nome": "Engenharia Ferroviária e Metroviária", "matriz": { "codigo": "PPC 2016/1" },
+      "horas": { "valor": 150, "unidade": "h", "equivalente": { "valor": 180, "unidade": "h/a" }, "situacao": "verificado", "fonte": "http://ferroviaria.paginas.ufsc.br/files/2025/05/Atividades-Complementares-EFM-Regulamento-versão-2.pdf" },
+      "limites_destaque": "Regulamento Rev. 01 (maio/2025): seis grupos; Pesquisa 140 h/a e Acadêmicas 160 h/a (PPC 2016).",
+      "pdf": ["UFSC Joinville/EFM_Ferroviaria_Metroviaria_Regulamento_Atividades_Complementares_v2_2025.pdf", "UFSC Joinville/Ferroviaria_PPC_2016-1.pdf", "UFSC Joinville/Pagina_Ferroviaria_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "EFM-2025", "nome": "Engenharia Ferroviária e Metroviária", "matriz": { "codigo": "PPC 2025/1" },
+      "horas": { "valor": 105, "unidade": "h", "equivalente": { "valor": 126, "unidade": "h/a" }, "situacao": "verificado", "fonte": "http://ferroviaria.paginas.ufsc.br/files/2025/05/Atividades-Complementares-EFM-Regulamento-versão-2.pdf" },
+      "limites_destaque": "Regulamento Rev. 01 (maio/2025): Pesquisa 90 h/a e Acadêmicas 100 h/a (PPC 2025). Envio até a 8ª fase e 30 dias antes do término do semestre letivo.",
+      "pdf": ["UFSC Joinville/EFM_Ferroviaria_Metroviaria_Regulamento_Atividades_Complementares_v2_2025.pdf", "UFSC Joinville/Pagina_Ferroviaria_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "MECATR-2016", "nome": "Engenharia Mecatrônica", "matriz": { "codigo": "Grade 2016/1" },
+      "horas": { "valor": 324, "unidade": "h/a", "creditos": 18, "situacao": "verificado", "fonte": "http://mecatronica.paginas.ufsc.br/files/2019/08/matriz-complementares.pdf" },
+      "limites_destaque": "Cinco grupos com máximo de 200 h/a cada; estágio até 40 h/a por mês. Não aceita certificados paulatinamente.",
+      "a_confirmar": ["Carga de AC do PPC 2025 não localizada."],
+      "pdf": ["UFSC Joinville/Mecatronica_Tabela_Atividades_Complementares_2019.pdf", "UFSC Joinville/Pagina_Mecatronica_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "NAVAL-2016", "nome": "Engenharia Naval (AAC)", "matriz": { "codigo": "Grade 2016-1" },
+      "horas": { "valor": 240, "unidade": "pontos", "equivalente": { "valor": 288, "unidade": "h/a" }, "creditos": 16, "situacao": "verificado", "fonte": "https://naval.ufsc.br/atividades-complementares/" },
+      "limites_destaque": "Regimento de AAC (Ata 156): Profissionais até 180 pontos, Acadêmicas até 240, Idiomas até 60; até o limite máximo de 8 horas por dia.",
+      "pdf": ["UFSC Joinville/Naval_Regimento_AAC_PPC2016-1_e_2025-1_Ata156_2024-04-24.pdf", "UFSC Joinville/Naval_Regimento_AAC_Apendice_A_Formulario_Validacao_2024.pdf", "UFSC Joinville/Pagina_Naval_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "NAVAL-2025", "nome": "Engenharia Naval (AAC)", "matriz": { "codigo": "Grade 2025-1" },
+      "horas": { "valor": 150, "unidade": "pontos", "equivalente": { "valor": 180, "unidade": "h/a" }, "creditos": 10, "situacao": "verificado", "fonte": "https://naval.ufsc.br/atividades-complementares/" },
+      "limites_destaque": "Mesmo regimento de AAC (Ata 156). Envio preferencialmente com antecedência mínima de um semestre.",
+      "extensao": { "mesma_hora_conta_nas_duas": "nao", "regra": "No PPC 2025-1, só contam como AAC as atividades que não tenham sido computadas para Atividades de Extensão (EXTs).", "fonte": "Regimento AAC da Naval" },
+      "alertas": [{ "nivel": "medio", "texto": "Data do regimento diverge: 2024 no nome do arquivo, 2026 no texto." }],
+      "pdf": ["UFSC Joinville/Naval_Regimento_AAC_PPC2016-1_e_2025-1_Ata156_2024-04-24.pdf", "UFSC Joinville/Naval_Regimento_AAC_Apendice_A_Formulario_Validacao_2024.pdf", "UFSC Joinville/Pagina_Naval_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "INFRA-2016", "nome": "Engenharia Civil de Infraestrutura", "matriz": { "codigo": "PPC 2016 (rev. mar/2020)" },
+      "horas": { "valor": 150, "unidade": "h", "equivalente": { "valor": 180, "unidade": "h/a" }, "creditos": 10, "situacao": "verificado", "fonte": "https://infraestrutura.joinville.ufsc.br/atividades-complementares/" },
+      "limites_destaque": "5% da carga. Estágio a 1 h por 8 h, até 90 h; PET até 80 h; IC até 30 h.",
+      "a_confirmar": ["Carga de AC do PPC 2025 não localizada."],
+      "pdf": ["UFSC Joinville/Infraestrutura_PPC_Eng_Civil_Infra_2016_rev_mar2020.pdf", "UFSC Joinville/Pagina_Infraestrutura_Atividades_Complementares.pdf"]
+    },
+    {
+      "id": "TL-2016", "nome": "Engenharia de Transportes e Logística", "matriz": { "codigo": "Grade 2016.1" },
+      "horas": { "valor": null, "unidade": "h/a", "situacao": "a_confirmar", "fonte": "https://transporteslogistica.joinville.ufsc.br/atividades-complementares-grade-20161/" },
+      "a_confirmar": ["A página diz '240 ou 288 h/a' sem explicar quando vale cada número.", "Carga de AC do PPC 2025 não localizada."],
+      "limites_destaque": "Três grupos (Pesquisa, Ensino, Extensão), máximo de 200 h/a cada.",
+      "pdf": ["UFSC Joinville/Pagina_Transportes_Logistica_AC_grade_2016-1.pdf"]
+    }
+  ]
+}

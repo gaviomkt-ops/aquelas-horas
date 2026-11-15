@@ -77,10 +77,19 @@ export function makeSupabaseBackend(url, anonKey) {
     },
     async saveMyProfile(patch) {
       const id = await uidOrThrow();
-      const allowed = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set'];
+      const allowed = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'entry_year', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set', 'student_number', 'class_group', 'secretaria_consent_at'];
       const clean = {};
       for (const k of allowed) if (k in patch) clean[k] = patch[k];
-      return ok(await sb.from('profiles').update(clean).eq('id', id).select().single());
+      try {
+        return ok(await sb.from('profiles').update(clean).eq('id', id).select().single());
+      } catch (e) {
+        // banco ainda sem a migração do ano de ingresso: salva o resto em vez de travar o cadastro
+        if ('entry_year' in clean && /entry_year/.test(String(e.message))) {
+          delete clean.entry_year;
+          return ok(await sb.from('profiles').update(clean).eq('id', id).select().single());
+        }
+        throw e;
+      }
     },
     async listProfiles(filter = {}) {
       let q = sb.from('profiles').select('*').order('created_at', { ascending: false });
@@ -172,6 +181,29 @@ export function makeSupabaseBackend(url, anonKey) {
     async fileUrl(path) {
       const data = ok(await sb.storage.from('certificates').createSignedUrl(path, 60 * 10));
       return data.signedUrl;
+    },
+
+    // ---------- secretaria (piloto) ----------
+    // O banco (RLS) só devolve alunos da instituição da secretaria que autorizaram o compartilhamento
+    // e só os certificados que eles marcaram como enviados.
+    async secListStudents(institutionId) {
+      const id = await uidOrThrow();
+      let q = sb
+        .from('profiles')
+        .select('id,name,email,institution_id,course_id,entry_year,semester,class_group,student_number,goal_hours,secretaria_consent_at')
+        .eq('role', 'student')
+        .not('secretaria_consent_at', 'is', null)
+        .neq('id', id)
+        .order('name');
+      if (institutionId) q = q.eq('institution_id', institutionId);
+      return ok(await q);
+    },
+    async secListCertificates() {
+      const id = await uidOrThrow();
+      return ok(await sb.from('certificates').select('*').neq('status', 'guardado').neq('user_id', id).order('created_at', { ascending: false }));
+    },
+    async reviewCertificate(certId, status, note) {
+      return ok(await sb.from('certificates').update({ status, review_note: note?.trim() || null }).eq('id', certId).select().single());
     },
 
     // ---------- admin ----------

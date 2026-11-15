@@ -1,0 +1,106 @@
+{
+  "id": "ifsc_joinville",
+  "nome": "IFSC Joinville (Instituto Federal de Santa Catarina)",
+  "sigla": "IFSC",
+  "tipo": "instituto_federal",
+  "campus": "Joinville",
+  "pasta_documentos": "IFSC Joinville",
+  "requisito_nome": "Atividades Complementares",
+  "resumo": "A Res. CEPE 32/2019 define as categorias, mas não fixa horas: a carga vem do PPC e cada colegiado pode ter regulamento próprio. As cargas encontradas são antigas e a maioria está a confirmar.",
+  "normas": [
+    {
+      "id": "cepe-32-2019",
+      "numero": "Res. CEPE 32/2019",
+      "data": "2019-05-23",
+      "status": "vigente",
+      "nota": "Regulamento das Atividades Complementares nos Cursos Superiores. Define 15 categorias, exclui atividades profissionais remuneradas e só aceita atividades posteriores ao ingresso. Dois anos para os cursos adequarem os PPCs. Para cursos sem obrigatoriedade pelo CNE, apenas recomenda incluir AC.",
+      "url": "http://cs.ifsc.edu.br/portal/files/RESn32-CEPE-ATIV-COMPLEMENTARES-IFSC.pdf",
+      "pdf": "IFSC Joinville/IFSC_Resolucao_CEPE_32-2019_Regulamento_AtivComplementares_Cursos_Superiores.pdf"
+    },
+    {
+      "id": "rdp-2018",
+      "numero": "RDP (Res. CONSUP 20/2018)",
+      "data": "2018",
+      "status": "vigente",
+      "nota": "Trata as AC como componente 'quando houver'. Revisão anunciada.",
+      "url": "https://ifsc.edu.br/documents/35989/1686355/RDP+2018/4b801ee9-8356-45c5-be50-6366d9f4e2c3",
+      "pdf": "IFSC Joinville/IFSC_RDP_2018.pdf"
+    },
+    {
+      "id": "consup-40-2016",
+      "numero": "Res. CONSUP 40/2016 (curricularização da extensão)",
+      "data": "2016",
+      "status": "vigente",
+      "nota": "Exige no mínimo 10% de extensão e não valida extensão que já faça parte de outro componente. Anterior a 2020.",
+      "url": "http://cs.ifsc.edu.br/portal/files/consup_resolucao40_2016_curriculariza%C3%A7ao_extens%C3%A3o.pdf",
+      "pdf": "IFSC Joinville/IFSC_Resolucao_CONSUP_40-2016_Curricularizacao_Extensao.pdf"
+    },
+    {
+      "id": "cepe-50-2026",
+      "numero": "Res. CEPE 50/2026",
+      "data": "2026-08-03",
+      "status": "vigente",
+      "nota": "Em vigor desde 03/08/2026. As AC não são objeto, de forma regular, de aproveitamento de estudos nem de reconhecimento de saberes, salvo previsão do PPC.",
+      "url": "https://www.ifsc.edu.br/documents/d/noticias/resol_cepe_ifsc_50_2026_aprova_aproveitamento_de_estudos-pdf",
+      "pdf": "IFSC Joinville/IFSC_Resolucao_CEPE_50-2026_Aproveitamento_Estudos_Extensao_Saberes.pdf"
+    }
+  ],
+  "regras_gerais": [
+    { "texto": "15 categorias: projetos de pesquisa ou extensão, monitoria, eventos, estágio não obrigatório, defesas, intercâmbio, feiras, cursos FIC, atividades científicas, culturais e desportivas, voluntariado, representação estudantil e acadêmica, empresa júnior ou PET, e iniciação à docência (só nas licenciaturas).", "fonte": "Res. CEPE 32/2019" },
+    { "texto": "Excluídas as atividades profissionais remuneradas. Só contam atividades posteriores ao ingresso.", "fonte": "Res. CEPE 32/2019" }
+  ],
+  "como_enviar": {
+    "sistema": "Requerimento de Validação na Secretaria Acadêmica, com registro no SIGAA",
+    "prazo": "Eng. Mecânica: o coordenador tem 45 dias para avaliar. Prazo de entrega: a confirmar com a coordenação.",
+    "quem_aprova": "Coordenação do curso (Eng. Mecânica: coordenador, em 45 dias)",
+    "taxa": "Não informada",
+    "fonte": "Res. CEPE 32/2019; Ata 02/2022 da Eng. Mecânica"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "nao",
+    "regra": "A Res. CONSUP 40/2016 exige no mínimo 10% de extensão e não valida extensão que já faça parte de outro componente. No PPC da Eng. Elétrica (2015), a AC é de 40 h por semestre 'inclusive extensão'.",
+    "fonte": "Res. CONSUP 40/2016; PPC Eng. Elétrica 2015"
+  },
+  "sistemas_academicos": "SIGAA (o SIGAA público pede CAPTCHA).",
+  "alertas": [
+    { "nivel": "alto", "texto": "As 400 h da Engenharia Elétrica (PPC 2015) e as 48 h da Gestão Hospitalar (Res. 03/2016) são anteriores à Res. CEPE 32/2019 e devem ser tratadas como históricas até a coordenação confirmar." },
+    { "nivel": "alto", "texto": "Nenhuma matriz vigente foi lida: o SIGAA público pede CAPTCHA e o antigo repositório do câmpus está fora do ar. Para Enfermagem e Administração não foi encontrado nenhum número." },
+    { "nivel": "medio", "texto": "A norma institucional define categorias, mas não fixa horas. Cada colegiado pode ter regulamento próprio." }
+  ],
+  "cursos": [
+    {
+      "id": "EMEC", "nome": "Engenharia Mecânica", "matriz": { "codigo": "Regulamento de 22/04/2022 (matriz não lida)" },
+      "norma_texto": "Regulamento aprovado na Ata 02/2022 do Colegiado (22/04/2022)",
+      "horas": { "valor": null, "unidade": null, "situacao": "nao_publicado", "fonte": "https://liferay-balanceador.ifsc.edu.br/documents/35957/9989633/Ata+02/04614ed6-e674-4d4f-84ec-02c06aa23822" },
+      "a_confirmar": ["O regulamento remete o total à matriz, que não pôde ser lida.", "Itens 1 a 8 do Anexo A só existem em imagem."],
+      "limites_destaque": "23 modalidades com teto por modalidade, por exemplo palestras e congressos até 1 h por evento, limitado a 10 eventos; iniciação científica até 10 h por projeto, limitado a 1 projeto; estágio não obrigatório até 10 h por semestre, limitado a 1 semestre. Cada certificado pontua em uma única modalidade. Requerimento no Anexo C. O cumprimento é condição para colar grau.",
+      "pdf": ["IFSC Joinville/IFSC_Joinville_EngMecanica_Colegiado_Ata02_2022_com_Regulamento_AtivComplementares.pdf", "IFSC Joinville/IFSC_Joinville_EngMecanica_PPC_AO905.pdf"]
+    },
+    {
+      "id": "EELE", "nome": "Engenharia Elétrica", "matriz": { "codigo": "PPC de julho/2015 (vigência não confirmada)" },
+      "horas": { "valor": 400, "unidade": "h", "situacao": "historico", "fonte": "http://cs.ifsc.edu.br/portal/files/JOINVILLE_ENG_ELETRICA_AO_PPC_906.pdf" },
+      "a_confirmar": ["PPC antigo (2015), anterior à Res. CEPE 32/2019. 40 h por semestre, inclusive extensão. A Res. 16/2016 não pôde ser baixada."],
+      "alertas": [{ "nivel": "alto", "texto": "Carga histórica: confirmar com a coordenação antes de usar." }],
+      "pdf": ["IFSC Joinville/IFSC_Joinville_EngEletrica_PPC_AO906.pdf"]
+    },
+    {
+      "id": "GHOSP", "nome": "CST em Gestão Hospitalar", "matriz": { "codigo": "Res. 03/2016 (trecho lido só no buscador)" },
+      "horas": { "valor": 48, "unidade": "h", "situacao": "lido_so_no_buscador", "fonte": "https://sites.joinville.ifsc.edu.br/arquivos_unidade/COLEGIADO%20DO%20CAMPUS/COLEGIADO%202016/RESOLUCAO/RESOLUCAO%2003%20-%20ANEXO%20-%20Regulamento%20Atividades%20Complementares%20CSTGH.pdf" },
+      "a_confirmar": ["'Carga global mínima de 48 horas' lida apenas pelo trecho do buscador; o documento não pôde ser baixado.", "Anterior à Res. CEPE 32/2019."],
+      "alertas": [{ "nivel": "alto", "texto": "Número lido só no buscador e histórico (2016): confirmar com a coordenação." }],
+      "pdf": []
+    },
+    {
+      "id": "ENF", "nome": "Enfermagem", "matriz": { "codigo": "Não localizada" },
+      "horas": { "valor": null, "unidade": null, "situacao": "nao_publicado", "fonte": "" },
+      "a_confirmar": ["Nenhum número encontrado. Currículo no SIGAA atrás de CAPTCHA."],
+      "pdf": []
+    },
+    {
+      "id": "ADM", "nome": "Administração", "matriz": { "codigo": "Não localizada" },
+      "horas": { "valor": null, "unidade": null, "situacao": "nao_publicado", "fonte": "" },
+      "a_confirmar": ["Nenhum número encontrado."],
+      "pdf": []
+    }
+  ]
+}

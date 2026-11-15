@@ -17,7 +17,7 @@ const AUTO_FIELDS = [
 
 export const CERT_STATUS = [
   { value: 'guardado', label: 'Só guardado no cofre', tone: 'neutral' },
-  { value: 'entregue', label: 'Entregue à coordenação', tone: 'warn' },
+  { value: 'entregue', label: 'Entregue à secretaria/coordenação', tone: 'warn' },
   { value: 'validado', label: 'Validado pela faculdade', tone: 'ok' },
   { value: 'recusado', label: 'Recusado pela faculdade', tone: 'error' },
 ];

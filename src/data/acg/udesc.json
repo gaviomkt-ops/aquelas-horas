@@ -1,0 +1,111 @@
+{
+  "id": "udesc_cct",
+  "nome": "UDESC CCT (Centro de Ciências Tecnológicas)",
+  "sigla": "UDESC",
+  "tipo": "universidade",
+  "campus": "Joinville",
+  "pasta_documentos": "UDESC CCT",
+  "requisito_nome": "Atividades Complementares (AC / ACC)",
+  "resumo": "Duas resoluções gerais vigentes ao mesmo tempo: a 008/2026-CEG para matrizes antigas e a 001/2022-CEG para matrizes reformadas. A carga de AC fica entre 2% e 6% da carga do curso e é pontuada em créditos (Anexo I).",
+  "normas": [
+    {
+      "id": "008-2026-ceg",
+      "numero": "Res. 008/2026-CEG",
+      "data": "2026-04-14",
+      "status": "vigente",
+      "aplica_se": "Matrizes anteriores à reforma (segundo o DCC/CCT, grades anteriores a 2024/1)",
+      "nota": "Revoga a Res. 026/2012-CONSEPE. Estágio não obrigatório: 30 h = 1 crédito, até 10. Monitoria: 5 créditos por semestre, máximo 10. Idiomas: 30 h = 1 crédito, máximo 6. Iniciação científica: 5 créditos por semestre, até 10. Permite validar o total de ACC já realizadas em transferência, reingresso ou retorno de diplomado (art. 4º).",
+      "url": "https://secon.udesc.br/consuni/camaras/ceg/resol/2026/008-2026-ceg.pdf",
+      "pdf": "UDESC CCT/UDESC_Resolucao_008-2026-CEG_Atividades_Complementares.pdf"
+    },
+    {
+      "id": "001-2022-ceg",
+      "numero": "Res. 001/2022-CEG (com a redação da Res. 3/2022-CEG)",
+      "data": "2022-04-05",
+      "status": "vigente",
+      "aplica_se": "Matrizes reformadas (segundo o DCC/CCT, grades implantadas a partir de 2024/1)",
+      "nota": "Estágio não obrigatório: 36 h = 1 crédito, até 8. Monitoria: 2 ou 4 créditos por semestre, máximo 4. Idiomas: 18 h = 1 crédito, máximo 6. Iniciação científica: 5 créditos por semestre, até 10. Prevê participação em ligas acadêmicas (ADM 05).",
+      "url": "https://udesc.br/arquivos/cav/id_cpmenu/719/001_2022_ceg_17174337849866_719.pdf",
+      "pdf": "UDESC CCT/UDESC_Resolucao_001-2022-CEG_Atividades_Complementares.pdf"
+    },
+    {
+      "id": "026-2012-consepe",
+      "numero": "Res. 026/2012-CONSEPE",
+      "data": "2012",
+      "status": "revogada",
+      "nota": "Revogada em 14/04/2026 pela Res. 008/2026-CEG. As páginas da Eng. Mecânica e da Eng. Civil (matriz antiga) ainda mandam usar esta norma. AC de 8% a 10% da carga.",
+      "url": "",
+      "pdf": "UDESC CCT/UDESC_Resolucao_026-2012-CONSEPE_Atividades_Complementares_REVOGADA.pdf"
+    },
+    {
+      "id": "006-2025-ceg",
+      "numero": "Res. 006/2025-CEG (inserção da extensão)",
+      "data": "2025",
+      "status": "vigente",
+      "nota": "Exige no mínimo 10% da carga em extensão. Substitui a Res. 007/2022-CEG.",
+      "url": "https://secon.udesc.br/consuni/camaras/ceg/resol/2025/006-2025-ceg.pdf",
+      "pdf": "UDESC CCT/UDESC_Resolucao_006-2025-CEG_Insercao_Extensao.pdf"
+    },
+    {
+      "id": "003-2026-concecct",
+      "numero": "Res. 003/2026-CONCECCT (extensão no CCT)",
+      "data": "2026-06",
+      "status": "vigente",
+      "nota": "Repete a vedação de contagem simultânea para bolsistas e voluntários.",
+      "url": "https://sistemas.joinville.udesc.br/sacc/download/index/09a0a2891031c803b472f00922774294",
+      "pdf": "UDESC CCT/CCT_Resolucao_003-2026-CONCECCT_Insercao_Curricular_Extensao.pdf"
+    }
+  ],
+  "regras_gerais": [
+    { "texto": "AC entre 2% e 6% da carga do curso (as duas resoluções).", "fonte": "Res. 008/2026-CEG e 001/2022-CEG" },
+    { "texto": "Cinco tipos de atividade, pontuados em créditos no Anexo I: ensino (ENS), extensão (EXT), pesquisa (PES), administração universitária (ADM) e mistas (ACM).", "fonte": "Res. 008/2026-CEG e 001/2022-CEG" },
+    { "texto": "Comprovante em PDF ou JPEG com autenticação digital ou carimbo e assinatura do emitente. Estágio não obrigatório precisa de registro na Coordenação de Estágios do CCT.", "fonte": "Páginas DEM/CCT e DEC/CCT" }
+  ],
+  "como_enviar": {
+    "sistema": "SIGA > Requerimentos, um requerimento por atividade, informando o código da tabela (Anexo I)",
+    "prazo": "Resoluções: abre 10 dias após o início do período e fecha 20 dias antes do fim; parecer até 10 dias após o término do semestre. Páginas dos departamentos falam em no mínimo 30 dias antes.",
+    "quem_aprova": "A confirmar (as notas não nomeiam o órgão que dá o parecer)",
+    "taxa": "Não informada",
+    "fonte": "Páginas DEM/CCT e DEC/CCT; Res. 008/2026-CEG e 001/2022-CEG"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "nao",
+    "regra": "A Res. 001/2022 obriga a escolher: cada atividade é validada ou como atividade complementar ou como creditação da extensão. A Res. 003/2026-CONCECCT veda a contagem simultânea para bolsistas e voluntários. A extensão é componente à parte (mínimo 10% da carga, Res. 006/2025-CEG).",
+    "fonte": "Res. 001/2022-CEG; Res. 003/2026-CONCECCT; Res. 006/2025-CEG"
+  },
+  "sistemas_academicos": "SIGA (requerimentos).",
+  "alertas": [
+    { "nivel": "alto", "texto": "Duas resoluções gerais de AC vigentes ao mesmo tempo (008/2026-CEG e 001/2022-CEG). Nenhum texto oficial explica por que, nem como o teto de 2% a 6% da 008/2026 convive com matrizes antigas de 15 a 24 créditos de AC. Confirme com a Secretaria de Ensino de Graduação qual vale para a sua matriz." },
+    { "nivel": "alto", "texto": "As páginas da Eng. Mecânica e da Eng. Civil (matriz antiga) ainda mandam usar a Res. 026/2012, revogada em 14/04/2026." },
+    { "nivel": "medio", "texto": "O corte de 2024/1 citado pelo DCC não vale para todos os cursos: Produção mudou em 2024/2, Química em 2025/2 e Mecânica, Física e Matemática em 2026/1. A resolução de cada curso abaixo é inferida da matriz, exceto Ciência da Computação e TADS (explicitado pelas páginas dos departamentos)." },
+    { "nivel": "medio", "texto": "Prazo de envio diverge: 20 dias antes do fim do semestre nas resoluções, 30 dias nas páginas dos departamentos." },
+    { "nivel": "info", "texto": "Produção, Elétrica, Física, Matemática e Química não têm página própria de AC." }
+  ],
+  "categorias_parciais": [
+    { "nome": "Estágio não obrigatório", "regra": "008/2026: 30 h = 1 crédito, até 10 créditos. 001/2022: 36 h = 1 crédito, até 8 créditos." },
+    { "nome": "Monitoria", "regra": "008/2026: 5 créditos por semestre, máximo 10. 001/2022: 2 ou 4 créditos por semestre, máximo 4." },
+    { "nome": "Idiomas", "regra": "008/2026: 30 h = 1 crédito, máximo 6. 001/2022: 18 h = 1 crédito, máximo 6." },
+    { "nome": "Iniciação científica", "regra": "Ambas: 5 créditos por semestre, até 10." },
+    { "nome": "Ligas acadêmicas (ADM 05)", "regra": "Só na 001/2022." }
+  ],
+  "cursos": [
+    { "id": "CIVIL-N", "nome": "Engenharia Civil", "matriz": { "codigo": "a partir de 2024/1", "ingresso_de": "2024/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 108, "unidade": "h/a", "creditos": 6, "situacao": "verificado", "fonte": "Matriz_Eng_Civil_a_partir_2024-1.pdf (portal joinville.udesc.br)" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Civil_a_partir_2024-1.pdf", "UDESC CCT/CCT_DEC_Civil_copia_Res_001-2022-CEG_consolidada_atividades_complementares_NOVA.pdf"] },
+    { "id": "CIVIL-A", "nome": "Engenharia Civil", "matriz": { "codigo": "até 2023/2", "ingresso_ate": "2023/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 396, "unidade": "h/a", "creditos": 22, "situacao": "verificado", "fonte": "Matriz_Eng_Civil_ate_2023-2.pdf" }, "alertas": [{ "nivel": "alto", "texto": "A página do departamento ainda cita a Res. 026/2012, revogada." }], "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Civil_ate_2023-2.pdf", "UDESC CCT/CCT_DEC_Eng_Civil_pagina_Atividade_Complementar.pdf"] },
+    { "id": "PROD-N", "nome": "Engenharia de Produção", "matriz": { "codigo": "a partir de 2024/2", "ingresso_de": "2024/2" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 144, "unidade": "h/a", "creditos": 8, "situacao": "verificado", "fonte": "Matriz_Eng_Producao_a_partir_2024-2.pdf (https://www.joinville.udesc.br/portal/ensino/graduacao/eng_producao/disciplinas_2024_2.php)" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Producao_a_partir_2024-2.pdf"] },
+    { "id": "PROD-A", "nome": "Engenharia de Produção", "matriz": { "codigo": "até 2024/1", "ingresso_ate": "2024/1" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 432, "unidade": "h/a", "creditos": 24, "situacao": "verificado", "fonte": "Matriz_Eng_Producao_ate_2024-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Producao_ate_2024-1.pdf"] },
+    { "id": "ELET-N", "nome": "Engenharia Elétrica", "matriz": { "codigo": "a partir de 2025/1", "ingresso_de": "2025/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 108, "unidade": "h/a", "creditos": 6, "situacao": "verificado", "fonte": "Matriz_Eng_Eletrica_a_partir_2025-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Eletrica_a_partir_2025-1.pdf"] },
+    { "id": "ELET-A", "nome": "Engenharia Elétrica", "matriz": { "codigo": "até 2024/2", "ingresso_ate": "2024/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 414, "unidade": "h/a", "creditos": 23, "situacao": "verificado", "fonte": "Matriz_Eng_Eletrica_ate_2024-2.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Eletrica_ate_2024-2.pdf"] },
+    { "id": "MEC-N", "nome": "Engenharia Mecânica", "matriz": { "codigo": "a partir de 2026/1", "ingresso_de": "2026/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 108, "unidade": "h/a", "creditos": 6, "situacao": "verificado", "fonte": "Matriz_Eng_Mecanica_a_partir_2026-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Mecanica_a_partir_2026-1.pdf"] },
+    { "id": "MEC-A", "nome": "Engenharia Mecânica", "matriz": { "codigo": "até 2025/2", "ingresso_ate": "2025/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 360, "unidade": "h/a", "creditos": 20, "situacao": "verificado", "fonte": "Matriz_Eng_Mecanica_ate_2025-2.pdf" }, "alertas": [{ "nivel": "alto", "texto": "A página do departamento ainda cita a Res. 026/2012, revogada." }], "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Eng_Mecanica_ate_2025-2.pdf", "UDESC CCT/CCT_DEM_Eng_Mecanica_pagina_Atividades_Complementares.pdf"] },
+    { "id": "CC-N", "nome": "Ciência da Computação", "matriz": { "codigo": "a partir de 2025/1", "ingresso_de": "2025/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "pagina_departamento", "horas": { "valor": 108, "unidade": "h/a", "creditos": 6, "situacao": "verificado", "fonte": "Matriz_Ciencia_Computacao_a_partir_2025-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Ciencia_Computacao_a_partir_2025-1.pdf", "UDESC CCT/CCT_DCC_Ciencia_Computacao_pagina_Atividades_Complementares.pdf"] },
+    { "id": "CC-A", "nome": "Ciência da Computação", "matriz": { "codigo": "2019/2 a 2024/2", "ingresso_de": "2019/2", "ingresso_ate": "2024/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "pagina_departamento", "horas": { "valor": 324, "unidade": "h/a", "creditos": 18, "situacao": "verificado", "fonte": "Matriz_Ciencia_Computacao_2019-2_a_2024-2.pdf" }, "a_confirmar": ["O DCC diz que a 001/2022 vale para grades implantadas a partir de 2024/1, mas a matriz de Ciência da Computação só mudou em 2025/1. Confirmar a norma de quem ingressou em 2024/1 e 2024/2."], "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Ciencia_Computacao_2019-2_a_2024-2.pdf", "UDESC CCT/CCT_DCC_Ciencia_Computacao_pagina_Atividades_Complementares.pdf"] },
+    { "id": "TADS-N", "nome": "Tecnologia em Análise e Desenvolvimento de Sistemas (TADS)", "matriz": { "codigo": "a partir de 2025/1", "ingresso_de": "2025/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "pagina_departamento", "horas": { "valor": 54, "unidade": "h/a", "creditos": 3, "situacao": "verificado", "fonte": "Matriz_TADS_a_partir_2025-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_TADS_a_partir_2025-1.pdf", "UDESC CCT/CCT_DCC_TADS_pagina_Atividades_Complementares.pdf"] },
+    { "id": "TADS-A", "nome": "Tecnologia em Análise e Desenvolvimento de Sistemas (TADS)", "matriz": { "codigo": "até 2024/2", "ingresso_ate": "2024/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "pagina_departamento", "horas": { "valor": 180, "unidade": "h/a", "creditos": 10, "situacao": "verificado", "fonte": "Matriz_TADS_ate_2024-2.pdf" }, "a_confirmar": ["Mesma dúvida do corte 2024/1 do DCC."], "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_TADS_ate_2024-2.pdf", "UDESC CCT/CCT_DCC_TADS_pagina_Atividades_Complementares.pdf"] },
+    { "id": "FIS-N", "nome": "Licenciatura em Física", "matriz": { "codigo": "a partir de 2026/1", "ingresso_de": "2026/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 90, "unidade": "h/a", "creditos": 5, "situacao": "verificado", "fonte": "Matriz_Lic_Fisica_a_partir_2026-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Fisica_a_partir_2026-1.pdf"] },
+    { "id": "FIS-A", "nome": "Licenciatura em Física", "matriz": { "codigo": "até 2025/2", "ingresso_ate": "2025/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 270, "unidade": "h/a", "creditos": 15, "situacao": "verificado", "fonte": "Matriz_Lic_Fisica_ate_2025-2.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Fisica_ate_2025-2.pdf"] },
+    { "id": "MAT-N", "nome": "Licenciatura em Matemática", "matriz": { "codigo": "a partir de 2026/1", "ingresso_de": "2026/1" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 90, "unidade": "h/a", "creditos": 5, "situacao": "verificado", "fonte": "Matriz_Lic_Matematica_a_partir_2026-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Matematica_a_partir_2026-1.pdf"] },
+    { "id": "MAT-A", "nome": "Licenciatura em Matemática", "matriz": { "codigo": "até 2025/2", "ingresso_ate": "2025/2" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 270, "unidade": "h/a", "creditos": 15, "situacao": "verificado", "fonte": "Matriz_Lic_Matematica_ate_2025-2.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Matematica_ate_2025-2.pdf"] },
+    { "id": "QUI-N", "nome": "Licenciatura em Química", "matriz": { "codigo": "a partir de 2025/2", "ingresso_de": "2025/2" }, "norma_aplicavel": "001-2022-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 90, "unidade": "h/a", "creditos": 5, "situacao": "verificado", "fonte": "Matriz_Lic_Quimica_a_partir_2025-2.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Quimica_a_partir_2025-2.pdf"] },
+    { "id": "QUI-A", "nome": "Licenciatura em Química", "matriz": { "codigo": "até 2025/1", "ingresso_ate": "2025/1" }, "norma_aplicavel": "008-2026-ceg", "norma_base": "inferido_da_matriz", "horas": { "valor": 270, "unidade": "h/a", "creditos": 15, "situacao": "verificado", "fonte": "Matriz_Lic_Quimica_ate_2025-1.pdf" }, "pdf": ["UDESC CCT/Matrizes curriculares/Matriz_Lic_Quimica_ate_2025-1.pdf"] }
+  ]
+}

@@ -4,10 +4,12 @@ import { useStore } from '../lib/store.jsx';
 import { isDemo } from '../lib/backend/index.js';
 import { INSTITUTIONS, INSTITUTION_TYPES, getCourse, getInstitution, institutionLabel } from '../lib/rules.js';
 import { Avatar, Badge, Button, Field, Icon } from '../components/ui.jsx';
+import CursoFields, { cursoPatch } from '../components/CursoFields.jsx';
+import SecretariaConsent from '../components/SecretariaConsent.jsx';
 import { InstallButton } from '../components/InstallApp.jsx';
 import { ChangePasswordSheet } from './NewPassword.jsx';
 
-const ROLE = { student: 'Universitário', organizer: 'Organizador', admin: 'Administrador' };
+const ROLE = { student: 'Universitário', organizer: 'Organizador', admin: 'Administrador', secretaria: 'Secretaria' };
 
 export default function Profile() {
   const { api, profile, refreshProfile, notify } = useStore();
@@ -28,9 +30,8 @@ export default function Profile() {
           institution_id: f.institution_id,
           institution_type: inst.custom ? f.institution_type || null : inst.type,
           institution_name: inst.custom ? (f.institution_name || '').trim() : inst.name,
-          course_id: inst.courses.some((c) => c.id === f.course_id) ? f.course_id : inst.courses[0].id,
+          ...cursoPatch(inst, f),
           semester: f.semester ? Number(f.semester) : null,
-          goal_hours: inst.custom ? Number(f.goal_hours) || null : null,
         });
       }
       if (profile.role === 'organizer') Object.assign(patch, { org_name: f.org_name?.trim(), org_instagram: f.org_instagram?.trim(), org_bio: f.org_bio?.trim() });
@@ -75,6 +76,8 @@ export default function Profile() {
           </p>
         )}
       </header>
+
+      {!edit && <SecretariaConsent />}
 
       {!edit ? (
         <div className="menu">
@@ -139,17 +142,8 @@ export default function Profile() {
                   ))}
                 </select>
               </Field>
-              {!inst.custom ? (
-                <Field label="Curso" htmlFor="pc">
-                  <select id="pc" value={f.course_id} onChange={set('course_id')}>
-                    {inst.courses.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name} ({c.goal}h)
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-              ) : (
+              <CursoFields f={f} setF={setF} inst={inst} idPrefix="pf" />
+              {inst.custom && (
                 <>
                   <Field label="Tipo de instituição" htmlFor="pt">
                     <select id="pt" value={f.institution_type || ''} onChange={set('institution_type')} required>

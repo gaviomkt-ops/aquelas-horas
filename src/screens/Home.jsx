@@ -85,6 +85,15 @@ export default function Home() {
         </div>
       </Link>
 
+      <Link to="/regras" className="rg-entry">
+        <Icon name="ScrollText" size={22} />
+        <span>
+          <b>Regras das faculdades de Joinville</b>
+          <small>Quanto cada curso exige, tetos, prazos e alertas</small>
+        </span>
+        <Icon name="ChevronRight" size={18} />
+      </Link>
+
       <InstallButton variant="card" />
 
       {hot.length > 0 && (

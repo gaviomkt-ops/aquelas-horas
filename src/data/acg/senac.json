@@ -1,0 +1,85 @@
+{
+  "id": "senac",
+  "nome": "Senac Joinville (unidade vinculada à Faculdade de Tecnologia Senac Blumenau)",
+  "sigla": "Senac",
+  "tipo": "faculdade",
+  "campus": "Joinville",
+  "pasta_documentos": "Senac",
+  "requisito_nome": "Não aparece como componente",
+  "resumo": "Não existe Faculdade Senac Joinville credenciada: a unidade é vinculada à Faculdade de Tecnologia Senac Blumenau. O Manual do Aluno de Graduação 2023 não traz atividades complementares.",
+  "normas": [
+    {
+      "id": "manual-2023",
+      "numero": "Manual do Aluno de Graduação Senac/SC (2023)",
+      "data": "2023",
+      "status": "vigente",
+      "nota": "Não traz atividades complementares entre os componentes. Traz extensão curricularizada (no mínimo 10%), projeto integrador e certificações intermediárias. Um manual mais antigo, visto só em cópia não oficial, dizia que as AC eram obrigatórias em todos os cursos.",
+      "url": "https://portal.sc.senac.br/doc/area-do-estudante/Manual-Aluno-Graduacao.pdf",
+      "pdf": "Senac/Senac_SC_Manual_do_Aluno_Graduacao.pdf"
+    }
+  ],
+  "regras_gerais": [],
+  "como_enviar": {
+    "sistema": "Não se aplica pelo manual de 2023",
+    "prazo": "Não se aplica",
+    "quem_aprova": "Não se aplica",
+    "taxa": "Não se aplica",
+    "fonte": "Manual 2023"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "nao_se_aplica",
+    "regra": "Sem AC no manual vigente; a extensão curricularizada é de no mínimo 10%.",
+    "fonte": "Manual 2023"
+  },
+  "sistemas_academicos": "Não identificado.",
+  "alertas": [
+    {
+      "nivel": "medio",
+      "texto": "Conclusão provável: os CSTs atuais não exigem AC, mas isso só se confirma no PPC de cada curso."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "ADS",
+      "nome": "CST em Análise e Desenvolvimento de Sistemas",
+      "matriz": {
+        "codigo": "Edital 01/2025 (vestibular 2025/1)"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://vestibular.sc.senac.br/doc/edital8.pdf",
+        "nota": "Nenhuma carga publicada."
+      },
+      "pdf": [
+        "Senac/Senac_SC_Manual_do_Aluno_Graduacao.pdf",
+        "Senac/Senac_SC_Edital_01-2025_Vestibular_2025-1_CST.pdf"
+      ],
+      "a_confirmar": [
+        "Confirmar no PPC se há AC."
+      ]
+    },
+    {
+      "id": "PG",
+      "nome": "CST em Processos Gerenciais",
+      "matriz": {
+        "codigo": "Edital 01/2025 (vestibular 2025/1)"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://vestibular.sc.senac.br/doc/edital8.pdf",
+        "nota": "Nenhuma carga publicada."
+      },
+      "pdf": [
+        "Senac/Senac_SC_Manual_do_Aluno_Graduacao.pdf",
+        "Senac/Senac_SC_Edital_01-2025_Vestibular_2025-1_CST.pdf"
+      ],
+      "a_confirmar": [
+        "Confirmar no PPC se há AC."
+      ]
+    }
+  ]
+}

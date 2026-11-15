@@ -1,0 +1,93 @@
+{
+  "id": "cnec_joinville",
+  "nome": "Faculdade CNEC Joinville",
+  "sigla": "CNEC",
+  "tipo": "faculdade",
+  "campus": "Joinville",
+  "pasta_documentos": "CNEC Joinville",
+  "requisito_nome": "Atividades Complementares (NAC)",
+  "resumo": "A única norma pública é o regulamento de 17/03/2017 da antiga Faculdade Cenecista de Joinville. A matriz atual do Direito contradiz o regulamento.",
+  "normas": [
+    {
+      "id": "fcj-2017",
+      "numero": "Regulamento das Atividades Complementares (Faculdade Cenecista de Joinville)",
+      "data": "2017-03-17",
+      "status": "desatualizada",
+      "nota": "Anterior a 2020. Para matrizes a partir de 2016/1: 300 h para Administração, Ciências Contábeis e Direito; 80 h para cursos de tecnologia. Exige pelo menos dois dos três eixos (ensino, pesquisa, extensão), no máximo 50% em cada. Provavelmente existe regulamento mais novo, não publicado.",
+      "url": "https://educacaosuperior.cnec.br/documentos/18f1e97f806eb182f961d2cc99df9bcb",
+      "pdf": "CNEC Joinville/FCJ_Regulamento_Atividades_Complementares_2017-03-17.pdf"
+    }
+  ],
+  "regras_gerais": [
+    {
+      "texto": "Tetos do regulamento de 2017: monitoria 30 h por semestre, até 60 h; estágio extracurricular até 90 h; iniciação científica até 60 h; voluntariado até 30 h.",
+      "fonte": "Regulamento FCJ 2017"
+    },
+    {
+      "texto": "Nivelamento, TCC e Estágio de Prática Jurídica não contam.",
+      "fonte": "Regulamento FCJ 2017"
+    }
+  ],
+  "como_enviar": {
+    "sistema": "Cópias entregues ao NAC, com protocolo em duas vias",
+    "prazo": "Concluintes entregam até 10 de maio ou 10 de outubro",
+    "quem_aprova": "NAC",
+    "taxa": "Não informada",
+    "fonte": "Regulamento FCJ 2017"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A matriz atual do Direito traz 380 h de Experiência Extensionista, componente separado das Atividades Complementares. A pesquisa não localizou regra sobre contar a mesma hora nos dois.",
+    "fonte": "Página do curso Direito (CNEC)"
+  },
+  "sistemas_academicos": "Não identificado.",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Direito: 180 h na matriz atual (Atividades Complementares I a X, de 18 h) x 300 h no regulamento de 2017. Confirmar com o NAC ou a Secretaria."
+    },
+    {
+      "nivel": "medio",
+      "texto": "O regulamento público é de 2017 e provavelmente há um mais novo, não publicado."
+    },
+    {
+      "nivel": "info",
+      "texto": "A Censupeg e a CNEC Joinville funcionam no mesmo endereço (Av. Getúlio Vargas, 1266); nenhum documento explica a relação."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "DIR",
+      "nome": "Direito (presencial)",
+      "matriz": {
+        "codigo": "Matriz atual (página do curso, 15/11/2026)"
+      },
+      "horas": {
+        "valor": 180,
+        "unidade": "h",
+        "situacao": "contraditorio",
+        "fonte": "https://educacaosuperior.cnec.br/joinville/cursos/graduacao/bacharelado/114/info",
+        "alternativa": {
+          "valor": 300,
+          "unidade": "h",
+          "origem": "regulamento de 2017"
+        }
+      },
+      "pdf": [
+        "CNEC Joinville/CNEC_Joinville_pagina_curso_Direito_matriz_2026-11-15.pdf",
+        "CNEC Joinville/FCJ_Regulamento_Atividades_Complementares_2017-03-17.pdf"
+      ],
+      "norma_aplicavel": "fcj-2017",
+      "a_confirmar": [
+        "Matriz atual: 180 h. Regulamento de 2017: 300 h.",
+        "A matriz fica num bloco oculto da página e não aparece no PDF; os números vieram do HTML."
+      ],
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz 180 h x regulamento 300 h. Confirmar com o NAC."
+        }
+      ]
+    }
+  ]
+}

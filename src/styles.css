@@ -2472,3 +2472,58 @@ select.autofilled,
   padding: 0;
   cursor: pointer;
 }
+
+/* ---------- regras (catálogo de regulamentos) ---------- */
+.alert-info { background: #eef2f7; color: var(--ink-2); }
+.rg-entry { display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin: 0 0 16px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); text-decoration: none; }
+.rg-entry > svg:first-child { color: var(--brand); flex: none; }
+.rg-entry > span { flex: 1; display: grid; gap: 2px; }
+.rg-entry small { color: var(--muted); font-size: 13px; }
+.rg-head { display: grid; gap: 6px; margin: 8px 0 16px; }
+.rg-filtros { margin: 16px 0 8px; }
+.rg-search { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0 12px; }
+.rg-search input { flex: 1; border: 0; outline: 0; background: transparent; padding: 12px 0; font: inherit; min-width: 0; }
+.rg-ano { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+.rg-ano select, .rg-curso-sel { font: inherit; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.rg-inst { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; margin-bottom: 8px; }
+.rg-inst-meta { display: flex; align-items: center; gap: 8px; flex: none; }
+.rg-lista { display: grid; gap: 8px; }
+.rg-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 14px; background: var(--surface); border-radius: var(--radius-sm); box-shadow: var(--shadow); text-decoration: none; text-align: left; border: 0; width: 100%; font: inherit; color: inherit; }
+.rg-row-on { outline: 2px solid var(--brand); }
+.rg-row-main { display: grid; gap: 2px; min-width: 0; }
+.rg-row-side { display: grid; gap: 4px; justify-items: end; text-align: right; flex: none; max-width: 48%; }
+.rg-badges { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.rg-sem { color: var(--warn); }
+.rg-horas { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.rg-curso { display: grid; gap: 8px; margin-top: 12px; }
+.rg-contradicao { color: var(--error); }
+.rg-confirmar { background: var(--warn-50); color: var(--warn); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14px; }
+.rg-confirmar ul { margin: 6px 0 0; padding-left: 18px; }
+.rg-acoes { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.rg-norma { display: grid; gap: 6px; }
+.rg-linhas { display: grid; gap: 10px; }
+.rg-linha { display: grid; gap: 2px; font-size: 14px; }
+.rg-rotulo { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.rg-tabela { display: grid; gap: 4px; }
+.rg-cat { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.rg-cat small { color: var(--muted); }
+.rg-cat b { flex: none; }
+.rg-alertas { margin: 4px 0; }
+.rg-entry-onb { margin-top: 4px; }
+
+/* ---------- secretaria ---------- */
+.sec-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
+.sec-kpi { display: grid; gap: 2px; padding: 12px 8px; border: 0; border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--shadow); text-align: center; }
+.sec-kpi b { font-size: 22px; letter-spacing: -0.02em; }
+.sec-kpi span { font-size: 12px; color: var(--muted); }
+.sec-kpi-on { outline: 2px solid var(--brand); }
+.sec-filtros { display: grid; gap: 12px; }
+.sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.sec-aluno { display: grid; gap: 10px; }
+.sec-aluno-head { display: flex; align-items: center; gap: 10px; width: 100%; border: 0; background: none; padding: 0; text-align: left; }
+.sec-aluno-head .rg-row-main { flex: 1; }
+.sec-certs { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+.sec-cert { display: grid; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.sec-cert:last-child { border-bottom: 0; padding-bottom: 0; }
+.sec-consent { margin-bottom: 16px; }
+.sec-consent b svg { vertical-align: -3px; color: var(--brand); }

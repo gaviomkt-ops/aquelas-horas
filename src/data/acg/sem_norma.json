@@ -1,0 +1,67 @@
+{
+  "id": "sem_norma_publica",
+  "nome": "Life Unic e Anhanguera Joinville (presencial)",
+  "sigla": "Sem norma",
+  "tipo": "faculdade",
+  "campus": "Joinville",
+  "pasta_documentos": "",
+  "requisito_nome": "Não localizado",
+  "resumo": "A Faculdade Life Unic Education oferece Medicina (Portaria SERES 742/2024, 54 vagas anuais). A situação presencial da Faculdade Anhanguera de Joinville não foi confirmada no e-MEC. Nenhuma das duas publica regulamento de atividades complementares.",
+  "normas": [],
+  "regras_gerais": [],
+  "como_enviar": {
+    "sistema": "Não localizado",
+    "prazo": "Não localizado",
+    "quem_aprova": "Não localizado",
+    "taxa": "Não localizado",
+    "fonte": "Relatório de pesquisa"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "Não localizado.",
+    "fonte": ""
+  },
+  "sistemas_academicos": "Não localizado.",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Nenhuma norma pública de atividades complementares. Pergunte à secretaria da sua faculdade."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "LIFE-MED",
+      "nome": "Life Unic Education: Medicina",
+      "matriz": {
+        "codigo": "Não localizada"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://www.gov.br/mec/pt-br/cne/2025/novembro-2025/pces659_25.pdf"
+      },
+      "pdf": [],
+      "a_confirmar": [
+        "Nenhum arquivo baixado."
+      ]
+    },
+    {
+      "id": "ANH",
+      "nome": "Faculdade Anhanguera de Joinville (presencial)",
+      "matriz": {
+        "codigo": "Não localizada"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://www.gov.br/mec/pt-br/cne/pdf/pareceres-do-cne/ces/2017/pces570_17.pdf"
+      },
+      "pdf": [],
+      "a_confirmar": [
+        "Nenhum arquivo baixado."
+      ]
+    }
+  ]
+}

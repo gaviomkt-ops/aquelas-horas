@@ -5,6 +5,8 @@
 // Cada tipo de atividade tem `max` (teto total da categoria no curso) e, quando o
 // regulamento manda, `per` (teto por certificado) com `perUnit` (trabalho, semestre…).
 
+import { CATALOGO, metaDoCatalogo } from '../data/acg/index.js';
+
 const IELUSC_COURSES = [
   { id: 'ADM', name: 'Administração', goal: 130 },
   { id: 'DIR', name: 'Direito', goal: 150 },
@@ -111,6 +113,28 @@ export const EVENT_CATEGORIES = [
   { id: 'outros', label: 'Outros', icon: 'LayoutGrid', color: '#64748B', map: { ielusc: 'part_eventos', mackenzie_jor: 'm97', outra: 'g_outros' } },
 ];
 
+// Instituições do catálogo de Joinville (pesquisa de 15/11/2026), exceto o IELUSC, que mantém a tabela própria
+// acima. Aqui só entram curso e meta; não há tetos por categoria, então o progresso usa as categorias genéricas.
+// A meta só é preenchida quando o catálogo traz um número confiável em horas; senão o aluno digita (needsGoal).
+const CATALOG_TIPOS = ['faculdade', 'universidade', 'centro_universitario'];
+const CATALOG_INSTITUTIONS = CATALOGO.filter((i) => i.id !== 'ielusc')
+  .map((i) => ({
+    id: i.id,
+    type: CATALOG_TIPOS.includes(i.tipo) ? i.tipo : undefined,
+    name: i.nome,
+    city: 'Joinville',
+    source: `${i.normas.find((n) => n.status === 'vigente')?.numero || i.requisito_nome} (catálogo de regulamentos, pesquisa de 15/11/2026)`,
+    catalog: true,
+    courses: i.cursos
+      .filter((c) => !c.referencia_outra_unidade)
+      .map((c) => {
+        const goal = metaDoCatalogo(c);
+        return { id: c.id, name: `${c.nome} (${c.matriz?.codigo || 'matriz'})`, goal, needsGoal: goal == null, catalogRef: c };
+      }),
+    types: GENERIC_TYPES,
+  }))
+  .filter((i) => i.courses.length);
+
 export const INSTITUTIONS = [
   {
     id: 'ielusc',
@@ -130,6 +154,7 @@ export const INSTITUTIONS = [
     courses: [{ id: 'JOR', name: 'Jornalismo', goal: 300 }],
     types: MACK_TYPES,
   },
+  ...CATALOG_INSTITUTIONS,
   {
     id: 'outra',
     name: 'Outra instituição',
@@ -195,7 +220,8 @@ export function goalFor(profile) {
   if (!profile) return 0;
   const inst = getInstitution(profile.institution_id);
   if (inst.custom) return Number(profile.goal_hours) || 0;
-  return getCourse(profile.institution_id, profile.course_id).goal;
+  const goal = getCourse(profile.institution_id, profile.course_id).goal;
+  return goal ?? (Number(profile.goal_hours) || 0);
 }
 
 export function eventCategory(id) {
@@ -204,7 +230,8 @@ export function eventCategory(id) {
 
 export function typeForEvent(profile, category) {
   const cat = eventCategory(category);
-  const key = cat.map[profile?.institution_id || 'ielusc'];
+  const instId = profile?.institution_id || 'ielusc';
+  const key = cat.map[instId] ?? (getInstitution(instId).catalog ? cat.map.outra : undefined);
   if (!key) return null;
   const valid = typesFor(profile?.institution_id || 'ielusc', profile?.course_id || 'PP').some((t) => t.key === key);
   return valid ? key : null;

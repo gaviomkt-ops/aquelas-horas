@@ -31,6 +31,15 @@ function load() {
           if (i === -1) db.events.unshift(fresh);
           else db.events[i] = { ...fresh, views: db.events[i].views, link_clicks: db.events[i].link_clicks };
         }
+        // contas e dados de exemplo novos (ex.: secretaria demo) entram sem apagar o que já existe
+        const fresh = demoSeed();
+        for (const k of ['users', 'profiles', 'certificates']) {
+          for (const row of fresh[k]) {
+            const i = db[k].findIndex((x) => x.id === row.id);
+            if (i === -1) db[k].push(row);
+            else if (k === 'profiles' && row.id === 'demo-aluno') db[k][i] = { ...db[k][i], ...pickSeedAluno(row) };
+          }
+        }
         db.seedVersion = SEED_VERSION;
         save(db);
       }
@@ -42,6 +51,10 @@ function load() {
   const db = demoSeed();
   save(db);
   return db;
+}
+function pickSeedAluno(row) {
+  const { student_number, class_group, entry_year, secretaria_consent_at } = row;
+  return { student_number, class_group, entry_year, secretaria_consent_at };
 }
 function save(db) {
   try {
@@ -65,6 +78,11 @@ function requireUser() {
 function myProfile(db) {
   const id = currentUserId();
   return db.profiles.find((p) => p.id === id) || null;
+}
+function requireSecretaria(db) {
+  const p = myProfile(db);
+  if (p?.role !== 'secretaria' && p?.role !== 'admin') throw new Error('Apenas a secretaria.');
+  return p;
 }
 function requireAdmin(db) {
   const p = myProfile(db);
@@ -135,7 +153,7 @@ async function hash(text) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-const STUDENT_FIELDS = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set'];
+const STUDENT_FIELDS = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'entry_year', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set', 'student_number', 'class_group', 'secretaria_consent_at'];
 const EVENT_FIELDS = ['title', 'description', 'category', 'hours', 'starts_at', 'ends_at', 'location', 'address', 'city', 'price', 'link', 'image_url', 'courses', 'institution_id', 'boost_status', 'capacity', 'requirements', 'cert_issuer', 'cert_signer_name', 'cert_signer_role', 'cert_participation', 'cert_delivery'];
 
 export const local = {
@@ -216,6 +234,19 @@ export const local = {
     if (clean.role === 'admin' && p.role !== 'admin') delete clean.role;
     if (clean.role === 'organizer' && p.role !== 'organizer') clean.org_status = 'pending';
     if (clean.role === 'student') clean.org_status = null;
+    // mesmas regras do banco real (guard_profile): ninguém vira secretaria sozinho, e ela não troca de instituição
+    if (clean.role === 'secretaria' && p.role !== 'secretaria') delete clean.role;
+    if (p.role === 'secretaria') {
+      delete clean.role;
+      delete clean.institution_id;
+    }
+    if ('secretaria_consent_at' in clean) {
+      const trocouInst = 'institution_id' in clean && clean.institution_id !== p.institution_id;
+      if (!clean.secretaria_consent_at || trocouInst) clean.secretaria_consent_at = null;
+      else clean.secretaria_consent_at = p.secretaria_consent_at || now();
+    } else if ('institution_id' in clean && clean.institution_id !== p.institution_id) {
+      clean.secretaria_consent_at = null;
+    }
     Object.assign(p, clean, { updated_at: now() });
     save(db);
     return p;
@@ -372,11 +403,16 @@ export const local = {
     const db = load();
     const cert = db.certificates.find((c) => c.id === certId && c.user_id === id);
     if (!cert) throw new Error('Certificado não encontrado.');
+    const antes = { ...cert };
     Object.assign(cert, pickCert(patch), { updated_at: now() });
     if (file) {
       const path = `${id}/${cert.id}`;
       await putFile(path, file);
       Object.assign(cert, { file_path: path, file_name: file.name || 'certificado', file_mime: file.type || '' });
+    }
+    // como no banco: mexeu no conteúdo de um certificado já avaliado pela secretaria, volta para análise
+    if (antes.reviewed_by && (file || ['title', 'hours', 'type_key', 'issued_on'].some((k) => String(antes[k] ?? '') !== String(cert[k] ?? '')))) {
+      Object.assign(cert, { status: 'entregue', reviewed_by: null, reviewed_at: null, review_note: null });
     }
     save(db);
     return cert;
@@ -392,6 +428,33 @@ export const local = {
   async fileUrl(path) {
     const blob = await getFile(path);
     return blob ? URL.createObjectURL(blob) : null;
+  },
+
+  // ---------- secretaria (piloto) ----------
+  async secListStudents(institutionId) {
+    const db = load();
+    const sec = requireSecretaria(db);
+    const inst = sec.role === 'admin' ? institutionId : sec.institution_id;
+    return db.profiles
+      .filter((p) => p.role === 'student' && p.secretaria_consent_at && p.institution_id && (!inst || p.institution_id === inst))
+      .sort((a, b) => String(a.name).localeCompare(String(b.name), 'pt-BR'));
+  },
+  async secListCertificates() {
+    const db = load();
+    const sec = requireSecretaria(db);
+    const visiveis = new Set((await this.secListStudents(sec.role === 'admin' ? null : sec.institution_id)).map((p) => p.id));
+    return db.certificates.filter((c) => c.status !== 'guardado' && visiveis.has(c.user_id));
+  },
+  async reviewCertificate(certId, status, note) {
+    const db = load();
+    const sec = requireSecretaria(db);
+    if (!['entregue', 'validado', 'recusado'].includes(status)) throw new Error('Status inválido para a secretaria.');
+    const visiveis = new Set((await this.secListStudents(sec.role === 'admin' ? null : sec.institution_id)).map((p) => p.id));
+    const cert = db.certificates.find((c) => c.id === certId && c.status !== 'guardado' && visiveis.has(c.user_id));
+    if (!cert) throw new Error('Certificado não encontrado ou não compartilhado.');
+    Object.assign(cert, { status, review_note: note?.trim() || null, reviewed_by: sec.id, reviewed_at: now(), updated_at: now() });
+    save(db);
+    return cert;
   },
 
   // ---------- admin ----------

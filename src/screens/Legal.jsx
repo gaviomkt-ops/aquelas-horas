@@ -36,7 +36,10 @@ export function Privacy() {
       <h2>Leitura automática do certificado</h2>
       <p>Quando você envia um certificado, o app lê o texto dele no seu próprio aparelho para preencher nome, carga horária, data e emissor. O conteúdo do certificado não é enviado a nenhum serviço de leitura. Na primeira vez, o app baixa de um servidor público (jsDelivr) o modelo de leitura em português (OCR), que fica guardado no aparelho. As fontes de texto vêm do Google Fonts. Esses serviços recebem apenas o endereço de acesso do seu aparelho, como qualquer site, e nenhum dado do seu cadastro.</p>
       <h2>Quem vê seus certificados</h2>
-      <p>Só você. A equipe e os organizadores não têm acesso aos seus certificados. Nós não vendemos nem compartilhamos seus dados.</p>
+      <p>Só você. A equipe e os organizadores não têm acesso aos seus certificados. Nós não vendemos seus dados.</p>
+      <p>
+        <b>Secretaria da sua faculdade (opcional).</b> Nas faculdades que participam do piloto (hoje, só a Faculdade IELUSC), você pode autorizar no seu Perfil que a Secretaria Acadêmica veja seu nome, e-mail, curso, ano de ingresso, turma, matrícula e os certificados que você marcar como entregues, com os arquivos. A secretaria pode validar, recusar e exportar esses dados em planilha para o trabalho dela. Certificados só guardados no cofre nunca aparecem para ela. Você pode revogar a autorização a qualquer momento no Perfil, e ela também cai se você trocar de instituição.
+      </p>
       <h2>Onde ficam</h2>
       <p>Num banco de dados com acesso protegido por login (Supabase). No modo demonstração, tudo fica apenas no seu navegador.</p>
       <h2>Seus direitos</h2>

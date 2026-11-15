@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useStore } from '../lib/store.jsx';
 import { INSTITUTIONS, INSTITUTION_TYPES, getInstitution } from '../lib/rules.js';
 import { Button, Chip, Field, Icon, Logo } from '../components/ui.jsx';
+import CursoFields, { cursoPatch } from '../components/CursoFields.jsx';
 
 // Depois do cadastro (e da senha nova), a primeira pergunta é a instituição de ensino.
 export default function Onboarding() {
@@ -15,6 +16,7 @@ export default function Onboarding() {
     institution_type: profile?.institution_type || '',
     institution_name: profile?.institution_name || '',
     course_id: profile?.course_id || '',
+    entry_year: profile?.entry_year || '',
     semester: profile?.semester || '',
     goal_hours: profile?.goal_hours || '',
     org_name: profile?.org_name || '',
@@ -58,9 +60,8 @@ export default function Onboarding() {
           institution_id: inst.id,
           institution_type: inst.custom ? f.institution_type : inst.type,
           institution_name: inst.custom ? f.institution_name.trim() : inst.name,
-          course_id: inst.courses.some((c) => c.id === f.course_id) ? f.course_id : inst.courses[0].id,
+          ...cursoPatch(inst, f),
           semester: f.semester ? Number(f.semester) : null,
-          goal_hours: inst.custom ? Number(f.goal_hours) || null : null,
         });
       } else {
         await api.saveMyProfile({ ...base, role: 'organizer', org_name: f.org_name.trim(), org_instagram: f.org_instagram.trim(), org_bio: f.org_bio.trim() });
@@ -87,7 +88,7 @@ export default function Onboarding() {
                 <Icon name="GraduationCap" size={22} />
                 <b>{i.name}</b>
                 <span>
-                  {INSTITUTION_TYPES.find((t) => t.id === i.type)?.label} · {i.city} · tabela de horas pronta
+                  {INSTITUTION_TYPES.find((t) => t.id === i.type)?.label || 'Instituição de ensino'} · {i.city} · {i.catalog ? 'regras do catálogo (confira na secretaria)' : 'tabela de horas pronta'}
                 </span>
               </button>
             ))}
@@ -159,22 +160,7 @@ export default function Onboarding() {
         </Field>
         {role === 'student' ? (
           <>
-            {inst && !inst.custom && (
-              <Field label="Curso" htmlFor="course" hint={`Regras: ${inst.source}`}>
-                <select id="course" value={f.course_id} onChange={set('course_id')}>
-                  {inst.courses.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name} ({c.goal}h)
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            )}
-            {inst?.custom && (
-              <Field label="Quantas horas complementares seu curso exige?" htmlFor="goal" hint="Confira no regulamento do seu curso.">
-                <input id="goal" type="number" min="1" max="2000" inputMode="numeric" value={f.goal_hours} onChange={set('goal_hours')} required />
-              </Field>
-            )}
+            <CursoFields f={f} setF={setF} inst={inst} idPrefix="onb" />
             <Field label="Semestre atual" htmlFor="sem">
               <select id="sem" value={f.semester} onChange={set('semester')}>
                 <option value="">Prefiro não dizer</option>

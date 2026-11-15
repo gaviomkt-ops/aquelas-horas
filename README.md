@@ -133,3 +133,22 @@ src/
   components/          UI, cards de evento, carrossel, ícones
 supabase/schema.sql    banco, regras de segurança, storage e funções
 ```
+
+## Catálogo de regulamentos de horas complementares (Joinville-SC)
+
+Base de dados com as regras de ACG/AC de 14 grupos de instituições de Joinville (IELUSC, Univille, UDESC CCT, UFSC, IFSC, Católica SC, Unisociesc, FGG, CNEC, Censupeg, UniSENAI, Senac, EaD com polo e "sem norma pública"). Pesquisa de 15/11/2026 em fontes oficiais; o e-MEC bloqueou a consulta automática, então a lista pode estar incompleta.
+
+- **Dados:** `src/data/acg/*.json` (um por instituição; IELUSC, UDESC e UFSC à mão; Univille por `scripts/gerar-univille.mjs`; as demais por `scripts/gerar-privadas.mjs`). Um registro por curso e matriz, com horas + unidade + fonte, norma e status, como enviar, relação com a extensão, alertas e `a_confirmar`. Os caminhos dos PDFs apontam para `documentos/` da pasta da pesquisa (`~/Documents/Horas complementares Joinville/aquelas horas/`); o app abre o PDF pela URL de origem, os 318 MB não vão para o repositório público.
+- **Depois de editar:** `node scripts/validar-catalogo.mjs && node scripts/montar-catalogo.mjs` (valida o esquema e se cada PDF existe; gera `catalogo.generated.js`, que o app importa).
+- **Regra de qualidade:** nenhum número sem fonte. Incerteza vira `situacao` (a_confirmar, contraditorio, historico, lido_so_no_buscador, nao_publicado…), `a_confirmar` ou `alertas`, e aparece na tela. A meta de horas só vira automática quando é número confiável em horas; senão o aluno digita.
+- **Telas:** `/regras` (busca por instituição, curso e ano de ingresso) e `/regras/:instituicao?curso=ID` (ficha com alertas, normas, como enviar, extensão e botão do PDF oficial). O cadastro (e o Perfil) pedem o **ano de ingresso** e listam as matrizes que podem valer.
+- **Banco:** rodar `supabase/migracao-2026-11-15-ano-ingresso.sql` (coluna `profiles.entry_year`) antes de publicar. Sem ela o app não trava: salva o resto do perfil.
+- **IELUSC:** o cálculo de tetos do app ainda usa a Res. CES 35/2019 (revogada). A Res. CES 53/2026 e a Tabela 2026 estão no catálogo (ficha mostra os tetos por curso); trocar o cálculo é uma decisão pendente.
+
+## Aba Secretaria (piloto IELUSC)
+
+- **O que faz:** a secretaria acadêmica vê os alunos da própria faculdade que autorizaram o compartilhamento, filtra por curso, ano de ingresso, turma e situação, abre o arquivo do certificado, valida ou recusa (com motivo que o aluno vê) e baixa duas planilhas CSV com o filtro aplicado: certificados (uma linha por certificado) e resumo por aluno (meta, horas que contam, validadas, pendentes). Status "validado/recusado" marcados pelo próprio aluno aparecem como "(informado pelo aluno)".
+- **Privacidade (no banco, via RLS):** só alunos da mesma instituição com `secretaria_consent_at` preenchido; só certificados com status diferente de `guardado` e seus arquivos; a secretaria só altera status e observação; se o aluno mexer num certificado já avaliado, ele volta para "Aguardando análise"; trocar de instituição revoga a autorização. O aluno autoriza e revoga no Perfil (com matrícula e turma opcionais).
+- **Ligar no Supabase:** rodar `supabase/migracao-2026-11-15-ano-ingresso.sql` e depois `supabase/migracao-2026-11-15-secretaria.sql`. Criar a conta: a pessoa se cadastra no app e um admin roda `update public.profiles set role = 'secretaria', institution_id = 'ielusc', onboarded = true where email = '...';`.
+- **Outras faculdades:** acrescentar o id em `SECRETARIA_PILOTO` (`src/lib/secretaria.js`) depois de combinar com a secretaria delas.
+- **Demo:** botão "Secretaria" nas contas de teste (`secretaria@demo.com`).

@@ -1,0 +1,73 @@
+{
+  "id": "censupeg",
+  "nome": "Faculdade Censupeg",
+  "sigla": "Censupeg",
+  "tipo": "faculdade",
+  "campus": "Joinville",
+  "pasta_documentos": "Censupeg",
+  "requisito_nome": "Atividades Complementares",
+  "resumo": "Regulamento institucional de maio/2020 com tabela de mínimos e máximos por semestre. O total por curso vem do PPC, que não está publicado para os cursos presenciais.",
+  "normas": [
+    {
+      "id": "reg-2020",
+      "numero": "Regulamento de Atividades Complementares",
+      "data": "2020-05",
+      "status": "vigente",
+      "nota": "Publicado numa pasta do Moodle chamada \"2021\". Não contam atividades anteriores ao ingresso nem estágio obrigatório; quem não completar a carga não entra na lista de formandos.",
+      "url": "https://censupegead.com.br/pluginfile.php/90/mod_folder/intro/Regulamento%20de%20Atividades%20Complementares%202021.pdf",
+      "pdf": "Censupeg/Censupeg_Regulamento_Atividades_Complementares_maio2020_(pasta2021).pdf"
+    }
+  ],
+  "regras_gerais": [
+    {
+      "texto": "Mínimos e máximos por semestre: estágio não curricular 20 a 40 h; eventos internos 4 a 25 h; organização de eventos 8 a 50 h; projeto de pesquisa 8 a 50 h; representação discente 10 h.",
+      "fonte": "Regulamento maio/2020"
+    }
+  ],
+  "como_enviar": {
+    "sistema": "Portal Acadêmico",
+    "prazo": "Dentro do semestre letivo",
+    "quem_aprova": "A confirmar",
+    "taxa": "Não informada",
+    "fonte": "Regulamento maio/2020"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A pesquisa não localizou regra sobre extensão curricularizada.",
+    "fonte": ""
+  },
+  "sistemas_academicos": "Portal Acadêmico.",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Total de horas por curso não publicado (o PPC dos cursos presenciais de Enfermagem, Odontologia, Direito e Psicologia não está publicado). Consulte a coordenação."
+    },
+    {
+      "nivel": "medio",
+      "texto": "O regulamento é de 2020, publicado numa pasta do Moodle chamada \"2021\"."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "GERAL",
+      "nome": "Todos os cursos presenciais",
+      "matriz": {
+        "codigo": "Regulamento maio/2020"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://www.censupeg.com.br/files/DOCUMENTO-edital-campanha-de-vestibular-graduacao-presencial-2026-2.pdf"
+      },
+      "pdf": [
+        "Censupeg/Censupeg_Regulamento_Atividades_Complementares_maio2020_(pasta2021).pdf",
+        "Censupeg/Censupeg_Edital_Vestibular_Graduacao_Presencial_2026-2.pdf"
+      ],
+      "norma_aplicavel": "reg-2020",
+      "a_confirmar": [
+        "Total de horas fica no PPC de cada curso, não publicado."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "id": "ielusc",
+  "nome": "Faculdade IELUSC",
+  "sigla": "IELUSC",
+  "tipo": "faculdade",
+  "campus": "Joinville",
+  "pasta_documentos": "Ielusc",
+  "requisito_nome": "Atividades Complementares de Graduação (ACGs)",
+  "resumo": "Norma mais completa e recente da cidade (Res. CES 53/2026). A carga mínima vem do PPC/matriz de cada curso; a Tabela de Equivalência 2026 fixa o teto de cada atividade por curso.",
+  "normas": [
+    {
+      "id": "ces-53-2026",
+      "numero": "Res. CES nº 53/2026",
+      "data": "2026-04-01",
+      "status": "vigente",
+      "nota": "Revoga a Res. 35/2019. Exige no mínimo 3 modalidades distintas e no mínimo 10% das ACGs em atividades de cunho social organizadas pela IES, preferencialmente de extensão.",
+      "url": "https://faculdade.ielusc.br/wp-content/uploads/2026/04/Resolucao_n%C2%BA_53.2026_ACGs_proposta_de_atualizacao_1_assinado.pdf",
+      "pdf": "Ielusc/Ielusc_Resolucao_53-2026_ACGs.pdf"
+    },
+    {
+      "id": "tabela-2026",
+      "numero": "Tabela de Equivalência e de Procedimentos de Validação de ACGs",
+      "data": "2026-04-01",
+      "status": "vigente",
+      "nota": "Teto de cada atividade por curso. Procedimento padrão: encaminhar à Secretaria Acadêmica, de forma digital, o Certificado/Declaração.",
+      "url": "https://faculdade.ielusc.br/wp-content/uploads/2026/04/Tabela_de_Equivalencia_e_de_Procedimentos_de_Validacao_de_ACGs_assinado.pdf",
+      "pdf": "Ielusc/Ielusc_Tabela_Equivalencia_Validacao_ACGs_2026.pdf"
+    },
+    {
+      "id": "guia-extensao",
+      "numero": "Guia de Extensão 2025 (atualizado em fev/2026)",
+      "data": "2026-02",
+      "status": "vigente",
+      "nota": "Horas de bolsista ou voluntário em projeto de extensão podem ser validadas como ACG pelas tabelas do curso.",
+      "url": "https://faculdade.ielusc.br/wp-content/uploads/2026/03/Guia-de-Extens%C3%A3o_2025_Atualizado-fev-2026.pdf",
+      "pdf": "Ielusc/Ielusc_Guia_de_Extensao_2025_atualizado_fev2026.pdf"
+    },
+    {
+      "id": "ces-43-2021",
+      "numero": "Res. CES nº 43/2021",
+      "data": "2021-07-01",
+      "status": "revogada",
+      "nota": "Também dizia revogar a Res. 35/2019. Substituída pela Res. 53/2026.",
+      "url": "https://faculdade.ielusc.br/wp-content/uploads/2021/07/Resolu%C3%A7%C3%A3o-43_2021-ACGs.pdf",
+      "pdf": "Ielusc/Ielusc_Resolucao_43-2021_ACGs.pdf"
+    },
+    {
+      "id": "ces-35-2019",
+      "numero": "Res. CES nº 35/2019 (versão atualizada em 30/06/2021)",
+      "data": "2019",
+      "status": "revogada",
+      "nota": "É a norma que o cálculo atual do app ainda usa. Revogada pela 43/2021 e depois pela 53/2026.",
+      "url": "https://faculdade.ielusc.br/wp-content/uploads/2021/07/Res.-35_2019-ACGs-Atualizada-em-07_2021.pdf",
+      "pdf": "Ielusc/Ielusc_Resolucao_35-2019_ACGs_atualizada_2021-07.pdf"
+    }
+  ],
+  "regras_gerais": [
+    { "texto": "Mínimo de 3 modalidades de atividades distintas.", "fonte": "Res. CES 53/2026, art. 1º, § 2º" },
+    { "texto": "No mínimo 10% da carga de ACGs do curso em atividades de cunho social organizadas pela IES, preferencialmente de extensão.", "fonte": "Res. CES 53/2026, art. 1º, § 4º" },
+    { "texto": "Ação comunitária feita dentro de disciplina só vale se transcender a carga regular da disciplina ou ocorrer em horário extraclasse.", "fonte": "Res. CES 53/2026, art. 2º" },
+    { "texto": "Trabalho eleitoral tem horas fixas, iguais em todos os cursos: mesário 10 h; apurador 4 h; delegado de prédio 13 h; auxiliar de secretaria 6 h; motorista 8 h; auxiliar de serviço eleitoral 8 h.", "fonte": "Res. CES 53/2026, art. 3º" },
+    { "texto": "As tabelas não incluem pontuação específica para atividades de cunho social; o relatório em formulário anexo é obrigatório para elas.", "fonte": "Res. CES 53/2026, arts. 4º e 5º" }
+  ],
+  "como_enviar": {
+    "sistema": "Envio digital à Secretaria Acadêmica (a resolução cita a Secretaria Geral de Ensino Superior)",
+    "prazo": "Período definido anualmente no Calendário Acadêmico. Pedido de projeto de extensão deve ser feito antes do início da atividade.",
+    "quem_aprova": "Coordenação do curso defere as atividades sociais e os projetos de extensão",
+    "taxa": "Não informada",
+    "fonte": "Res. CES 53/2026, art. 4º; Tabela ACG 2026"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A extensão curricularizada é componente separado da matriz. O Guia de Extensão permite validar horas de bolsista ou voluntário de projeto como ACG (atende aos 10% sociais). O formulário de extensão da Res. 53/2026 pergunta se a atividade envolveu a curricularização, mas as notas não dizem se a mesma hora pode valer nos dois componentes.",
+    "fonte": "Guia de Extensão 2025; Res. CES 53/2026, anexos"
+  },
+  "sistemas_academicos": "Não identificado na pesquisa. Perguntar à Secretaria Acadêmica (relevante para a futura aba Secretaria).",
+  "colunas_tetos": ["ADM", "DIR", "EDF", "ENF", "FONO", "JOR", "NUT", "PEDAG", "PSICO", "PP2017", "PP2026"],
+  "categorias": [
+    { "id": "apresentacao", "nome": "Apresentação de trabalho científico", "limite_item": "30 h por trabalho", "tetos": [40, 90, 90, 40, 80, 90, 90, 90, 80, 90, 120] },
+    { "id": "cultural_ies", "nome": "Atividade cultural promovida pela IES", "tetos": [40, 40, 60, 40, 80, 60, 60, 30, 60, 60, 80] },
+    { "id": "cultural_ext", "nome": "Atividade cultural externa", "tetos": [40, 40, 60, 40, 80, 60, 60, 30, 60, 60, 80] },
+    { "id": "extensao", "nome": "Extensão", "tetos": [40, 50, 90, 90, 120, 120, 120, 120, 80, 120, 160] },
+    { "id": "iniciacao", "nome": "Iniciação científica", "tetos": [40, 50, 90, 90, 120, 120, 120, 120, 80, 120, 160] },
+    { "id": "idiomas", "nome": "Curso de idiomas (feito durante a graduação)", "tetos": [50, 50, 40, 40, 60, 60, 60, 90, 60, 80, 80] },
+    { "id": "capacitacao", "nome": "Capacitação", "limite_item": "mínimo de 10 h por curso", "tetos": [50, 40, 60, 60, 60, 70, 70, 90, 60, 90, 120] },
+    { "id": "atualizacao", "nome": "Atualização presencial", "limite_item": "mínimo de 3 h", "tetos": [50, 40, 60, 60, 60, 70, 60, 60, 60, 90, 120] },
+    { "id": "online", "nome": "Cursos online ou a distância", "tetos": [30, 20, 40, 30, 60, 40, 60, 30, 40, 90, 120] },
+    { "id": "eletivas", "nome": "Disciplinas eletivas", "comprovante": "Certificado ou histórico e a ementa", "tetos": [40, 80, 80, 80, 80, 80, 120, 120, 80, 160, 220] },
+    { "id": "estagio", "nome": "Estágio não obrigatório", "comprovante": "Nos cursos de saúde, com carimbo do supervisor", "tetos": [50, 50, 90, 40, 120, 100, 120, 120, 40, null, 100] },
+    { "id": "grupo_estudos", "nome": "Grupo de estudos", "tetos": [30, 50, 30, 60, 60, 30, 60, 90, 60, 60, 100] },
+    { "id": "intercambio", "nome": "Intercâmbio", "comprovante": "Exige termo de convênio", "tetos": [60, 40, 120, 90, 120, 120, 120, 40, 120, 150, 220] },
+    { "id": "monitoria", "nome": "Monitoria", "tetos": [30, 60, 90, 90, 120, 80, 120, 40, 100, 120, 160] },
+    { "id": "org_eventos", "nome": "Organização de eventos", "tetos": [60, 40, 60, 40, 60, 60, 60, 90, 60, 60, 80] },
+    { "id": "concursos", "nome": "Concursos e prêmios", "limite_item": "5 h por trabalho, a critério da coordenação", "tetos": [40, 10, 10, 20, 40, 10, 20, 30, 40, 60, 80] },
+    { "id": "part_eventos", "nome": "Participação em eventos", "tetos": [50, 40, 60, 80, 100, 60, 100, 30, 60, 120, 160] },
+    { "id": "eventos_cient", "nome": "Eventos científicos e culturais", "tetos": [50, 60, 60, 60, 60, 60, 60, 60, 60, 60, 80] },
+    { "id": "esportivos", "nome": "Eventos esportivos e recreativos", "tetos": [50, 20, 60, 60, 60, 60, 60, 60, 60, 60, 80] },
+    { "id": "juri", "nome": "Júri popular", "tetos": [10, 10, 20, 10, 10, 20, 10, 30, 10, null, null] },
+    { "id": "colegiados", "nome": "Órgãos colegiados (CES, CPA, DCE, Colegiado)", "tetos": [40, 40, 40, 40, 60, 40, 40, 40, 20, 60, 80] },
+    { "id": "publicacao", "nome": "Publicação", "limite_item": "40 h por trabalho na íntegra; 20 h por resumo ou resenha", "tetos": [40, 60, 90, 60, 80, 90, 90, 120, 100, 90, 120] },
+    { "id": "visitas", "nome": "Visitas técnicas", "tetos": [40, 20, 20, 20, 20, 40, 30, 40, 20, 20, 40] }
+  ],
+  "categorias_fixas": [
+    { "nome": "Representante de turma", "regra": "40 h por semestre (representante) e 20 h por semestre (vice), até o máximo de 80 h", "fonte": "Tabela ACG 2026" },
+    { "nome": "Trabalhos eleitorais", "regra": "Mesário 10 h; apurador 4 h; delegado de prédio 13 h; auxiliar de secretaria 6 h; motorista 8 h; auxiliar de serviço eleitoral 8 h", "fonte": "Res. CES 53/2026, art. 3º" }
+  ],
+  "alertas": [
+    { "nivel": "alto", "texto": "O cálculo de horas do app para o IELUSC ainda usa a Res. CES 35/2019, revogada pela 43/2021 e depois pela 53/2026. Tetos por categoria e metas podem ter mudado. Confirme na Secretaria Acadêmica antes de planejar." },
+    { "nivel": "alto", "texto": "Metas do app x matrizes 2025-2026: Administração 130 h (app) x 120 h/relógio; Fonoaudiologia 160 h x 140 (sem unidade); Nutrição 180 h x 252 h/a = 210 h/relógio; Publicidade e Propaganda 200 h x 300 h; Educação Física 200 h x total não informado na matriz. Sistemas de Informação não consta entre os cursos com matriz publicada." },
+    { "nivel": "medio", "texto": "Publicidade e Propaganda tem duas colunas na tabela (currículo 2017 e 2026). O aluno precisa saber em qual currículo está." },
+    { "nivel": "medio", "texto": "Educação Física: a matriz lista ACG em cada fase, mas não informa o total. Fonoaudiologia e Psicologia trazem a carga sem unidade (h ou h/a)." }
+  ],
+  "cursos": [
+    {
+      "id": "ADM", "nome": "Administração", "coluna": "ADM",
+      "matriz": { "codigo": "Matriz 2026-06", "publicada_em": "2026-06" },
+      "horas": { "valor": 120, "unidade": "h", "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/Matriz-ADM-1.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Administracao_2026-06.pdf"]
+    },
+    {
+      "id": "DIR", "nome": "Direito", "coluna": "DIR",
+      "matriz": { "codigo": "Matriz DIREITO (2023)", "publicada_em": "2026-06" },
+      "horas": { "valor": 125, "unidade": "h", "equivalente": { "valor": 150, "unidade": "h/a" }, "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/Matriz-curricular-Direito-1.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Direito_2026-06.pdf"]
+    },
+    {
+      "id": "EDF", "nome": "Educação Física", "coluna": "EDF",
+      "matriz": { "codigo": "Matriz 2026", "publicada_em": "2026-06" },
+      "horas": { "valor": null, "unidade": null, "situacao": "a_confirmar", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/Matriz-EDF-1-1.pdf" },
+      "a_confirmar": ["A matriz lista ACG em cada fase, mas não informa o total de horas."],
+      "pdf": ["Ielusc/Ielusc_Matriz_Educacao_Fisica_2026-06.pdf"]
+    },
+    {
+      "id": "ENF", "nome": "Enfermagem", "coluna": "ENF",
+      "matriz": { "codigo": "Matriz 2026-07", "publicada_em": "2026-07" },
+      "horas": { "valor": 130, "unidade": "h", "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/07/Matriz-Curricular-enfermagem-1.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Enfermagem_2026-07.pdf"]
+    },
+    {
+      "id": "FONO", "nome": "Fonoaudiologia", "coluna": "FONO",
+      "matriz": { "codigo": "Matriz 2026-06", "publicada_em": "2026-06" },
+      "horas": { "valor": 140, "unidade": null, "situacao": "a_confirmar", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/MATRIZ-FONO-1-1.pdf" },
+      "a_confirmar": ["A matriz traz 140 sem informar se é h ou h/a."],
+      "pdf": ["Ielusc/Ielusc_Matriz_Fonoaudiologia_2026-06.pdf"]
+    },
+    {
+      "id": "JOR", "nome": "Jornalismo", "coluna": "JOR",
+      "matriz": { "codigo": "Matriz 2026-06", "publicada_em": "2026-06" },
+      "horas": { "valor": 120, "unidade": "h/a", "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/Matriz-JORNAL-1-1.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Jornalismo_2026-06.pdf"]
+    },
+    {
+      "id": "NUT", "nome": "Nutrição", "coluna": "NUT",
+      "matriz": { "codigo": "Matriz Nutrição 2026", "publicada_em": "2026-05" },
+      "horas": { "valor": 252, "unidade": "h/a", "equivalente": { "valor": 210, "unidade": "h" }, "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/05/Matriz-Curricular-NUTRI%C3%87%C3%83O-2026.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Nutricao_2026-05.pdf"]
+    },
+    {
+      "id": "PEDAG", "nome": "Pedagogia", "coluna": "PEDAG",
+      "matriz": { "codigo": "Matriz 2026-04", "publicada_em": "2026-04" },
+      "horas": { "valor": 240, "unidade": "h/a", "equivalente": { "valor": 200, "unidade": "h" }, "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/04/Matriz-Curricular-Pedagogia.pdf" },
+      "pdf": ["Ielusc/Ielusc_Matriz_Pedagogia_2026-04.pdf"]
+    },
+    {
+      "id": "PSICO", "nome": "Psicologia", "coluna": "PSICO",
+      "matriz": { "codigo": "Matriz 2025-12", "publicada_em": "2025-12" },
+      "horas": { "valor": 120, "unidade": null, "situacao": "a_confirmar", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2025/12/Matriz-PSICO.pdf" },
+      "a_confirmar": ["A matriz traz 120 sem informar se é h ou h/a."],
+      "pdf": ["Ielusc/Ielusc_Matriz_Psicologia_2025-12.pdf"]
+    },
+    {
+      "id": "PP", "nome": "Publicidade e Propaganda", "coluna": "PP2026",
+      "coluna_alternativa": { "PP2017": "Currículo 2017" },
+      "matriz": { "codigo": "Matriz 2026-06 (a tabela tem colunas PP 2017 e PP 2026)", "publicada_em": "2026-06" },
+      "horas": { "valor": 300, "unidade": "h", "situacao": "verificado", "fonte": "https://faculdade.ielusc.br/wp-content/uploads/2026/06/Matriz-PP-1-1.pdf" },
+      "a_confirmar": ["O total de 300 h é o da matriz publicada em 2026. O app não sabe a qual currículo (2017 ou 2026) o aluno pertence."],
+      "pdf": ["Ielusc/Ielusc_Matriz_Publicidade_Propaganda_2026-06.pdf"]
+    }
+  ]
+}

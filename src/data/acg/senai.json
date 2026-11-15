@@ -1,0 +1,73 @@
+{
+  "id": "unisenai",
+  "nome": "UniSENAI (Centro Universitário SENAI/SC, campus Joinville)",
+  "sigla": "UniSENAI",
+  "tipo": "centro_universitario",
+  "campus": "Joinville",
+  "pasta_documentos": "SENAI",
+  "requisito_nome": "Atividades Acadêmicas Complementares (AAC)",
+  "resumo": "O único documento com carga é o PDI 2018-2022 da antiga Faculdade SENAI Joinville, vencido. O regulamento detalhado fica no Espaço do Estudante, que não é público.",
+  "normas": [
+    {
+      "id": "pdi-2018-2022",
+      "numero": "PDI 2018-2022 da Faculdade SENAI Joinville",
+      "data": "2018",
+      "status": "desatualizada",
+      "nota": "Vencido. As AAC \"estão contempladas na matriz curricular do curso com carga horária total de 60 horas\", nos eixos ensino, pesquisa e extensão.",
+      "url": "https://sc.senai.br/sites/default/files/inline-files/PDI_2018-2022%20-%20Faculdade%20SENAI%20Joinville.pdf",
+      "pdf": "SENAI/SENAI_Faculdade_Tecnologia_SENAI_Joinville_PDI_2018-2022.pdf"
+    },
+    {
+      "id": "regimento-unisenai",
+      "numero": "Regimento do UniSENAI",
+      "data": "",
+      "status": "nao_publicada",
+      "nota": "Lido só no buscador (o site respondeu HTTP 503): as atividades complementares são \"requisito obrigatório para a colação de grau\".",
+      "url": "https://unisenaisc.com.br/wp-content/uploads/sites/12/2022/01/Regime-interno.pdf",
+      "pdf": ""
+    }
+  ],
+  "regras_gerais": [],
+  "como_enviar": {
+    "sistema": "Regulamento no \"Espaço do Estudante\" (não público)",
+    "prazo": "Não publicado",
+    "quem_aprova": "Não publicado",
+    "taxa": "Não publicado",
+    "fonte": "PDI 2018-2022"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "O PDI tratava a extensão como eixo dentro das AAC. Não se sabe se o UniSENAI já as separou.",
+    "fonte": "PDI 2018-2022"
+  },
+  "sistemas_academicos": "Espaço do Estudante (não público).",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Só existe o PDI 2018-2022 (vencido), com 60 h. O regimento do UniSENAI e o regulamento interno não estão acessíveis. Confirmar com a Secretaria."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "ECA",
+      "nome": "Engenharia de Controle e Automação",
+      "matriz": {
+        "codigo": "Processo seletivo 2026-1 (3.890 h de carga total)"
+      },
+      "horas": {
+        "valor": 60,
+        "unidade": "h",
+        "situacao": "historico",
+        "fonte": "https://sc.senai.br/sites/default/files/inline-files/PDI_2018-2022%20-%20Faculdade%20SENAI%20Joinville.pdf",
+        "nota": "O PDI fala em 60 h para a antiga Faculdade SENAI Joinville. O edital de 2026-1 não menciona horas complementares."
+      },
+      "pdf": [
+        "SENAI/SENAI_Faculdade_Tecnologia_SENAI_Joinville_PDI_2018-2022.pdf",
+        "SENAI/UniSENAI_SC_Edital33_Graduacoes_diferenciadas_2025.pdf"
+      ],
+      "a_confirmar": [
+        "A carga de 60 h vem de PDI vencido e da antiga Faculdade SENAI Joinville."
+      ]
+    }
+  ]
+}

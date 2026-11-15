@@ -2,7 +2,7 @@
 // No modo online (Supabase) os eventos entram por supabase/eventos-iniciais.sql.
 
 // Sobe quando a lista de eventos reais muda: bancos demo antigos são atualizados.
-export const SEED_VERSION = 13;
+export const SEED_VERSION = 14;
 
 // Eventos reais (divulgados pelo curso de PP da IELUSC e parceiros). São os mesmos que
 // supabase/eventos-iniciais.sql publica no modo online (gerado por scripts/gerar-sql-eventos.mjs).
@@ -180,6 +180,7 @@ export const DEMO_ACCOUNTS = [
   { email: 'aluno@demo.com', password: 'demo123', label: 'Universitário' },
   { email: 'organizador@demo.com', password: 'demo123', label: 'Organizador' },
   { email: 'admin@demo.com', password: 'demo123', label: 'Admin' },
+  { email: 'secretaria@demo.com', password: 'demo123', label: 'Secretaria' },
 ];
 
 export function demoSeed() {
@@ -188,9 +189,14 @@ export function demoSeed() {
     { id: 'demo-aluno', email: 'aluno@demo.com', seedPassword: 'demo123' },
     { id: 'demo-org', email: 'organizador@demo.com', seedPassword: 'demo123' },
     { id: 'demo-admin', email: 'admin@demo.com', seedPassword: 'demo123' },
+    { id: 'demo-secretaria', email: 'secretaria@demo.com', seedPassword: 'demo123' },
   ];
   const profiles = [
-    { id: 'demo-aluno', email: 'aluno@demo.com', name: 'Aluno Demo', role: 'student', institution_id: 'ielusc', course_id: 'PP', semester: 5, onboarded: true, accepted_terms_at: created, created_at: created },
+    { id: 'demo-aluno', email: 'aluno@demo.com', name: 'Aluno Demo', role: 'student', institution_id: 'ielusc', course_id: 'PP', semester: 5, entry_year: 2024, class_group: 'PP 2024/1', student_number: '000123', secretaria_consent_at: created, onboarded: true, accepted_terms_at: created, created_at: created },
+    // alunos fictícios só para a tela da secretaria no modo demonstração (sem login)
+    { id: 'demo-aluna-2', email: 'aluna2@demo.com', name: 'Aluna Exemplo (Jornalismo)', role: 'student', institution_id: 'ielusc', course_id: 'JOR', semester: 3, entry_year: 2025, class_group: 'JOR 2025/1', student_number: '000456', secretaria_consent_at: created, onboarded: true, accepted_terms_at: created, created_at: created },
+    { id: 'demo-aluno-3', email: 'aluno3@demo.com', name: 'Aluno Exemplo (sem autorização)', role: 'student', institution_id: 'ielusc', course_id: 'PP', semester: 3, entry_year: 2025, onboarded: true, accepted_terms_at: created, created_at: created },
+    { id: 'demo-secretaria', email: 'secretaria@demo.com', name: 'Secretaria Acadêmica (demo)', role: 'secretaria', institution_id: 'ielusc', onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-org', email: 'organizador@demo.com', name: 'Organizador Demo', role: 'organizer', org_name: 'Centro Acadêmico (exemplo)', org_instagram: '', org_status: 'approved', onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-admin', email: 'admin@demo.com', name: 'Equipe Àquelas Horas', role: 'admin', onboarded: true, accepted_terms_at: created, created_at: created },
   ];
@@ -199,6 +205,9 @@ export function demoSeed() {
     { id: 'c-2', user_id: 'demo-aluno', title: 'Curso de fotografia', type_key: 'capacitacao', hours: 40, issued_on: '2026-05-03', issuer: 'Exemplo', status: 'entregue', created_at: created },
     { id: 'c-3', user_id: 'demo-aluno', title: 'Projeto de extensão na comunidade', type_key: 'extensao', hours: 30, issued_on: '2026-06-20', issuer: 'Exemplo', status: 'guardado', created_at: created },
     { id: 'c-4', user_id: 'demo-aluno', title: 'Curso online de marketing digital', type_key: 'online', hours: 25, issued_on: '2026-08-15', issuer: 'Exemplo', status: 'guardado', created_at: created },
+    { id: 'c-5', user_id: 'demo-aluna-2', title: 'Semana de Jornalismo (ouvinte)', type_key: 'part_eventos', hours: 12, issued_on: '2026-05-20', issuer: 'Exemplo', status: 'entregue', created_at: created },
+    { id: 'c-6', user_id: 'demo-aluna-2', title: 'Monitoria de Redação', type_key: 'monitoria', hours: 30, issued_on: '2026-07-01', issuer: 'Exemplo', status: 'entregue', missing_requirements: ['assinatura'], created_at: created },
+    { id: 'c-7', user_id: 'demo-aluno-3', title: 'Oficina de fotografia', type_key: 'capacitacao', hours: 8, issued_on: '2026-06-10', issuer: 'Exemplo', status: 'entregue', created_at: created },
   ];
   const interactions = [];
   const events = REAL_EVENTS.map((e) => ({ ...e, organizer_id: 'demo-org' }));

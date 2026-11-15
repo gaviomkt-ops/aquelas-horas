@@ -1,0 +1,218 @@
+{
+  "id": "ead_polos",
+  "nome": "EaD com polo em Joinville",
+  "sigla": "EaD",
+  "tipo": "ead",
+  "campus": "Polos em Joinville",
+  "pasta_documentos": "EaD polos Joinville",
+  "requisito_nome": "AC, ACO (Cogna), AAC (Estácio)",
+  "resumo": "O aluno de polo segue o regulamento da instituição credenciadora, não do polo, quase sempre no AVA. A presença dos polos em Joinville foi levantada em agregadores e numa notícia da UNINTER, sem confirmação no e-MEC.",
+  "normas": [
+    {
+      "id": "unicesumar-rac",
+      "numero": "Regulamento de Atividades Complementares (RAC) da UniCesumar",
+      "data": "2024-04-19",
+      "status": "vigente",
+      "nota": "Presencial e EaD. Exige pelo menos 30% da carga em cada uma de três categorias. Tabela: evento científico 30 h; curso de extensão 20 h; palestra nacional 10 h; monitoria 20 h; estágio não obrigatório 40 h; livro publicado 40 h; ação social, comunitária ou extensionista 20 h. Resultado: CUMPRIDO ou NÃO CUMPRIDO.",
+      "url": "https://aluno.unicesumar.edu.br/lyceump/aonline/ti/docs/RAC_Mga.pdf",
+      "pdf": "EaD polos Joinville/UNICESUMAR_Regulamento_Atividades_Complementares_RAC_Mga.pdf"
+    },
+    {
+      "id": "cogna-aco",
+      "numero": "Regras Gerais das ACO (Cogna: Anhanguera, Unopar, Ampli)",
+      "data": "2026-06-10",
+      "status": "vigente",
+      "nota": "Um certificado por solicitação; no máximo 40 h por certificado; mesário 8 h por turno. Recusa certificados de pessoa física, de estágio obrigatório e de atividades anteriores ao ingresso.",
+      "url": "https://ampli.zendesk.com/hc/pt-br/articles/4427267966228--Gradua%C3%A7%C3%A3o-Regras-Gerais-das-Atividades-complementares-ACO",
+      "pdf": "EaD polos Joinville/COGNA-AMPLI_Regras_Gerais_Atividades_Complementares_ACO_Zendesk_2026-06.pdf"
+    },
+    {
+      "id": "estacio-manual",
+      "numero": "Manual do Aluno de Graduação Estácio 2022.1 (AAC)",
+      "data": "2022",
+      "status": "desatualizada",
+      "nota": "AAC recebidas no SIA. Lançamento: SIA > Atendimento > Requerimento > \"Lançar horas de atividades\".",
+      "url": "https://sia.estacio.br/alu/doc/manual_graduacao_ESTACIO.pdf",
+      "pdf": "EaD polos Joinville/ESTACIO_Manual_do_Aluno_Graduacao_2022-1.pdf"
+    }
+  ],
+  "regras_gerais": [],
+  "como_enviar": {
+    "sistema": "AVA de cada grupo: Studeo (UniCesumar), AVA/Leo App (UNIASSELVI), AVA Cogna, SIA (Estácio)",
+    "prazo": "UniCesumar EaD: documentação até o fim do curso",
+    "quem_aprova": "IES credenciadora",
+    "taxa": "Não informada",
+    "fonte": "Regulamentos de cada credenciadora"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "UniCesumar: a tabela traz \"ação social, comunitária ou extensionista – 20 h\", mas o blog oficial diz que atividades de extensão não podem ser protocoladas como horas complementares; a leitura provável é que a proibição vale para a extensão curricularizada.",
+    "fonte": "RAC UniCesumar; blog UniCesumar"
+  },
+  "sistemas_academicos": "Studeo, AVA UNIASSELVI/Leo App, AVA Cogna, SIA (Estácio).",
+  "alertas": [
+    {
+      "nivel": "alto",
+      "texto": "Polos em Joinville não confirmados no e-MEC. O regulamento que vale é o da credenciadora do seu curso, no AVA."
+    },
+    {
+      "nivel": "medio",
+      "texto": "Estácio: o teto de 50% de horas externas aparece com e sem exceção para EaD. UNINTER só tem manual de 2015. Cruzeiro do Sul (bloqueado, erro 403) e UNIP (sem documento oficial acessível) não foram lidas."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "UNICESUMAR",
+      "nome": "UniCesumar (EaD e presencial)",
+      "matriz": {
+        "codigo": "RAC de 19/04/2024"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://aluno.unicesumar.edu.br/lyceump/aonline/ti/docs/RAC_Mga.pdf",
+        "nota": "Total por matriz. Tabela de 10 a 40 h por atividade; mínimo de 30% em cada uma de três categorias."
+      },
+      "pdf": [
+        "EaD polos Joinville/UNICESUMAR_Regulamento_Atividades_Complementares_RAC_Mga.pdf",
+        "EaD polos Joinville/UNICESUMAR_Conexao_2020_envio_atividades_complementares.pdf",
+        "EaD polos Joinville/UNICESUMAR_Guia_Academico_2021.pdf"
+      ],
+      "norma_aplicavel": "unicesumar-rac",
+      "a_confirmar": [
+        "O total de horas depende da matriz de cada curso."
+      ],
+      "como_enviar_curso": "Studeo > Serviços > Envio de atividade complementar (desde set/2020)."
+    },
+    {
+      "id": "COGNA",
+      "nome": "Cogna (Anhanguera, Unopar, Ampli)",
+      "matriz": {
+        "codigo": "ACO, regras de 10/06/2026"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://ampli.zendesk.com/hc/pt-br/articles/4427267966228--Gradua%C3%A7%C3%A3o-Regras-Gerais-das-Atividades-complementares-ACO",
+        "nota": "Total por matriz. Teto de 40 h por certificado."
+      },
+      "pdf": [
+        "EaD polos Joinville/COGNA-AMPLI_Regras_Gerais_Atividades_Complementares_ACO_Zendesk_2026-06.pdf"
+      ],
+      "norma_aplicavel": "cogna-aco",
+      "a_confirmar": [
+        "As regras da Ampli valem igualmente para alunos Unopar/Anhanguera do AVA Colaborar? É provável, por serem do mesmo grupo, mas não foi confirmado."
+      ]
+    },
+    {
+      "id": "UNIASSELVI",
+      "nome": "UNIASSELVI",
+      "matriz": {
+        "codigo": "Guia do Estudante 2026 e Manual Indaial 2025.1"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://www.uniasselvi.com.br/extranet/o-2.0/download/arqu_download.php?link=301258",
+        "nota": "A tabela de horas só existe dentro do AVA."
+      },
+      "pdf": [
+        "EaD polos Joinville/UNIASSELVI_Guia_do_Estudante_Graduacao_Presencial_2026.pdf",
+        "EaD polos Joinville/UNIASSELVI_Manual_do_Academico_Indaial_2025-1.pdf"
+      ],
+      "a_confirmar": [
+        "Envio: AVA ou Leo App (Semestres > Atividades Complementares > Incluir). Tabela de horas só no AVA."
+      ]
+    },
+    {
+      "id": "ESTACIO",
+      "nome": "Estácio (AAC)",
+      "matriz": {
+        "codigo": "Manual 2022.1"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://sia.estacio.br/alu/doc/manual_graduacao_ESTACIO.pdf"
+      },
+      "pdf": [
+        "EaD polos Joinville/ESTACIO_Manual_do_Aluno_Graduacao_2022-1.pdf",
+        "EaD polos Joinville/ESTACIO-WYDEN_FACI_Regimento_Regulamento_AAC_2025.pdf",
+        "EaD polos Joinville/ESTACIO_Regulamento_AAC_2008.pdf"
+      ],
+      "norma_aplicavel": "estacio-manual",
+      "alertas": [
+        {
+          "nivel": "medio",
+          "texto": "Teto de 50% de horas externas com e sem exceção para EaD (modelo YDUQS visto na Faculdade Ideal Wyden). O Regulamento AAC de 2008 é obsoleto."
+        }
+      ]
+    },
+    {
+      "id": "UNINTER",
+      "nome": "UNINTER",
+      "matriz": {
+        "codigo": "Manual do 1º semestre de 2015"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "https://portal.uninter.com/wp-content/uploads/2015/03/MANUAL-DO-ALUNO-1%C2%B0-SEMESTRE-2015.pdf",
+        "nota": "Segundo o manual de 2015, as AC são opcionais nos cursos de tecnologia."
+      },
+      "pdf": [
+        "EaD polos Joinville/UNINTER_Manual_do_Aluno_1sem_2015.pdf"
+      ],
+      "a_confirmar": [
+        "Só existe o manual de 2015, e um texto de blog de 2026 que remete a carga ao projeto pedagógico."
+      ],
+      "alertas": [
+        {
+          "nivel": "medio",
+          "texto": "Documento antigo (2015)."
+        }
+      ]
+    },
+    {
+      "id": "CRUZEIRO",
+      "nome": "Cruzeiro do Sul",
+      "matriz": {
+        "codigo": "Não lida"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_verificado",
+        "fonte": "",
+        "nota": "Documentos bloqueados (erro 403)."
+      },
+      "pdf": [],
+      "a_confirmar": [
+        "Documentos bloqueados na pesquisa."
+      ]
+    },
+    {
+      "id": "UNIP",
+      "nome": "UNIP",
+      "matriz": {
+        "codigo": "Não localizada"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "nao_publicado",
+        "fonte": "",
+        "nota": "Sem documento oficial acessível."
+      },
+      "pdf": [],
+      "a_confirmar": [
+        "Sem documento oficial acessível."
+      ]
+    }
+  ]
+}

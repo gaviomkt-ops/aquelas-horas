@@ -1,0 +1,388 @@
+{
+  "id": "unisociesc",
+  "nome": "Centro Universitário Sociesc (Unisociesc, grupo Ânima)",
+  "sigla": "Unisociesc",
+  "tipo": "centro_universitario",
+  "campus": "Joinville (sede)",
+  "pasta_documentos": "Unisociesc",
+  "requisito_nome": "Atividades Complementares de Graduação (ACG)",
+  "resumo": "A regra está no Manual do Aluno da modalidade (versões de 2026) e no PPC de cada curso; não foi encontrada resolução específica de ACG. Teto de 45% da carga em uma única categoria e mínimo de três categorias.",
+  "normas": [
+    {
+      "id": "manual-e2a",
+      "numero": "Manual do Aluno Presencial E2A (2026-08)",
+      "data": "2026-08",
+      "status": "vigente",
+      "nota": "\"O aluno não poderá utilizar mais de 45% da carga horária total em uma única categoria, sendo obrigatória a realização de atividades em, no mínimo, três categorias diferentes.\" Comprovante com nome, carga horária, local, data, título, assinatura e QR Code ou código de validação.",
+      "url": "https://estaticos.animaeducacao.com.br/medias/20260828100141/Manual_Presencial_E2A_UniSociesc.pdf",
+      "pdf": "Unisociesc/Unisociesc_Manual_do_Aluno_Presencial_E2A_2026-08.pdf"
+    },
+    {
+      "id": "manual-ead",
+      "numero": "Manual do Aluno EaD (2026-08)",
+      "data": "2026-08",
+      "status": "vigente",
+      "nota": "Outra lógica: ACG Institucionais (60%) e Específicas do Curso (40%), em ensino, pesquisa e extensão; protocolo no Portal do Estudante/SIGA.",
+      "url": "https://estaticos.animaeducacao.com.br/medias/20260828110658/Manual_do_Aluno-EAD.pdf",
+      "pdf": "Unisociesc/Unisociesc_Manual_do_Aluno_EAD_2026-08.pdf"
+    },
+    {
+      "id": "manual-semi",
+      "numero": "Manual do Aluno Semipresencial (2026-08)",
+      "data": "2026-08",
+      "status": "vigente",
+      "nota": "Seis categorias, como o presencial.",
+      "url": "",
+      "pdf": "Unisociesc/Unisociesc_Manual_do_Aluno_Semipresencial_2026-08.pdf"
+    },
+    {
+      "id": "manual-radial",
+      "numero": "Manual do Aluno Radial (2026-08)",
+      "data": "2026-08",
+      "status": "vigente",
+      "nota": "",
+      "url": "",
+      "pdf": "Unisociesc/Unisociesc_Manual_do_Aluno_Radial_2026-08.pdf"
+    },
+    {
+      "id": "manual-legado",
+      "numero": "Manual do Aluno Currículo Legado (2026-04)",
+      "data": "2026-04",
+      "status": "vigente",
+      "nota": "",
+      "url": "",
+      "pdf": "Unisociesc/Unisociesc_Manual_do_Aluno_Curriculo_Legado_2026-04.pdf"
+    },
+    {
+      "id": "orientador-externas",
+      "numero": "Documento Orientador de Validação de Atividades Externas de Extensão (Ânima)",
+      "data": "",
+      "status": "desatualizada",
+      "nota": "Superado: previa validar extensão externa, o que deixou de valer em 2025/2.",
+      "url": "",
+      "pdf": "Unisociesc/Anima_Doc_Orientador_Validacao_Atividades_Externas_Extensao.pdf"
+    }
+  ],
+  "regras_gerais": [
+    {
+      "texto": "Seis categorias nos manuais presenciais: ensino e aprendizagem; pesquisa, produção científica e inovação tecnológica; culturais e esportivas; administrativas e de representação estudantil; internacionais; mundo do trabalho.",
+      "fonte": "Manual Presencial E2A"
+    },
+    {
+      "texto": "Máximo de 45% da carga em uma única categoria e no mínimo três categorias diferentes.",
+      "fonte": "Manual Presencial E2A"
+    },
+    {
+      "texto": "Colação de grau exige 100% da carga, inclusive ACG; ACG feitas depois do prazo de integralização podem ser cobradas.",
+      "fonte": "Manual Presencial E2A"
+    }
+  ],
+  "como_enviar": {
+    "sistema": "Protocolo no Ulife (EaD: Portal do Estudante/SIGA): abrir o protocolo, pagar a taxa de serviço e anexar os comprovantes",
+    "prazo": "Não informado",
+    "quem_aprova": "A confirmar (as horas validadas vão integralmente para o histórico; o componente aparece como \"Cumpriu\")",
+    "taxa": "Existe taxa de serviço, valor não encontrado",
+    "fonte": "Manual Presencial E2A (Ulife)"
+  },
+  "extensao": {
+    "mesma_hora_conta_nas_duas": "a_confirmar",
+    "regra": "A extensão é componente separado de 10% desde 2020/2. Desde 2025/2, extensão feita fora do ecossistema Ânima não é aceita, mas as ACG continuam aceitando atividades dentro ou fora da IES: um curso externo só vale como ACG. Nenhum documento diz se a mesma hora conta nas duas.",
+    "fonte": "Manual Presencial E2A; PPC Ciências Contábeis JOI"
+  },
+  "sistemas_academicos": "Ulife; Portal do Estudante (SIGA) no EaD.",
+  "alertas": [
+    {
+      "nivel": "medio",
+      "texto": "Os PPCs listam sete categorias (inovação tecnológica separada), os manuais presenciais seis e o manual EaD outra divisão. Vale o manual da sua modalidade."
+    },
+    {
+      "nivel": "medio",
+      "texto": "Taxa do protocolo no Ulife não informada. Nenhum documento público traz horas por tipo de certificado, só o teto de 45% e o mínimo de três categorias."
+    },
+    {
+      "nivel": "medio",
+      "texto": "Não há PPC publicado com cabeçalho de Joinville para Direito, Psicologia, Arquitetura, Enfermagem, SI, Administração ou Engenharia de Software, e não se confirmou quais funcionam no campus."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "ECIV",
+      "nome": "Engenharia Civil",
+      "matriz": {
+        "codigo": "PPC 2026 (Presencial)"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Engenharia_Civil_Presencial_2026.pdf"
+      ],
+      "modalidade": "Presencial"
+    },
+    {
+      "id": "EELE",
+      "nome": "Engenharia Elétrica",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Engenharia_Eletrica_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial"
+    },
+    {
+      "id": "EMEC",
+      "nome": "Engenharia Mecânica",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Engenharia_Mecanica_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial"
+    },
+    {
+      "id": "EPROD",
+      "nome": "Engenharia de Produção",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Engenharia_de_Producao_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial"
+    },
+    {
+      "id": "NUT",
+      "nome": "Nutrição",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Nutricao_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial"
+    },
+    {
+      "id": "CONT",
+      "nome": "Ciências Contábeis",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": 80,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_Ciencias_Contabeis_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial"
+    },
+    {
+      "id": "CST-DI",
+      "nome": "CST Design de Interiores",
+      "matriz": {
+        "codigo": "PPC 2026 (EaD)"
+      },
+      "horas": {
+        "valor": 120,
+        "unidade": "h",
+        "situacao": "verificado",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_CST_Design_de_Interiores_EAD_2026.pdf"
+      ],
+      "modalidade": "EaD"
+    },
+    {
+      "id": "CST-PG",
+      "nome": "CST Processos Gerenciais",
+      "matriz": {
+        "codigo": "PPC 2026 (Semipresencial)"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "zero_a_confirmar",
+        "fonte": "https://www.unisociesc.com.br/sobre/documentos-institucionais/",
+        "nota": "Sem carga obrigatória de ACG no PPC."
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_Joinville_PPC_CST_Processos_Gerenciais_Semipresencial_2026.pdf"
+      ],
+      "modalidade": "Semipresencial",
+      "a_confirmar": [
+        "Sem carga obrigatória de ACG no PPC: confirmar na coordenação."
+      ]
+    },
+    {
+      "id": "DIR-BNU",
+      "nome": "Direito (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": 130,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "estaticos.animaeducacao.com.br (PPC Blumenau)"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Direito_2025.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "ENF-BNU",
+      "nome": "Enfermagem (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": 210,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "estaticos.animaeducacao.com.br (PPC Blumenau)"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Enfermagem_2026.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "SI-BNU",
+      "nome": "Sistemas de Informação (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": 100,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "estaticos.animaeducacao.com.br (PPC Blumenau)"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Sistemas_de_Informacao_2026.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "ARQ-BNU",
+      "nome": "Arquitetura e Urbanismo (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "estaticos.animaeducacao.com.br (PPC Blumenau)"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Arquitetura_e_Urbanismo_2026.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "ESOFT-BNU",
+      "nome": "Engenharia de Software (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": 40,
+        "unidade": "h",
+        "situacao": "referencia_outra_unidade",
+        "fonte": "estaticos.animaeducacao.com.br (PPC Blumenau)"
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Engenharia_de_Software_2026.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    },
+    {
+      "id": "PSI-BNU",
+      "nome": "Psicologia (referência: Blumenau)",
+      "matriz": {
+        "codigo": "PPC Blumenau"
+      },
+      "horas": {
+        "valor": null,
+        "unidade": null,
+        "situacao": "referencia_outra_unidade",
+        "fonte": "",
+        "nota": "Sem ACG no PPC de Blumenau."
+      },
+      "pdf": [
+        "Unisociesc/Unisociesc_BLUMENAU_PPC_Psicologia_2026.pdf"
+      ],
+      "referencia_outra_unidade": true,
+      "alertas": [
+        {
+          "nivel": "alto",
+          "texto": "Matriz de OUTRA unidade (não é de Joinville): serve só de referência. Não use este número como se fosse o do seu curso."
+        }
+      ]
+    }
+  ]
+}

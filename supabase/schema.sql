@@ -35,6 +35,7 @@ create table if not exists public.profiles (
 alter table public.profiles add column if not exists institution_type text
   check (institution_type in ('faculdade', 'universidade', 'centro_universitario'));
 alter table public.profiles add column if not exists institution_name text;
+alter table public.profiles add column if not exists entry_year smallint check (entry_year between 2000 and 2100);
 alter table public.profiles add column if not exists password_set boolean not null default false;
 
 create or replace function public.is_admin() returns boolean
