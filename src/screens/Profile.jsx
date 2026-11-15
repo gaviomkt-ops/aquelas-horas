@@ -4,6 +4,7 @@ import { useStore } from '../lib/store.jsx';
 import { isDemo } from '../lib/backend/index.js';
 import { INSTITUTIONS, getCourse, getInstitution } from '../lib/rules.js';
 import { Avatar, Badge, Button, Field, Icon } from '../components/ui.jsx';
+import { InstallButton } from '../components/InstallApp.jsx';
 
 const ROLE = { student: 'Universitário', organizer: 'Organizador', admin: 'Administrador' };
 
@@ -81,6 +82,7 @@ export default function Profile() {
               <Icon name="FileText" /> <span>Relatório acadêmico</span> <Icon name="ChevronRight" size={18} />
             </Link>
           )}
+          <InstallButton variant="menu" />
           <Link className="menu-item" to="/privacidade">
             <Icon name="Lock" /> <span>Privacidade</span> <Icon name="ChevronRight" size={18} />
           </Link>

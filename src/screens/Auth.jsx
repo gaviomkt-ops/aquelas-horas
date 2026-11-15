@@ -4,6 +4,7 @@ import { useStore } from '../lib/store.jsx';
 import { isDemo } from '../lib/backend/index.js';
 import { DEMO_ACCOUNTS } from '../lib/seed.js';
 import { Button, Field, Icon, Logo, Segmented } from '../components/ui.jsx';
+import { InstallButton } from '../components/InstallApp.jsx';
 
 export default function Auth() {
   const { api, notify } = useStore();
@@ -120,6 +121,8 @@ export default function Auth() {
             </button>
           )}
         </form>
+
+        <InstallButton variant="link" />
 
         <Link to="/explorar" className="guest-link">
           <Icon name="Eye" size={16} /> Ver os eventos antes de criar conta

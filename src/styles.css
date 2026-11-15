@@ -2418,3 +2418,57 @@ select.autofilled,
   gap: 5px;
   align-items: flex-start;
 }
+
+/* instalar o app */
+.install-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px dashed var(--brand-100);
+  background: var(--brand-50);
+  border-radius: var(--radius);
+  text-align: left;
+  color: var(--brand-600);
+}
+.install-ic {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--brand);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.install-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink);
+}
+.install-text small {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+.install-steps {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.install-steps svg {
+  vertical-align: -3px;
+  color: var(--brand);
+}
+.link-reset {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}

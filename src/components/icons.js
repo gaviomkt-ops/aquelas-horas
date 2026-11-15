@@ -1,6 +1,12 @@
 // Ícones usados no app (import nomeado para o bundle ficar pequeno).
 import {
   ArrowRight,
+  Copy,
+  Share,
+  SquarePlus,
+  Smartphone,
+  EllipsisVertical,
+  Compass,
   Send,
   ListChecks,
   ShieldAlert,
@@ -84,6 +90,12 @@ import {
 
 export const ICONS = {
   ArrowRight,
+  Copy,
+  Share,
+  SquarePlus,
+  Smartphone,
+  EllipsisVertical,
+  Compass,
   Send,
   ListChecks,
   ShieldAlert,

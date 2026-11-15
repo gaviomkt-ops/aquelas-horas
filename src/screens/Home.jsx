@@ -6,6 +6,7 @@ import { isPast, isLive, ymd, todayYmd, isFree } from '../lib/format.js';
 import { roomInType, formatHours } from '../lib/progress.js';
 import { BoostCarousel, CategoryStrip, EventCard } from '../components/events.jsx';
 import { Chip, Empty, Icon, Ring } from '../components/ui.jsx';
+import { InstallButton } from '../components/InstallApp.jsx';
 
 export function upcoming(events) {
   return events
@@ -83,6 +84,8 @@ export default function Home() {
           </span>
         </div>
       </Link>
+
+      <InstallButton variant="card" />
 
       {hot.length > 0 && (
         <section className="sec">
