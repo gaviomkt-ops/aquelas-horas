@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
 import { isDemo } from '../lib/backend/index.js';
-import { INSTITUTIONS, getCourse, getInstitution } from '../lib/rules.js';
+import { INSTITUTIONS, INSTITUTION_TYPES, getCourse, getInstitution, institutionLabel } from '../lib/rules.js';
 import { Avatar, Badge, Button, Field, Icon } from '../components/ui.jsx';
 import { InstallButton } from '../components/InstallApp.jsx';
+import { ChangePasswordSheet } from './NewPassword.jsx';
 
 const ROLE = { student: 'Universitário', organizer: 'Organizador', admin: 'Administrador' };
 
@@ -13,6 +14,7 @@ export default function Profile() {
   const [edit, setEdit] = useState(false);
   const [f, setF] = useState(profile);
   const [busy, setBusy] = useState(false);
+  const [pwOpen, setPwOpen] = useState(false);
   const inst = getInstitution(f.institution_id);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
 
@@ -24,6 +26,8 @@ export default function Profile() {
       if (profile.role === 'student') {
         Object.assign(patch, {
           institution_id: f.institution_id,
+          institution_type: inst.custom ? f.institution_type || null : inst.type,
+          institution_name: inst.custom ? (f.institution_name || '').trim() : inst.name,
           course_id: inst.courses.some((c) => c.id === f.course_id) ? f.course_id : inst.courses[0].id,
           semester: f.semester ? Number(f.semester) : null,
           goal_hours: inst.custom ? Number(f.goal_hours) || null : null,
@@ -66,7 +70,7 @@ export default function Profile() {
         </div>
         {course && (
           <p className="muted small">
-            {getInstitution(profile.institution_id).name} · {course.name}
+            {institutionLabel(profile)} · {getInstitution(profile.institution_id).custom ? `meta de ${profile.goal_hours || '?'}h` : course.name}
             {profile.semester ? ` · ${profile.semester}º semestre` : ''}
           </p>
         )}
@@ -83,6 +87,9 @@ export default function Profile() {
             </Link>
           )}
           <InstallButton variant="menu" />
+          <button className="menu-item" onClick={() => setPwOpen(true)}>
+            <Icon name="Lock" /> <span>Trocar senha</span> <Icon name="ChevronRight" size={18} />
+          </button>
           <Link className="menu-item" to="/privacidade">
             <Icon name="Lock" /> <span>Privacidade</span> <Icon name="ChevronRight" size={18} />
           </Link>
@@ -143,9 +150,24 @@ export default function Profile() {
                   </select>
                 </Field>
               ) : (
-                <Field label="Meta de horas do curso" htmlFor="pg">
-                  <input id="pg" type="number" min="1" max="2000" value={f.goal_hours || ''} onChange={set('goal_hours')} required />
-                </Field>
+                <>
+                  <Field label="Tipo de instituição" htmlFor="pt">
+                    <select id="pt" value={f.institution_type || ''} onChange={set('institution_type')} required>
+                      <option value="">Escolha</option>
+                      {INSTITUTION_TYPES.map((t) => (
+                        <option key={t.id} value={t.id}>
+                          {t.label}
+                        </option>
+                      ))}
+                    </select>
+                  </Field>
+                  <Field label="Nome da instituição" htmlFor="pin">
+                    <input id="pin" value={f.institution_name || ''} onChange={set('institution_name')} maxLength={120} required />
+                  </Field>
+                  <Field label="Meta de horas do curso" htmlFor="pg">
+                    <input id="pg" type="number" min="1" max="2000" value={f.goal_hours || ''} onChange={set('goal_hours')} required />
+                  </Field>
+                </>
               )}
               <Field label="Semestre" htmlFor="ps">
                 <select id="ps" value={f.semester || ''} onChange={set('semester')}>
@@ -188,6 +210,7 @@ export default function Profile() {
           </Button>
         </form>
       )}
+      <ChangePasswordSheet open={pwOpen} onClose={() => setPwOpen(false)} />
     </div>
   );
 }

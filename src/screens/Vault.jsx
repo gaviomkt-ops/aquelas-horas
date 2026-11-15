@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
-import { getCourse, getInstitution, typeLabel } from '../lib/rules.js';
+import { getCourse, getInstitution, institutionLabel, typeLabel } from '../lib/rules.js';
 import { formatHours } from '../lib/progress.js';
 import { Badge, Bar, Button, Empty, Icon, Ring, Segmented } from '../components/ui.jsx';
 import CertificateForm, { CERT_STATUS } from './CertificateForm.jsx';
@@ -77,7 +77,7 @@ export default function Vault() {
           </div>
         </div>
         <p className="summary-course">
-          <Icon name="GraduationCap" size={15} /> {inst.custom ? `Meta de ${progress.goal}h` : `${inst.name} · ${course.name}`}
+          <Icon name="GraduationCap" size={15} /> {inst.custom ? `${institutionLabel(profile)} · meta de ${progress.goal}h` : `${inst.name} · ${course.name}`}
         </p>
         {progress.lost > 0 && (
           <div className="alert alert-warn">

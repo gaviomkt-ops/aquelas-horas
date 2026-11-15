@@ -135,7 +135,7 @@ async function hash(text) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-const STUDENT_FIELDS = ['name', 'institution_id', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at'];
+const STUDENT_FIELDS = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set'];
 const EVENT_FIELDS = ['title', 'description', 'category', 'hours', 'starts_at', 'ends_at', 'location', 'address', 'city', 'price', 'link', 'image_url', 'courses', 'institution_id', 'boost_status', 'capacity', 'requirements', 'cert_issuer', 'cert_signer_name', 'cert_signer_role', 'cert_participation', 'cert_delivery'];
 
 export const local = {
@@ -156,7 +156,7 @@ export const local = {
     if (String(password).length < 8) throw new Error('A senha precisa ter pelo menos 8 caracteres, com letras e números.');
     const id = uid();
     db.users.push({ id, email: e, password: await hash(password) });
-    db.profiles.push({ id, email: e, name: name || e.split('@')[0], role: 'student', onboarded: false, created_at: now() });
+    db.profiles.push({ id, email: e, name: name || e.split('@')[0], role: 'student', onboarded: false, password_set: false, created_at: now() });
     save(db);
     localStorage.setItem(SESSION, id);
     emit();
@@ -176,8 +176,13 @@ export const local = {
     localStorage.removeItem(SESSION);
     emit();
   },
-  async updatePassword() {
-    throw new Error('No modo demonstração não há troca de senha.');
+  async updatePassword(password) {
+    const id = requireUser();
+    const db = load();
+    const u = db.users.find((x) => x.id === id);
+    u.password = await hash(password);
+    delete u.seedPassword;
+    save(db);
   },
   async resetPassword() {
     throw new Error('No modo demonstração não há envio de e-mail. Crie outra conta de teste.');

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
-import { getCourse, getInstitution } from '../lib/rules.js';
+import { getCourse, getInstitution, institutionLabel } from '../lib/rules.js';
 import { formatHours } from '../lib/progress.js';
 import { Button, Icon, Logo } from '../components/ui.jsx';
 import { CERT_STATUS } from './CertificateForm.jsx';
@@ -32,7 +32,7 @@ export default function Report() {
               <b>{profile.name}</b> · {profile.email}
             </p>
             <p>
-              {inst.custom ? 'Instituição não cadastrada' : inst.name} · {inst.custom ? `meta informada: ${progress.goal}h` : course.name}
+              {institutionLabel(profile)} · {inst.custom ? `meta informada: ${progress.goal}h` : course.name}
               {profile.semester ? ` · ${profile.semester}º semestre` : ''}
             </p>
             <p className="small">Gerado em {today} pelo Àquelas Horas. Regras: {inst.source}.</p>

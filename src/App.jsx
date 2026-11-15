@@ -97,6 +97,9 @@ function Shell() {
 
   if (!profile) return <Splash />;
 
+  // primeira senha é a data de nascimento: só libera o app depois de criar uma senha nova
+  if (profile.password_set === false) return <NewPassword firstAccess />;
+
   if (!profile.onboarded) {
     return (
       <Routes>

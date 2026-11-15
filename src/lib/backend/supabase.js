@@ -77,7 +77,7 @@ export function makeSupabaseBackend(url, anonKey) {
     },
     async saveMyProfile(patch) {
       const id = await uidOrThrow();
-      const allowed = ['name', 'institution_id', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at'];
+      const allowed = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set'];
       const clean = {};
       for (const k of allowed) if (k in patch) clean[k] = patch[k];
       return ok(await sb.from('profiles').update(clean).eq('id', id).select().single());

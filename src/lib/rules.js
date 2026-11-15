@@ -114,6 +114,7 @@ export const EVENT_CATEGORIES = [
 export const INSTITUTIONS = [
   {
     id: 'ielusc',
+    type: 'faculdade',
     name: 'Faculdade IELUSC',
     city: 'Joinville',
     source: 'Resolução CES nº 35/2019, tabela de equivalência de ACGs',
@@ -122,7 +123,8 @@ export const INSTITUTIONS = [
   },
   {
     id: 'mackenzie_jor',
-    name: 'Mackenzie',
+    type: 'universidade',
+    name: 'Universidade Presbiteriana Mackenzie',
     city: 'São Paulo',
     source: 'Regulamento de Atividades Complementares do curso de Jornalismo',
     courses: [{ id: 'JOR', name: 'Jornalismo', goal: 300 }],
@@ -138,6 +140,20 @@ export const INSTITUTIONS = [
     custom: true,
   },
 ];
+
+export const INSTITUTION_TYPES = [
+  { id: 'faculdade', label: 'Faculdade' },
+  { id: 'universidade', label: 'Universidade' },
+  { id: 'centro_universitario', label: 'Centro universitário' },
+];
+
+// Nome que aparece no perfil e no relatório ("Faculdade IELUSC", "Universidade X"…)
+export function institutionLabel(profile) {
+  const inst = getInstitution(profile?.institution_id);
+  if (!inst.custom) return inst.name;
+  const name = (profile?.institution_name || '').trim();
+  return name || 'Outra instituição';
+}
 
 export function getInstitution(id) {
   return INSTITUTIONS.find((i) => i.id === id) || INSTITUTIONS[0];
