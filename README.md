@@ -152,3 +152,12 @@ Base de dados com as regras de ACG/AC de 14 grupos de instituições de Joinvill
 - **Ligar no Supabase:** rodar `supabase/migracao-2026-11-15-ano-ingresso.sql` e depois `supabase/migracao-2026-11-15-secretaria.sql`. Criar a conta: a pessoa se cadastra no app e um admin roda `update public.profiles set role = 'secretaria', institution_id = 'ielusc', onboarded = true where email = '...';`.
 - **Outras faculdades:** acrescentar o id em `SECRETARIA_PILOTO` (`src/lib/secretaria.js`) depois de combinar com a secretaria delas.
 - **Demo:** botão "Secretaria" nas contas de teste (`secretaria@demo.com`).
+
+## Eventos sugeridos por qualquer pessoa (aprovação dupla)
+
+- **Quem envia:** qualquer pessoa com cadastro completo (aba Eventos > "Sugerir evento", ou Perfil > "Eventos que sugeri"), com pré-requisitos, quem organiza, cursos e dados do certificado. Limite de 5 eventos em análise por pessoa.
+- **Quem aprova:** o evento só entra na vitrine com a aprovação do **admin** e da **coordenação do curso** correspondente (mesma instituição; curso marcado no evento, ou qualquer curso se nenhum foi marcado). Se o curso ainda não tem coordenação no app, a aprovação do admin basta. Editar o conteúdo depois volta o evento para as duas aprovações.
+- **Coordenação:** o admin dá o papel em Painel > Equipe (papel "Coordenação de curso", instituição e curso). Ninguém se promove sozinho; o banco garante isso em `guard_profile`.
+- **Admin que também é aluno:** se o perfil do admin tem instituição, ele usa Início, Cofre e Agenda como aluno e o Painel fica na aba "Painel".
+- **Ligar no Supabase:** rodar `supabase/migracao-2026-11-16-eventos-abertos.sql` (aplicada em 16/11/2026).
+- **Demo:** contas de teste "Universitário", "Admin" e "Coordenação PP" (`coordenacao@demo.com`).

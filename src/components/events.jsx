@@ -5,12 +5,13 @@ import { EVENT_CATEGORIES, eventCategory, typeForEvent } from '../lib/rules.js';
 import { dateRangeLabel, timeLabel, priceLabel, isLive, isNew, isFree } from '../lib/format.js';
 import { roomInType } from '../lib/progress.js';
 import { useStore } from '../lib/store.jsx';
+import { isStudentLike } from '../lib/roles.js';
 
 // Quanto o evento rende para o aluno logado: "+12h" ou "teto atingido"
 export function useHoursFit(event) {
   const { profile, progress } = useStore();
   if (!(Number(event.hours) > 0)) return { label: 'Horas a confirmar', tone: 'neutral', note: 'Carga horária não divulgada' };
-  if (!profile || profile.role !== 'student' || !progress) return { label: `+${fmt(event.hours)}`, tone: 'brand' };
+  if (!profile || !isStudentLike(profile) || !progress) return { label: `+${fmt(event.hours)}`, tone: 'brand' };
   const key = typeForEvent(profile, event.category);
   if (!key) return { label: `${fmt(event.hours)}`, tone: 'neutral', note: 'Categoria fora da tabela do seu curso' };
   const room = roomInType(progress, key);

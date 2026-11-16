@@ -1,21 +1,24 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStore } from '../lib/store.jsx';
 import { formatHours } from '../lib/progress.js';
 import { Avatar, Badge, Bar, Button, Empty, Icon, Segmented } from '../components/ui.jsx';
 import { EventRow } from './OrgHome.jsx';
+import { INSTITUTIONS, getInstitution } from '../lib/rules.js';
+import { ROLE_LABEL } from '../lib/roles.js';
 
 export default function Admin() {
-  const { api, counts, notify, loadEvents } = useStore();
+  const { api, counts, notify, loadEvents, user } = useStore();
   const [tab, setTab] = useState('numeros');
   const [stats, setStats] = useState(null);
-  const [orgs, setOrgs] = useState([]);
+  const [people, setPeople] = useState([]);
+  const orgs = useMemo(() => people.filter((p) => p.role === 'organizer'), [people]);
   const [events, setEvents] = useState([]);
 
   const load = useCallback(async () => {
     try {
-      const [s, o, e] = await Promise.all([api.stats(), api.listProfiles({ role: 'organizer' }), api.listAllEvents()]);
+      const [s, o, e] = await Promise.all([api.stats(), api.listProfiles({}), api.listAllEvents()]);
       setStats(s);
-      setOrgs(o);
+      setPeople(o);
       setEvents(e);
     } catch (err) {
       notify(err.message, 'error');
@@ -27,8 +30,8 @@ export default function Admin() {
 
   async function run(fn, msg) {
     try {
-      await fn();
-      notify(msg);
+      const r = await fn();
+      notify(typeof msg === 'function' ? msg(r) : msg);
       await Promise.all([load(), loadEvents()]);
     } catch (err) {
       notify(err.message, 'error');
@@ -43,8 +46,11 @@ export default function Admin() {
   const reject = (ev) => {
     const reason = window.prompt('Motivo da recusa (o organizador vai ver):', '');
     if (reason === null) return;
-    run(() => api.adminUpdateEvent(ev.id, { status: 'rejected', reject_reason: reason }), 'Evento recusado.');
+    run(() => api.rejectEvent(ev.id, reason), 'Evento recusado.');
   };
+  // aprovação dupla: o banco só publica com admin + coordenação do curso (se o curso tiver coordenação no app)
+  const approve = (ev) =>
+    run(() => api.approveEvent(ev.id), (st) => (st === 'approved' ? 'Evento publicado.' : 'Aprovado pelo admin. Falta a coordenação do curso.'));
   const activateBoost = (ev) => {
     const days = Number(window.prompt('Destacar por quantos dias?', '7'));
     if (!(days > 0)) return;
@@ -71,6 +77,7 @@ export default function Admin() {
           { value: 'numeros', label: 'Números' },
           { value: 'eventos', label: 'Eventos', count: pendingEvents.length || null },
           { value: 'orgs', label: 'Organizadores', count: pendingOrgs.length || null },
+          { value: 'equipe', label: 'Equipe' },
           { value: 'destaque', label: 'Destaques', count: boostReq.length || null },
         ]}
       />
@@ -156,9 +163,13 @@ export default function Admin() {
               counts={counts}
               actions={
                 <div className="row-gap">
-                  <Button size="sm" icon="Check" onClick={() => run(() => api.adminUpdateEvent(ev.id, { status: 'approved', reject_reason: null }), 'Evento publicado.')}>
-                    Aprovar
-                  </Button>
+                  {!ev.admin_approved_at ? (
+                    <Button size="sm" icon="Check" onClick={() => approve(ev)}>
+                      Aprovar
+                    </Button>
+                  ) : (
+                    <span className="muted small">Você já aprovou. Falta a coordenação.</span>
+                  )}
                   <Button size="sm" variant="ghost" icon="X" onClick={() => reject(ev)}>
                     Recusar
                   </Button>
@@ -181,8 +192,8 @@ export default function Admin() {
                         Tirar do ar
                       </Button>
                     ) : (
-                      <Button size="sm" variant="ghost" icon="Check" onClick={() => run(() => api.adminUpdateEvent(ev.id, { status: 'approved', reject_reason: null }), 'Evento publicado.')}>
-                        Publicar
+                      <Button size="sm" variant="ghost" icon="Check" onClick={() => approve(ev)}>
+                        Aprovar de novo
                       </Button>
                     )}
                     <Button
@@ -198,6 +209,8 @@ export default function Admin() {
             ))}
         </div>
       )}
+
+      {tab === 'equipe' && <TeamTab people={people} me={user?.id} onSave={(id, patch, msg) => run(() => api.adminUpdateProfile(id, patch), msg)} />}
 
       {tab === 'orgs' && (
         <div className="stack">
@@ -274,5 +287,95 @@ export default function Admin() {
         </div>
       )}
     </div>
+  );
+}
+
+// Equipe: o admin define quem é coordenação de curso, secretaria, organizador ou admin.
+function TeamTab({ people, me, onSave }) {
+  const [q, setQ] = useState('');
+  const norm = (t) => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const list = people.filter((p) => !q.trim() || norm(`${p.name} ${p.email} ${p.org_name}`).includes(norm(q)));
+  return (
+    <div className="stack">
+      <p className="muted small">
+        A pessoa precisa ter se cadastrado no app. Coordenação aprova eventos do curso dela; secretaria valida certificados que os alunos enviam. Ninguém consegue se dar esses papéis sozinho.
+      </p>
+      <div className="search">
+        <Icon name="Search" size={18} />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por nome ou e-mail" aria-label="Buscar pessoas" />
+      </div>
+      {!list.length && <Empty icon="Users" title="Ninguém encontrado" />}
+      {list.map((p) => (
+        <PersonRow key={p.id} p={p} self={p.id === me} onSave={onSave} />
+      ))}
+    </div>
+  );
+}
+
+function PersonRow({ p, self, onSave }) {
+  const [role, setRole] = useState(p.role);
+  const [inst, setInst] = useState(p.institution_id || 'ielusc');
+  const [course, setCourse] = useState(p.course_id || '');
+  const courses = getInstitution(inst).courses || [];
+  const changed = role !== p.role || ((role === 'coordenador' || role === 'secretaria') && (inst !== (p.institution_id || 'ielusc') || (role === 'coordenador' && course !== (p.course_id || ''))));
+
+  function save() {
+    const patch = { role };
+    if (role === 'organizer') patch.org_status = 'approved';
+    if (role === 'student') patch.org_status = null;
+    if (role === 'coordenador') Object.assign(patch, { institution_id: inst, course_id: course || null, onboarded: true });
+    if (role === 'secretaria') Object.assign(patch, { institution_id: inst, onboarded: true });
+    const label = ROLE_LABEL[role] || role;
+    if (!window.confirm(`Mudar ${p.name || p.email} para "${label}"?`)) return;
+    onSave(p.id, patch, `${p.name || p.email} agora é ${label}.`);
+  }
+
+  return (
+    <article className="org-card">
+      <Avatar name={p.name || p.email} size={40} />
+      <div className="org-card-body">
+        <h3>{p.name || '(sem nome)'}</h3>
+        <p>{p.email}</p>
+        <div className="row-gap wrap">
+          <Badge tone={p.role === 'admin' ? 'brand' : p.role === 'student' ? 'neutral' : 'ok'}>{ROLE_LABEL[p.role] || p.role}</Badge>
+          {p.institution_name && <span className="muted small">{p.institution_name}{p.course_id ? ` · ${p.course_id}` : ''}</span>}
+        </div>
+        {self ? (
+          <p className="muted small">Esta é a sua conta.</p>
+        ) : (
+          <div className="team-edit">
+            <select value={role} onChange={(e) => setRole(e.target.value)} aria-label="Papel">
+              {Object.entries(ROLE_LABEL).map(([v, l]) => (
+                <option key={v} value={v}>
+                  {l}
+                </option>
+              ))}
+            </select>
+            {(role === 'coordenador' || role === 'secretaria') && (
+              <select value={inst} onChange={(e) => { setInst(e.target.value); setCourse(''); }} aria-label="Instituição">
+                {INSTITUTIONS.filter((i) => !i.custom).map((i) => (
+                  <option key={i.id} value={i.id}>
+                    {i.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            {role === 'coordenador' && (
+              <select value={course} onChange={(e) => setCourse(e.target.value)} aria-label="Curso">
+                <option value="">Todos os cursos</option>
+                {courses.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            <Button size="sm" disabled={!changed} onClick={save}>
+              Salvar
+            </Button>
+          </div>
+        )}
+      </div>
+    </article>
   );
 }

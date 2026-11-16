@@ -84,6 +84,15 @@ function requireSecretaria(db) {
   if (p?.role !== 'secretaria' && p?.role !== 'admin') throw new Error('Apenas a secretaria.');
   return p;
 }
+// coordenador correspondente: mesma instituição e curso dentro dos cursos do evento
+function coordinates(p, ev) {
+  if (!p || p.role !== 'coordenador' || !p.institution_id || p.institution_id !== (ev.institution_id || 'ielusc')) return false;
+  const courses = ev.courses || [];
+  return courses.length === 0 || !p.course_id || courses.includes(p.course_id);
+}
+function hasCoordinator(db, ev) {
+  return db.profiles.some((p) => coordinates(p, ev));
+}
 function requireAdmin(db) {
   const p = myProfile(db);
   if (p?.role !== 'admin') throw new Error('Apenas administradores.');
@@ -296,10 +305,19 @@ export const local = {
     const me = myProfile(db);
     if (!me) throw new Error('Faça login para continuar.');
     const isAdmin = me.role === 'admin';
-    if (!isAdmin && !(me.role === 'organizer' && me.org_status === 'approved')) throw new Error('Seu perfil de organizador ainda não foi aprovado.');
-    const ev = { id: uid(), organizer_id: me.id, organizer_name: me.org_name || me.name, status: isAdmin ? 'approved' : 'pending', boost_status: 'none', boost_until: null, views: 0, link_clicks: 0, created_at: now(), updated_at: now() };
+    if (!me.onboarded) throw new Error('Complete seu cadastro antes de enviar eventos.');
+    if (!isAdmin && db.events.filter((e) => e.organizer_id === me.id && e.status === 'pending').length >= 5)
+      throw new Error('Você já tem 5 eventos em análise. Espere a aprovação antes de enviar outro.');
+    const ev = { id: uid(), organizer_id: me.id, status: 'pending', boost_status: 'none', boost_until: null, views: 0, link_clicks: 0, created_at: now(), updated_at: now() };
     for (const k of EVENT_FIELDS) if (k in data) ev[k] = data[k];
+    ev.organizer_name = String(data.organizer_name || '').trim().slice(0, 120) || me.org_name || me.name;
     if (!isAdmin && !['none', 'requested'].includes(ev.boost_status)) ev.boost_status = 'none';
+    // admin que cria já conta como aprovação do admin; falta a coordenação do curso, se existir
+    if (isAdmin) {
+      ev.admin_approved_at = now();
+      ev.admin_approved_by = me.id;
+      ev.status = hasCoordinator(db, ev) ? 'pending' : 'approved';
+    }
     db.events.push(ev);
     save(db);
     return ev;
@@ -320,11 +338,45 @@ export const local = {
     if (!isAdmin) {
       if (!['none', 'requested', 'active'].includes(ev.boost_status)) ev.boost_status = 'none';
       if (patch.boost_status === 'active') ev.boost_status = 'requested';
-      if (contentChanged) ev.status = 'pending';
+      if (contentChanged) Object.assign(ev, { status: 'pending', reject_reason: null, admin_approved_at: null, admin_approved_by: null, coord_approved_at: null, coord_approved_by: null });
     }
     ev.updated_at = now();
     save(db);
     return ev;
+  },
+  // aprovação dupla: admin + coordenação do curso (se o curso tiver coordenador no app)
+  async approveEvent(id) {
+    const db = load();
+    const me = myProfile(db);
+    const ev = db.events.find((x) => x.id === id);
+    if (!ev) throw new Error('Evento não encontrado.');
+    const adminOk = me?.role === 'admin';
+    const coordOk = coordinates(me, ev);
+    if (!adminOk && !coordOk) throw new Error('Você não pode aprovar este evento.');
+    if (adminOk) Object.assign(ev, { admin_approved_at: now(), admin_approved_by: me.id });
+    if (coordOk) Object.assign(ev, { coord_approved_at: now(), coord_approved_by: me.id });
+    ev.reject_reason = null;
+    ev.status = ev.admin_approved_at && (ev.coord_approved_at || !hasCoordinator(db, ev)) ? 'approved' : 'pending';
+    ev.updated_at = now();
+    save(db);
+    return ev.status;
+  },
+  async rejectEvent(id, reason) {
+    const db = load();
+    const me = myProfile(db);
+    const ev = db.events.find((x) => x.id === id);
+    if (!ev) throw new Error('Evento não encontrado.');
+    if (me?.role !== 'admin' && !coordinates(me, ev)) throw new Error('Você não pode recusar este evento.');
+    Object.assign(ev, { status: 'rejected', reject_reason: String(reason || '').trim().slice(0, 500) || 'Sem motivo informado', admin_approved_at: null, admin_approved_by: null, coord_approved_at: null, coord_approved_by: null, updated_at: now() });
+    save(db);
+    return 'rejected';
+  },
+  // eventos que a coordenação do curso precisa avaliar
+  async listCoordQueue() {
+    const db = load();
+    const me = myProfile(db);
+    if (me?.role !== 'coordenador') throw new Error('Apenas a coordenação de curso.');
+    return db.events.filter((e) => coordinates(me, e)).sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
   },
   async adminUpdateEvent(id, patch) {
     const db = load();

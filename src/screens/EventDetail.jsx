@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
+import { isStudentLike } from '../lib/roles.js';
 import { eventCategory, typeForEvent, typeLabel } from '../lib/rules.js';
 import { fullDate, timeLabel, priceLabel, dateRangeLabel, isPast, isLive, ymd, safeUrl } from '../lib/format.js';
 import { formatHours } from '../lib/progress.js';
@@ -56,7 +57,7 @@ export default function EventDetail() {
   const going = has(event.id, 'going');
   const saved = has(event.id, 'saved');
   const isOwner = user && (event.organizer_id === user.id || profile?.role === 'admin');
-  const isStudent = profile?.role === 'student';
+  const isStudent = isStudentLike(profile);
   const past = isPast(event);
   const typeKey = isStudent ? typeForEvent(profile, event.category) : null;
   const hasHours = Number(event.hours) > 0;

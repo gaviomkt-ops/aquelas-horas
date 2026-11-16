@@ -21,6 +21,9 @@ import NewPassword from './screens/NewPassword.jsx';
 import Regras from './screens/Regras.jsx';
 import RegrasFicha from './screens/RegrasFicha.jsx';
 import Secretaria from './screens/Secretaria.jsx';
+import Coordenacao from './screens/Coordenacao.jsx';
+import MyEvents from './screens/MyEvents.jsx';
+import { isStudentLike } from './lib/roles.js';
 
 const STUDENT_TABS = [
   { to: '/', label: 'Início', icon: 'House', end: true },
@@ -39,6 +42,21 @@ const ADMIN_TABS = [
   { to: '/', label: 'Painel', icon: 'Gauge', end: true },
   { to: '/explorar', label: 'Vitrine', icon: 'Sparkles' },
   { to: '/evento/novo', label: 'Criar', icon: 'Plus', main: true },
+  { to: '/perfil', label: 'Perfil', icon: 'UserRound' },
+];
+
+// admin que também é aluno: app do aluno + Painel
+const ADMIN_STUDENT_TABS = [
+  { to: '/', label: 'Início', icon: 'House', end: true },
+  { to: '/explorar', label: 'Eventos', icon: 'Sparkles' },
+  { to: '/cofre', label: 'Cofre', icon: 'ShieldCheck', main: true },
+  { to: '/painel', label: 'Painel', icon: 'Gauge' },
+  { to: '/perfil', label: 'Perfil', icon: 'UserRound' },
+];
+const COORD_TABS = [
+  { to: '/', label: 'Aprovar', icon: 'ListChecks', end: true },
+  { to: '/explorar', label: 'Vitrine', icon: 'Sparkles' },
+  { to: '/evento/novo', label: 'Sugerir', icon: 'Plus', main: true },
   { to: '/perfil', label: 'Perfil', icon: 'UserRound' },
 ];
 
@@ -121,7 +139,19 @@ function Shell() {
   }
 
   const role = profile.role;
-  const tabs = role === 'admin' ? ADMIN_TABS : role === 'organizer' ? ORG_TABS : role === 'secretaria' ? SECRETARIA_TABS : STUDENT_TABS;
+  const asStudent = isStudentLike(profile);
+  const tabs =
+    role === 'admin'
+      ? asStudent
+        ? ADMIN_STUDENT_TABS
+        : ADMIN_TABS
+      : role === 'organizer'
+        ? ORG_TABS
+        : role === 'secretaria'
+          ? SECRETARIA_TABS
+          : role === 'coordenador'
+            ? COORD_TABS
+            : STUDENT_TABS;
 
   return (
     <>
@@ -129,11 +159,13 @@ function Shell() {
         <Routes>
           {publicRoutes}
           <Route path="/explorar" element={<Explore />} />
-          <Route path="/evento/novo" element={role === 'student' || role === 'secretaria' ? <Navigate to="/" /> : <EventForm />} />
-          <Route path="/evento/:id/editar" element={role === 'student' || role === 'secretaria' ? <Navigate to="/" /> : <EventForm />} />
+          {/* qualquer pessoa sugere eventos; eles entram em análise (admin + coordenação do curso) */}
+          <Route path="/evento/novo" element={<EventForm />} />
+          <Route path="/evento/:id/editar" element={<EventForm />} />
+          <Route path="/meus-eventos" element={<MyEvents />} />
           <Route path="/evento/:id" element={<EventDetail />} />
           <Route path="/perfil" element={<Profile />} />
-          {role === 'student' && (
+          {asStudent && (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/cofre" element={<Vault />} />
@@ -142,7 +174,8 @@ function Shell() {
             </>
           )}
           {role === 'organizer' && <Route path="/" element={<OrgHome />} />}
-          {role === 'admin' && <Route path="/" element={<Admin />} />}
+          {role === 'admin' && <Route path={asStudent ? '/painel' : '/'} element={<Admin />} />}
+          {role === 'coordenador' && <Route path="/" element={<Coordenacao />} />}
           {role === 'admin' && <Route path="/secretaria" element={<Secretaria />} />}
           {role === 'secretaria' && <Route path="/" element={<Secretaria />} />}
           <Route path="*" element={<Navigate to="/" replace />} />

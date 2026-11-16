@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
-import { EVENT_CATEGORIES, INSTITUTIONS } from '../lib/rules.js';
+import { EVENT_CATEGORIES, getInstitution } from '../lib/rules.js';
 import { dateInputValue, timeInputValue, toIso, todayYmd, safeUrl } from '../lib/format.js';
 import { compressImage } from '../lib/image.js';
 import { Button, Chip, Field, Icon } from '../components/ui.jsx';
 import { CertificatePreview, PARTICIPATION_OPTIONS, eventCertChecks } from '../components/certificate.jsx';
 import { COORDINATOR } from '../lib/seed.js';
 
-const COURSES = INSTITUTIONS[0].courses;
 
 const BLANK = {
   title: '',
@@ -49,6 +48,10 @@ export default function EventForm() {
   const [error, setError] = useState('');
   const [loaded, setLoaded] = useState(!id);
   const isAdmin = profile.role === 'admin';
+  // cursos da instituição de quem envia (o coordenador desses cursos aprova o evento)
+  const institutionId = profile.institution_id || 'ielusc';
+  const COURSES = getInstitution(institutionId).courses || [];
+  const [organizerName, setOrganizerName] = useState(profile.org_name || profile.name || '');
   useEffect(() => {
     if (!id && profile.org_name) setF((prev) => (prev.cert_issuer ? prev : { ...prev, cert_issuer: profile.org_name }));
   }, [id, profile.org_name]);
@@ -144,13 +147,22 @@ export default function EventForm() {
         cert_participation: f.cert_participation,
         cert_delivery: f.cert_delivery.trim(),
         image_url,
-        institution_id: 'ielusc',
       };
+      if (!id) {
+        data.institution_id = institutionId;
+        data.organizer_name = organizerName.trim();
+      }
       if (!id) data.boost_status = f.boost ? 'requested' : 'none';
       else if (f.boost && f.boost_status === 'none') data.boost_status = 'requested';
       const saved = id ? await api.updateEvent(id, data) : await api.createEvent(data);
       await loadEvents();
-      notify(isAdmin ? 'Evento publicado.' : id ? 'Alterações enviadas para revisão.' : 'Evento enviado! Ele aparece na vitrine depois da aprovação.');
+      notify(
+        saved.status === 'approved'
+          ? 'Evento publicado.'
+          : id
+            ? 'Alterações enviadas: o evento volta para a aprovação do admin e da coordenação do curso.'
+            : 'Evento enviado! Ele aparece na vitrine quando o admin e a coordenação do curso aprovarem.',
+      );
       nav(`/evento/${saved.id}`, { replace: true });
     } catch (err) {
       setError(err.message);
@@ -160,21 +172,17 @@ export default function EventForm() {
   }
 
   if (!loaded) return <div className="page center-pad"><span className="spinner spinner-dark" /></div>;
-  if (profile.role === 'organizer' && profile.org_status !== 'approved') {
-    return (
-      <div className="page">
-        <p className="alert alert-warn">Seu perfil de organizador ainda está em análise. Assim que for aprovado, você poderá publicar eventos.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="page">
       <button className="back-link" onClick={() => nav(-1)} type="button">
         <Icon name="ChevronLeft" size={18} /> Voltar
       </button>
-      <h1 className="top-title">{id ? 'Editar evento' : 'Novo evento'}</h1>
-      {!isAdmin && <p className="muted">{id ? 'Ao mudar o conteúdo, o evento volta para revisão antes de reaparecer.' : 'Publicar é gratuito. A equipe revisa antes de o evento entrar na vitrine.'}</p>}
+      <h1 className="top-title">{id ? 'Editar evento' : 'Sugerir evento'}</h1>
+      <p className="muted">
+        {id
+          ? 'Ao mudar o conteúdo, o evento volta para a aprovação do admin e da coordenação do curso.'
+          : 'Qualquer pessoa pode sugerir. O evento vai para a vitrine depois de aprovado pelo admin e pela coordenação do curso. Capriche nos pré-requisitos e nos dados do certificado.'}
+      </p>
 
       <form className="stack" onSubmit={submit}>
         <label className="img-pick" style={preview ? { backgroundImage: `url(${preview})` } : undefined}>
@@ -191,6 +199,12 @@ export default function EventForm() {
         <Field label="Título" htmlFor="et">
           <input id="et" value={f.title} onChange={set('title')} maxLength={140} required />
         </Field>
+
+        {!id && (
+          <Field label="Quem organiza" htmlFor="eorg" hint="Ex.: Centro Acadêmico de PP, APP Brasil, nome do professor.">
+            <input id="eorg" value={organizerName} onChange={(e) => setOrganizerName(e.target.value)} maxLength={120} required />
+          </Field>
+        )}
 
         <Field label="Categoria">
           <div className="chips chips-wrap">

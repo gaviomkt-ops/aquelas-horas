@@ -28,6 +28,17 @@ export function EventRow({ event, counts, actions }) {
             {bs && <Badge tone={bs[1]} icon="Flame">{bs[0]}</Badge>}
             {isPast(event) && <Badge tone="neutral">Encerrado</Badge>}
           </div>
+          {event.status === 'pending' && (
+            <p className="approval-line">
+              <span className={event.admin_approved_at ? 'ok' : ''}>
+                <Icon name={event.admin_approved_at ? 'CircleCheck' : 'Hourglass'} size={13} /> Admin
+              </span>
+              <span className={event.coord_approved_at ? 'ok' : ''}>
+                <Icon name={event.coord_approved_at ? 'CircleCheck' : 'Hourglass'} size={13} /> Coordenação do curso
+              </span>
+            </p>
+          )}
+          {event.organizer_name && <p className="muted small">por {event.organizer_name}</p>}
         </div>
       </Link>
       <div className="org-ev-stats">

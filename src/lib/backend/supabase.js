@@ -2,6 +2,7 @@
 // banco (supabase/schema.sql): cada aluno só vê os próprios certificados, organizador só
 // edita os próprios eventos e só o admin aprova.
 import { createClient } from '@supabase/supabase-js';
+import { coordinatesEvent } from '../roles.js';
 
 export function makeSupabaseBackend(url, anonKey) {
   const sb = createClient(url, anonKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' } });
@@ -120,6 +121,20 @@ export function makeSupabaseBackend(url, anonKey) {
     },
     async updateEvent(id, patch) {
       return ok(await sb.from('events').update(patch).eq('id', id).select().single());
+    },
+    // aprovação dupla (admin + coordenação do curso), feita no banco
+    async approveEvent(id) {
+      return ok(await sb.rpc('approve_event', { p_event: id }));
+    },
+    async rejectEvent(id, reason) {
+      return ok(await sb.rpc('reject_event', { p_event: id, p_reason: reason || '' }));
+    },
+    async listCoordQueue() {
+      // o banco devolve os eventos públicos + os do curso que a pessoa coordena; aqui ficam só os do curso
+      const id = await uidOrThrow();
+      const me = ok(await sb.from('profiles').select('role,institution_id,course_id').eq('id', id).maybeSingle());
+      const rows = ok(await sb.from('events').select('*').order('created_at', { ascending: false }));
+      return rows.filter((e) => coordinatesEvent(me, e));
     },
     async adminUpdateEvent(id, patch) {
       return ok(await sb.from('events').update(patch).eq('id', id).select().single());

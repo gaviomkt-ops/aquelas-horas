@@ -49,6 +49,11 @@ export default function Explore({ guest }) {
           <span className="eyebrow">Descobrir</span>
           <h1 className="top-title">Eventos que valem horas</h1>
         </div>
+        {!guest && (
+          <Link to="/evento/novo" className="btn btn-soft btn-sm">
+            <Icon name="CalendarPlus" size={16} /> <span>Sugerir evento</span>
+          </Link>
+        )}
       </header>
       <div className="search">
         <Icon name="Search" size={18} />

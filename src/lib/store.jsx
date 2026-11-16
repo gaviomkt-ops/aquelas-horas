@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { api } from './backend/index.js';
 import { computeProgress } from './progress.js';
+import { isStudentLike } from './roles.js';
 
 const Ctx = createContext(null);
 
@@ -39,7 +40,7 @@ export function StoreProvider({ children }) {
     try {
       const p = await api.getMyProfile();
       setProfile(p);
-      const [inter, certs] = await Promise.all([api.myInteractions(), p?.role === 'student' ? api.listCertificates() : Promise.resolve([])]);
+      const [inter, certs] = await Promise.all([api.myInteractions(), isStudentLike(p) ? api.listCertificates() : Promise.resolve([])]);
       setInteractions(inter || []);
       setCertificates(certs || []);
     } catch (e) {
@@ -70,7 +71,7 @@ export function StoreProvider({ children }) {
   const refreshProfile = useCallback(async () => {
     const p = await api.getMyProfile();
     setProfile(p);
-    if (p?.role === 'student') setCertificates(await api.listCertificates());
+    if (isStudentLike(p)) setCertificates(await api.listCertificates());
     return p;
   }, []);
 
@@ -105,7 +106,7 @@ export function StoreProvider({ children }) {
 
   const has = useCallback((eventId, kind) => interactions.some((i) => i.event_id === eventId && i.kind === kind), [interactions]);
 
-  const progress = useMemo(() => (profile?.role === 'student' ? computeProgress(profile, certificates) : null), [profile, certificates]);
+  const progress = useMemo(() => (isStudentLike(profile) ? computeProgress(profile, certificates) : null), [profile, certificates]);
 
   const value = {
     api,

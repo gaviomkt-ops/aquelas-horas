@@ -2527,3 +2527,33 @@ select.autofilled,
 .sec-cert:last-child { border-bottom: 0; padding-bottom: 0; }
 .sec-consent { margin-bottom: 16px; }
 .sec-consent b svg { vertical-align: -3px; color: var(--brand); }
+
+/* aprovação dupla do evento */
+.approval-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--warn);
+}
+.approval-line span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.approval-line .ok {
+  color: var(--ok);
+}
+.team-edit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.team-edit select {
+  width: auto;
+  min-height: 38px;
+  padding: 6px 10px;
+  font-size: 14px;
+}

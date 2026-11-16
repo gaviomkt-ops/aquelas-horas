@@ -2,7 +2,7 @@
 // No modo online (Supabase) os eventos entram por supabase/eventos-iniciais.sql.
 
 // Sobe quando a lista de eventos reais muda: bancos demo antigos são atualizados.
-export const SEED_VERSION = 14;
+export const SEED_VERSION = 15;
 
 // Eventos reais (divulgados pelo curso de PP da IELUSC e parceiros). São os mesmos que
 // supabase/eventos-iniciais.sql publica no modo online (gerado por scripts/gerar-sql-eventos.mjs).
@@ -181,6 +181,7 @@ export const DEMO_ACCOUNTS = [
   { email: 'organizador@demo.com', password: 'demo123', label: 'Organizador' },
   { email: 'admin@demo.com', password: 'demo123', label: 'Admin' },
   { email: 'secretaria@demo.com', password: 'demo123', label: 'Secretaria' },
+  { email: 'coordenacao@demo.com', password: 'demo123', label: 'Coordenação PP' },
 ];
 
 export function demoSeed() {
@@ -190,6 +191,7 @@ export function demoSeed() {
     { id: 'demo-org', email: 'organizador@demo.com', seedPassword: 'demo123' },
     { id: 'demo-admin', email: 'admin@demo.com', seedPassword: 'demo123' },
     { id: 'demo-secretaria', email: 'secretaria@demo.com', seedPassword: 'demo123' },
+    { id: 'demo-coord', email: 'coordenacao@demo.com', seedPassword: 'demo123' },
   ];
   const profiles = [
     { id: 'demo-aluno', email: 'aluno@demo.com', name: 'Aluno Demo', role: 'student', institution_id: 'ielusc', course_id: 'PP', semester: 5, entry_year: 2024, class_group: 'PP 2024/1', student_number: '000123', secretaria_consent_at: created, onboarded: true, accepted_terms_at: created, created_at: created },
@@ -197,6 +199,7 @@ export function demoSeed() {
     { id: 'demo-aluna-2', email: 'aluna2@demo.com', name: 'Aluna Exemplo (Jornalismo)', role: 'student', institution_id: 'ielusc', course_id: 'JOR', semester: 3, entry_year: 2025, class_group: 'JOR 2025/1', student_number: '000456', secretaria_consent_at: created, onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-aluno-3', email: 'aluno3@demo.com', name: 'Aluno Exemplo (sem autorização)', role: 'student', institution_id: 'ielusc', course_id: 'PP', semester: 3, entry_year: 2025, onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-secretaria', email: 'secretaria@demo.com', name: 'Secretaria Acadêmica (demo)', role: 'secretaria', institution_id: 'ielusc', onboarded: true, accepted_terms_at: created, created_at: created },
+    { id: 'demo-coord', email: 'coordenacao@demo.com', name: 'Coordenação de PP (demo)', role: 'coordenador', institution_id: 'ielusc', course_id: 'PP', onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-org', email: 'organizador@demo.com', name: 'Organizador Demo', role: 'organizer', org_name: 'Centro Acadêmico (exemplo)', org_instagram: '', org_status: 'approved', onboarded: true, accepted_terms_at: created, created_at: created },
     { id: 'demo-admin', email: 'admin@demo.com', name: 'Equipe Àquelas Horas', role: 'admin', onboarded: true, accepted_terms_at: created, created_at: created },
   ];

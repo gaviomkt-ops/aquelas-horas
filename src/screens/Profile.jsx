@@ -7,9 +7,9 @@ import { Avatar, Badge, Button, Field, Icon } from '../components/ui.jsx';
 import CursoFields, { cursoPatch } from '../components/CursoFields.jsx';
 import SecretariaConsent from '../components/SecretariaConsent.jsx';
 import { InstallButton } from '../components/InstallApp.jsx';
+import { ROLE_LABEL, isStudentLike } from '../lib/roles.js';
 import { ChangePasswordSheet } from './NewPassword.jsx';
 
-const ROLE = { student: 'Universitário', organizer: 'Organizador', admin: 'Administrador', secretaria: 'Secretaria' };
 
 export default function Profile() {
   const { api, profile, refreshProfile, notify } = useStore();
@@ -19,13 +19,14 @@ export default function Profile() {
   const [pwOpen, setPwOpen] = useState(false);
   const inst = getInstitution(f.institution_id);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
+  const asStudent = isStudentLike(profile);
 
   async function save(e) {
     e.preventDefault();
     setBusy(true);
     try {
       const patch = { name: f.name.trim() };
-      if (profile.role === 'student') {
+      if (asStudent) {
         Object.assign(patch, {
           institution_id: f.institution_id,
           institution_type: inst.custom ? f.institution_type || null : inst.type,
@@ -57,7 +58,7 @@ export default function Profile() {
     }
   }
 
-  const course = profile.role === 'student' ? getCourse(profile.institution_id, profile.course_id) : null;
+  const course = asStudent ? getCourse(profile.institution_id, profile.course_id) : null;
 
   return (
     <div className="page">
@@ -66,7 +67,8 @@ export default function Profile() {
         <h1>{profile.name}</h1>
         <p className="muted">{profile.email}</p>
         <div className="row-gap wrap center">
-          <Badge tone="brand">{ROLE[profile.role]}</Badge>
+          <Badge tone="brand">{ROLE_LABEL[profile.role]}</Badge>
+          {profile.role === 'admin' && asStudent && <Badge tone="neutral">Universitário</Badge>}
           {profile.role === 'organizer' && <Badge tone={profile.org_status === 'approved' ? 'ok' : profile.org_status === 'rejected' ? 'error' : 'warn'}>{profile.org_status === 'approved' ? 'Aprovado' : profile.org_status === 'rejected' ? 'Não aprovado' : 'Em análise'}</Badge>}
         </div>
         {course && (
@@ -84,9 +86,19 @@ export default function Profile() {
           <button className="menu-item" onClick={() => setEdit(true)}>
             <Icon name="UserPen" /> <span>Editar perfil</span> <Icon name="ChevronRight" size={18} />
           </button>
-          {profile.role === 'student' && (
+          {asStudent && (
             <Link className="menu-item" to="/relatorio">
               <Icon name="FileText" /> <span>Relatório acadêmico</span> <Icon name="ChevronRight" size={18} />
+            </Link>
+          )}
+          {asStudent && profile.role !== 'student' && (
+            <Link className="menu-item" to="/agenda">
+              <Icon name="CalendarDays" /> <span>Minha agenda</span> <Icon name="ChevronRight" size={18} />
+            </Link>
+          )}
+          {profile.role !== 'organizer' && (
+            <Link className="menu-item" to="/meus-eventos">
+              <Icon name="CalendarPlus" /> <span>Eventos que sugeri</span> <Icon name="ChevronRight" size={18} />
             </Link>
           )}
           <InstallButton variant="menu" />
@@ -124,7 +136,7 @@ export default function Profile() {
           <Field label="Nome" htmlFor="pn">
             <input id="pn" value={f.name || ''} onChange={set('name')} required />
           </Field>
-          {profile.role === 'student' && (
+          {asStudent && (
             <>
               <Field label="Instituição" htmlFor="pi">
                 <select
