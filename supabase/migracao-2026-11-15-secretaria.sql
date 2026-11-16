@@ -160,6 +160,6 @@ create policy "cofre: secretaria lê enviados" on storage.objects for select to 
   using (
     bucket_id = 'certificates'
     and exists (select 1 from public.certificates c
-                where c.file_path = storage.objects.name and c.status <> 'guardado'
+                where c.file_path = name and c.status <> 'guardado'
                   and public.secretaria_sees(c.user_id))
   );
