@@ -93,9 +93,30 @@ export default function Auth() {
               <input id="name" autoComplete="name" value={form.name} onChange={set('name')} placeholder="Como você quer ser chamado" required />
             </Field>
           )}
-          <Field label="E-mail" htmlFor="email">
-            <input id="email" type="email" inputMode="email" autoComplete="email" value={form.email} onChange={set('email')} placeholder="voce@email.com" required />
+          <Field
+            label={mode === 'signup' ? 'E-mail acadêmico (de preferência)' : 'E-mail'}
+            htmlFor="email"
+            hint={mode === 'signup' ? 'Use o e-mail da sua faculdade (ex.: matricula@ielusc.br). Assim a secretaria reconhece você na hora de validar as horas.' : null}
+          >
+            <input
+              id="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={set('email')}
+              placeholder={mode === 'signup' ? 'matricula@suafaculdade.edu.br' : 'voce@email.com'}
+              required
+            />
           </Field>
+          {mode === 'signup' && isPersonalEmail(form.email) && (
+            <div className="alert alert-warn" role="status">
+              <Icon name="TriangleAlert" size={18} />
+              <span>
+                Esse parece ser um e-mail pessoal. Se você tem e-mail da faculdade, prefira ele: é por ele que a secretaria identifica você. Se não tiver, pode continuar com este.
+              </span>
+            </div>
+          )}
           {mode === 'signup' ? (
             <Field label="Data de nascimento" htmlFor="birth" hint="Ela é a sua senha só no primeiro acesso. Logo depois você cria uma senha nova.">
               <input id="birth" type="date" autoComplete="bday" value={form.birth} onChange={set('birth')} min="1930-01-01" max={maxBirth()} required />
@@ -165,4 +186,10 @@ function maxBirth() {
   const d = new Date();
   d.setFullYear(d.getFullYear() - 12);
   return d.toISOString().slice(0, 10);
+}
+
+// provedores de e-mail pessoal: o app só sugere trocar pelo acadêmico, não bloqueia
+const PERSONAL_DOMAINS = /@(gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|icloud|me|bol|uol|terra|ig|proton|protonmail)\.(com|com\.br|me)$/i;
+function isPersonalEmail(email) {
+  return PERSONAL_DOMAINS.test(String(email || '').trim());
 }
