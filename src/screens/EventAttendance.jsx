@@ -52,7 +52,7 @@ export default function EventAttendance() {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-|-$/g, '')
         .slice(0, 40);
-      const url = URL.createObjectURL(new Blob([csvPresenca(rows || [])], { type: 'text/csv;charset=utf-8' }));
+      const url = URL.createObjectURL(new Blob([csvPresenca((rows || []).map((r) => ({ ...r, evento_titulo: event?.title })))], { type: 'text/csv;charset=utf-8' }));
       const a = document.createElement('a');
       a.href = url;
       a.download = `presenca-${slug}.csv`;

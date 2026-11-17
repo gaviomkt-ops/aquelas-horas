@@ -4,7 +4,9 @@ import { useStore } from '../lib/store.jsx';
 import { getInstitution, typeLabel } from '../lib/rules.js';
 import { formatHours } from '../lib/progress.js';
 import { situacao, csvCertificados, csvResumo, filtrar, nomeArquivo, resumoPorAluno, totais } from '../lib/secretaria.js';
-import { Badge, Bar, Button, Empty, Field, Icon } from '../components/ui.jsx';
+import { Badge, Bar, Button, Empty, Field, Icon, Segmented } from '../components/ui.jsx';
+import { AttendancePhoto } from '../components/Presence.jsx';
+import { csvPresenca, diaLabel, durationLabel, horaLabel, permanenceMinutes, presenceStatus } from '../lib/presence.js';
 
 const TOM = { entregue: 'warn', validado: 'ok', recusado: 'error' };
 const dataBR = (d) => (d ? new Date(`${String(d).slice(0, 10)}T12:00:00`).toLocaleDateString('pt-BR') : '—');
@@ -20,6 +22,118 @@ function baixar(conteudo, nome) {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
+// Presença comprovada (check-in pelo GPS + foto) dos alunos que autorizaram. Mesmo filtro de aluno da aba de certificados.
+function PresencaSecretaria({ api, alunos, notify, instId, f }) {
+  const [rows, setRows] = useState(null);
+  const inst = getInstitution(instId);
+
+  useEffect(() => {
+    let alive = true;
+    api
+      .secListAttendance()
+      .then((r) => alive && setRows(r || []))
+      .catch((e) => {
+        if (!alive) return;
+        notify(e.message, 'error');
+        setRows([]);
+      });
+    return () => {
+      alive = false;
+    };
+  }, [api, notify]);
+
+  const visiveis = useMemo(() => filtrar(alunos, [], { ...f, status: '' }).alunos, [alunos, f]);
+  const lista = useMemo(() => {
+    const porId = new Map(visiveis.map((a) => [a.id, a]));
+    return (rows || [])
+      .filter((r) => porId.has(r.user_id))
+      .map((r) => {
+        const a = porId.get(r.user_id);
+        return { ...r, name: a.name, email: a.email, course_id: a.course_id, student_number: a.student_number, evento_titulo: r.evento?.title || 'Evento' };
+      })
+      .sort((x, y) => String(y.checkin_at).localeCompare(String(x.checkin_at)));
+  }, [rows, visiveis]);
+
+  const comFoto = lista.filter((r) => r.photo_path).length;
+  const pessoas = new Set(lista.map((r) => r.user_id)).size;
+
+  return (
+    <>
+      <div className="alert alert-info">
+        <Icon name="ShieldCheck" size={18} />
+        <span>
+          Presença = check-in pelo GPS no local, no horário do evento, com <b>foto de evidência</b>. Aparecem só os alunos que autorizaram o compartilhamento. Guarde as planilhas só em local seguro: têm dados pessoais.
+        </span>
+      </div>
+
+      <div className="sec-kpis">
+        <div className="sec-kpi">
+          <b>{lista.length}</b>
+          <span>Check-ins</span>
+        </div>
+        <div className="sec-kpi">
+          <b>{comFoto}</b>
+          <span>Com foto</span>
+        </div>
+        <div className="sec-kpi">
+          <b>{pessoas}</b>
+          <span>Pessoas</span>
+        </div>
+      </div>
+
+      <div className="rg-acoes">
+        <Button variant="soft" size="sm" icon="Download" onClick={() => baixar(csvPresenca(lista), nomeArquivo('presenca', instId, f))} disabled={!lista.length}>
+          Planilha de presença
+        </Button>
+      </div>
+
+      <section className="sec">
+        <h2 className="sec-title">
+          {lista.length} {lista.length === 1 ? 'check-in' : 'check-ins'}
+        </h2>
+        {rows === null && <p className="muted">Carregando…</p>}
+        <div className="presence-list">
+          {lista.map((a) => {
+            const st = presenceStatus(a);
+            const curso = inst.courses.find((c) => c.id === a.course_id)?.name;
+            return (
+              <article key={a.id} className="presence-row">
+                {a.photo_path ? (
+                  <AttendancePhoto path={a.photo_path} alt={`Foto de ${a.name}`} />
+                ) : (
+                  <span className="presence-nophoto" title="Sem foto de evidência">
+                    <Icon name="Camera" size={22} />
+                  </span>
+                )}
+                <div className="presence-row-body">
+                  <b>{a.name}</b>
+                  <span className="muted">{[a.student_number && `Matrícula ${a.student_number}`, curso].filter(Boolean).join(' · ')}</span>
+                  <span>
+                    {a.evento_titulo} · {diaLabel(a.checkin_at)}
+                  </span>
+                  <span>
+                    Entrada {horaLabel(a.checkin_at)} {a.checkin_auto ? '(automática)' : '(manual)'} · a {a.checkin_distance_m} m
+                  </span>
+                  <span>
+                    {a.checkout_at ? `Saída ${horaLabel(a.checkout_at)}` : `Último sinal ${horaLabel(a.last_seen_at || a.checkin_at)}`} · permanência {durationLabel(permanenceMinutes(a))}
+                  </span>
+                  <span className="row-gap wrap">
+                    <Badge tone={st.tone}>{st.label}</Badge>
+                    <span className="mono small">{a.receipt_code}</span>
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        {rows && !lista.length && (
+          <Empty icon="Inbox" title="Nenhuma presença por aqui" text="Quando um aluno que autorizou o compartilhamento fizer check-in num evento com GPS, ele aparece aqui." />
+        )}
+      </section>
+    </>
+  );
+}
+
 // Aba da secretaria (piloto IELUSC): só alunos da instituição que autorizaram, só certificados enviados.
 export default function Secretaria() {
   const { api, profile, notify } = useStore();
@@ -30,6 +144,7 @@ export default function Secretaria() {
   const [f, setF] = useState({ texto: '', curso: '', ano: '', turma: '', status: 'entregue' });
   const [aberto, setAberto] = useState(null);
   const [busy, setBusy] = useState('');
+  const [aba, setAba] = useState('certificados');
 
   const carregar = useCallback(async () => {
     try {
@@ -98,6 +213,18 @@ export default function Secretaria() {
         </button>
       </header>
 
+      <Segmented
+        value={aba}
+        onChange={setAba}
+        options={[
+          { value: 'certificados', label: 'Certificados' },
+          { value: 'presenca', label: 'Presença' },
+        ]}
+      />
+
+      {aba === 'presenca' && <PresencaSecretaria api={api} alunos={alunos} notify={notify} instId={instId} f={f} />}
+      {aba === 'certificados' && (
+      <>
       <div className="alert alert-info">
         <Icon name="ShieldCheck" size={18} />
         <span>
@@ -252,6 +379,9 @@ export default function Secretaria() {
           <Empty icon="Inbox" title="Nada por aqui" text={(alunos || []).length ? 'Nenhum aluno ou certificado com esse filtro.' : 'Nenhum aluno autorizou o compartilhamento ainda.'} />
         )}
       </section>
+
+      </>
+      )}
 
       <Link to="/regras/ielusc" className="rg-entry">
         <Icon name="ScrollText" size={22} />

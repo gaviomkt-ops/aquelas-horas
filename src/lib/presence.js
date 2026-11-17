@@ -66,12 +66,12 @@ export function presenceStatus(att) {
 
 const hora = (d) => (d ? new Date(d).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }) : '');
 const dia = (d) => (d ? new Date(d).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' }) : '');
-export { hora as horaLabel };
+export { hora as horaLabel, dia as diaLabel };
 
 // planilha da lista de presença (abre no Excel e no Google Planilhas)
 export function csvPresenca(rows) {
   return toCsv(
-    ['Nome', 'E-mail', 'Curso', 'Data', 'Entrada', 'Saída/último sinal', 'Permanência (min)', 'Distância na entrada (m)', 'Precisão do GPS (m)', 'Check-in', 'Foto', 'Comprovante'],
+    ['Nome', 'E-mail', 'Curso', 'Data', 'Entrada', 'Saída/último sinal', 'Permanência (min)', 'Distância na entrada (m)', 'Precisão do GPS (m)', 'Check-in', 'Foto', 'Comprovante', 'Evento'],
     rows.map((r) => [
       r.name || '',
       r.email || '',
@@ -85,6 +85,7 @@ export function csvPresenca(rows) {
       r.checkin_auto ? 'automático' : 'manual',
       r.photo_path ? 'sim' : 'não',
       r.receipt_code || '',
+      r.evento_titulo || '',
     ]),
   );
 }

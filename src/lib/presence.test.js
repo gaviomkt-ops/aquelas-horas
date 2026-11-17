@@ -62,4 +62,11 @@ test('planilha de presença com BOM e cabeçalho', () => {
   assert.ok(csv.startsWith('﻿Nome;E-mail;Curso;Data;Entrada;'));
   assert.ok(csv.includes('Ana;ana@x.br;PP;'));
   assert.ok(csv.includes(';automático;sim;AB12CD34'));
+  assert.ok(csv.includes(';AB12CD34;'));
+});
+
+test('planilha inclui o nome do evento na última coluna', () => {
+  const csv = csvPresenca([{ name: 'Bia', evento_titulo: 'APP Brasil - Oficina', checkin_at: '2026-11-16T22:02:00Z', receipt_code: 'ZX99YY11' }]);
+  assert.ok(csv.split('\r\n')[0].endsWith(';Comprovante;Evento'));
+  assert.ok(csv.includes(';ZX99YY11;APP Brasil - Oficina'));
 });

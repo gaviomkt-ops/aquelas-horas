@@ -562,7 +562,12 @@ export const local = {
     const db = load();
     const sec = requireSecretaria(db);
     const visiveis = new Set((await this.secListStudents(sec.role === 'admin' ? null : sec.institution_id)).map((p) => p.id));
-    return (db.attendance || []).filter((a) => visiveis.has(a.user_id));
+    return (db.attendance || [])
+      .filter((a) => visiveis.has(a.user_id))
+      .map((a) => {
+        const e = db.events.find((x) => x.id === a.event_id);
+        return { ...a, evento: e ? { title: e.title, starts_at: e.starts_at, ends_at: e.ends_at } : null };
+      });
   },
 
   // ---------- secretaria (piloto) ----------

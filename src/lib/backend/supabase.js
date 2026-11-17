@@ -195,7 +195,7 @@ export function makeSupabaseBackend(url, anonKey) {
     },
     async secListAttendance() {
       const id = await uidOrThrow();
-      return ok(await sb.from('attendance').select('*').neq('user_id', id));
+      return ok(await sb.from('attendance').select('*, evento:events(title, starts_at, ends_at)').neq('user_id', id));
     },
 
     // ---------- certificados ----------
