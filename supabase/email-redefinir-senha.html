@@ -1,0 +1,19 @@
+<!--
+  Modelo do e-mail "Reset Password" do Supabase (Authentication > Emails > Reset Password).
+  Assunto sugerido: Seu código para redefinir a senha do Àquelas Horas
+
+  {{ .Token }}     = código digitado na tela "Redefinir senha" do app (não queima se o antivírus abrir o e-mail).
+  {{ .TokenHash }} = usado no botão; o app só confere quando a pessoa salva a senha nova.
+  Não use {{ .ConfirmationURL }}: é o link antigo, que vence quando o antivírus do e-mail "clica" nele
+  e só funciona no mesmo navegador em que a pessoa pediu.
+-->
+<div style="font-family: Arial, Helvetica, sans-serif; max-width: 480px; margin: 0 auto; color: #141414">
+  <h2 style="margin: 0 0 12px">Redefinir sua senha</h2>
+  <p style="margin: 0 0 16px">Recebemos um pedido para trocar a senha da sua conta no Àquelas Horas. Digite este código no app:</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; background: #fff1ea; color: #e8480f; text-align: center; padding: 16px; border-radius: 12px; margin: 0 0 16px">{{ .Token }}</p>
+  <p style="margin: 0 0 16px">Ou toque no botão para criar a senha nova direto:</p>
+  <p style="margin: 0 0 24px">
+    <a href="https://gaviomkt-ops.github.io/aquelas-horas/?token_hash={{ .TokenHash }}&type=recovery" style="background: #ff5a1f; color: #ffffff; text-decoration: none; font-weight: bold; padding: 12px 20px; border-radius: 999px; display: inline-block">Criar senha nova</a>
+  </p>
+  <p style="font-size: 13px; color: #74716d; margin: 0">O código vence em pouco tempo e só o do último e-mail funciona. Se não foi você quem pediu, ignore este e-mail: sua senha continua a mesma.</p>
+</div>

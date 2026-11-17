@@ -213,7 +213,13 @@ export const local = {
     delete u.seedPassword;
     save(db);
   },
-  async resetPassword() {
+  async sendResetCode() {
+    throw new Error('No modo demonstração não há envio de e-mail. Crie outra conta de teste.');
+  },
+  async verifyResetCode() {
+    throw new Error('No modo demonstração não há envio de e-mail. Crie outra conta de teste.');
+  },
+  async verifyResetLink() {
     throw new Error('No modo demonstração não há envio de e-mail. Crie outra conta de teste.');
   },
   async deleteMyAccount() {

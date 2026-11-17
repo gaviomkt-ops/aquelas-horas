@@ -1,5 +1,10 @@
 // Ícones usados no app (import nomeado para o bundle ficar pequeno).
 import {
+  ArrowLeft,
+  Info,
+  KeyRound,
+  LockKeyhole,
+  Mail,
   ArrowRight,
   Copy,
   Share,
@@ -93,6 +98,11 @@ import {
 } from 'lucide-react';
 
 export const ICONS = {
+  ArrowLeft,
+  Info,
+  KeyRound,
+  LockKeyhole,
+  Mail,
   ArrowRight,
   Copy,
   Share,

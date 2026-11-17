@@ -17,7 +17,8 @@ export function StoreProvider({ children }) {
   const [attendance, setAttendance] = useState([]); // minhas presenças (check-in pelo GPS)
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
-  const [recovery, setRecovery] = useState(false); // chegou pelo link de "esqueci a senha"
+  // redefinição de senha: null ou { email, tokenHash, error, verified }
+  const [recovery, setRecovery] = useState(recoveryFromUrl);
 
   const notify = useCallback((message, tone = 'ok') => {
     setToast({ message, tone, id: Date.now() });
@@ -64,11 +65,12 @@ export function StoreProvider({ children }) {
       const u = await api.getUser();
       if (!alive) return;
       setUser(u);
+      cleanAuthParams(); // o Supabase já leu a URL; tira código/erro da barra de endereço
       await Promise.all([loadMine(u), loadEvents()]);
       if (alive) setLoading(false);
     })();
     const off = api.onAuthChange(async (u, evt) => {
-      if (evt === 'PASSWORD_RECOVERY') setRecovery(true);
+      if (evt === 'PASSWORD_RECOVERY') setRecovery((prev) => ({ ...(prev || {}), verified: true }));
       setUser((prev) => (prev?.id === u?.id ? prev : u));
       await loadMine(u);
     });
@@ -168,4 +170,37 @@ export function StoreProvider({ children }) {
 
 export function useStore() {
   return useContext(Ctx);
+}
+
+// Lê da URL o que o e-mail de "esqueci a senha" manda:
+// - ?token_hash=…&type=recovery (botão do e-mail novo) → tela de nova senha;
+// - ?error_code=otp_expired… (link vencido ou já usado) → tela de redefinir com o aviso.
+function authParams() {
+  const out = new URLSearchParams(window.location.search);
+  // no fluxo antigo o erro pode vir depois do # (ex.: #error=access_denied&error_code=…)
+  const h = window.location.hash.replace(/^#\/?/, '');
+  if (/(^|&)(error|error_code|error_description)=/.test(h)) for (const [k, v] of new URLSearchParams(h)) if (!out.has(k)) out.set(k, v);
+  return out;
+}
+function recoveryFromUrl() {
+  if (typeof window === 'undefined') return null;
+  const q = authParams();
+  if (q.get('token_hash') && q.get('type') === 'recovery') return { tokenHash: q.get('token_hash') };
+  const code = q.get('error_code') || q.get('error');
+  if (code) {
+    const expired = /expired|invalid/i.test(`${code} ${q.get('error_description') || ''}`);
+    return {
+      error: expired
+        ? 'Esse link do e-mail venceu ou já foi usado (alguns e-mails "abrem" o link sozinhos para checar vírus). Peça um código novo abaixo: é mais garantido.'
+        : 'Não deu para abrir o link do e-mail. Peça um código novo abaixo.',
+    };
+  }
+  return null;
+}
+function cleanAuthParams() {
+  const q = authParams();
+  const keys = ['token_hash', 'type', 'error', 'error_code', 'error_description', 'code'];
+  if (!keys.some((k) => q.has(k))) return;
+  const route = /(^|&)(error|error_code|error_description|access_token)=/.test(window.location.hash.replace(/^#\/?/, '')) ? '#/' : window.location.hash || '#/';
+  window.history.replaceState(null, '', window.location.pathname + route);
 }

@@ -7,7 +7,7 @@ import { Button, Field, Icon, Logo, Segmented } from '../components/ui.jsx';
 import { InstallButton } from '../components/InstallApp.jsx';
 
 export default function Auth() {
-  const { api, notify } = useStore();
+  const { api, setRecovery } = useStore();
   const [mode, setMode] = useState('signup');
   const [form, setForm] = useState({ name: '', email: '', password: '', birth: '', terms: false });
   const [busy, setBusy] = useState(false);
@@ -34,14 +34,9 @@ export default function Auth() {
     }
   }
 
-  async function forgot() {
-    if (!form.email) return setError('Digite seu e-mail acima e toque de novo em "Esqueci a senha".');
-    try {
-      await api.resetPassword(form.email);
-      notify('Enviamos um link para redefinir a senha.');
-    } catch (err) {
-      setError(err.message);
-    }
+  function forgot() {
+    // abre a tela de redefinir (código por e-mail), já com o e-mail digitado
+    setRecovery({ email: form.email.trim() });
   }
 
   async function quick(acc) {

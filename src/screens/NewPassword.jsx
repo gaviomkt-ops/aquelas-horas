@@ -54,9 +54,9 @@ function PasswordForm({ submitLabel = 'Salvar nova senha', onDone }) {
   );
 }
 
-// Tela cheia: primeiro acesso (senha = data de nascimento) ou link de "esqueci a senha".
+// Tela cheia do primeiro acesso (senha = data de nascimento). "Esqueci a senha" fica em ResetPassword.jsx.
 export default function NewPassword({ firstAccess }) {
-  const { setRecovery, profile } = useStore();
+  const { profile } = useStore();
   return (
     <div className="onb">
       <Logo height={84} />
@@ -70,7 +70,7 @@ export default function NewPassword({ firstAccess }) {
       ) : (
         <h1>Crie uma senha nova</h1>
       )}
-      <PasswordForm submitLabel={firstAccess ? 'Criar senha e continuar' : 'Salvar nova senha'} onDone={() => setRecovery(false)} />
+      <PasswordForm submitLabel={firstAccess ? 'Criar senha e continuar' : 'Salvar nova senha'} />
     </div>
   );
 }

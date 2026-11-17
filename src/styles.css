@@ -2745,3 +2745,77 @@ select.autofilled,
   font-weight: 700;
   color: var(--ok);
 }
+
+/* ---------- redefinir senha (código por e-mail) ---------- */
+.reset-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.reset-head h1 {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.reset-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--brand-50);
+  color: var(--brand-600);
+}
+.reset-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.reset-steps li {
+  border-top: 4px solid var(--line);
+  padding-top: 6px;
+}
+.reset-steps li.on {
+  border-color: var(--brand);
+  color: var(--ink-2);
+}
+.code-input {
+  font-size: 26px !important;
+  letter-spacing: 0.35em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+.reset-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.reset-links .link-btn:disabled {
+  color: var(--muted);
+  text-decoration: none;
+  cursor: default;
+}
+.reset-tip {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+.reset-tip svg {
+  flex: none;
+  margin-top: 2px;
+}
+@media (min-width: 880px) {
+  .auth.reset .auth-hero {
+    align-items: center;
+  }
+}

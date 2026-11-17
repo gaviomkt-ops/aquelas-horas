@@ -18,6 +18,7 @@ import Admin from './screens/Admin.jsx';
 import { Privacy, Terms } from './screens/Legal.jsx';
 import Splash from './screens/Splash.jsx';
 import NewPassword from './screens/NewPassword.jsx';
+import ResetPassword from './screens/ResetPassword.jsx';
 import Regras from './screens/Regras.jsx';
 import RegrasFicha from './screens/RegrasFicha.jsx';
 import Secretaria from './screens/Secretaria.jsx';
@@ -104,7 +105,7 @@ function Shell() {
   const { user, profile, loading, recovery } = useStore();
   useAutoCheckin(); // aluno no local e no horário: check-in pelo GPS, em silêncio
   if (loading || user === undefined) return <Splash />;
-  if (user && recovery) return <NewPassword />;
+  if (recovery) return <ResetPassword />; // esqueci a senha: código por e-mail ou link
 
   // páginas abertas a qualquer pessoa
   const publicRoutes = (

@@ -58,8 +58,16 @@ export function makeSupabaseBackend(url, anonKey) {
     async updatePassword(password) {
       ok(await sb.auth.updateUser({ password }));
     },
-    async resetPassword(email) {
+    // "Esqueci a senha": o e-mail traz um código (digitado no app) e um botão com token_hash.
+    // Os dois são conferidos por verifyOtp, então funcionam em qualquer navegador ou aparelho.
+    async sendResetCode(email) {
       ok(await sb.auth.resetPasswordForEmail(String(email).trim().toLowerCase(), { redirectTo: window.location.origin + window.location.pathname }));
+    },
+    async verifyResetCode({ email, code }) {
+      ok(await sb.auth.verifyOtp({ email: String(email).trim().toLowerCase(), token: String(code).replace(/\D/g, ''), type: 'recovery' }));
+    },
+    async verifyResetLink(tokenHash) {
+      ok(await sb.auth.verifyOtp({ token_hash: tokenHash, type: 'recovery' }));
     },
     async deleteMyAccount() {
       const id = await uidOrThrow();
@@ -284,6 +292,13 @@ function translate(msg = '') {
   const m = msg.toLowerCase();
   if (m.includes('invalid login')) return 'E-mail ou senha incorretos.';
   if (m.includes('already registered')) return 'Já existe uma conta com esse e-mail.';
+  if (m.includes('different from the old')) return 'A senha nova precisa ser diferente da atual.';
+  if (m.includes('link is invalid')) return 'Esse link do e-mail venceu ou já foi usado. Peça um código novo abaixo (vale só o último e-mail).';
+  if (m.includes('token has expired') || m.includes('otp_expired') || m.includes('invalid otp')) return 'Código inválido ou vencido. Confira os números ou peça um código novo (vale só o último e-mail).';
+  if (m.includes('only request this after')) return 'Espere alguns segundos antes de pedir outro código.';
+  if (m.includes('not authorized') && m.includes('email')) return 'O envio de e-mails ainda não está liberado para esse endereço. Fale com a equipe do Àquelas Horas.';
+  if (m.includes('error sending')) return 'Não conseguimos enviar o e-mail agora. Tente de novo em alguns minutos.';
+  if (m.includes('auth session missing')) return 'Sua verificação expirou. Peça um código novo.';
   if (m.includes('password should be')) return 'A senha precisa ter pelo menos 8 caracteres, com letras e números.';
   if (m.includes('email not confirmed')) return 'Confirme seu e-mail pelo link que enviamos antes de entrar.';
   if (m.includes('rate limit')) return 'Muitas tentativas seguidas. Espere um minuto e tente de novo.';
