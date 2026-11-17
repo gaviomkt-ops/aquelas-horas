@@ -54,7 +54,7 @@ export default function ResetPassword() {
       setNow(Date.now());
       setCode('');
       setStep('code');
-      notify('Código enviado. Confira o e-mail (e a caixa de spam).');
+      notify('E-mail enviado. Confira a caixa de entrada e o spam.');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -130,12 +130,12 @@ export default function ResetPassword() {
             <Icon name={step === 'email' ? 'Mail' : step === 'code' ? 'KeyRound' : 'LockKeyhole'} size={22} />
           </span>
           <div>
-            <h1>{step === 'email' ? 'Redefinir senha' : step === 'code' ? 'Digite o código' : 'Crie uma senha nova'}</h1>
+            <h1>{step === 'email' ? 'Redefinir senha' : step === 'code' ? 'Confira seu e-mail' : 'Crie uma senha nova'}</h1>
             <p className="muted small">
-              {step === 'email' && 'Mandamos um código para o seu e-mail. Você digita aqui mesmo, sem precisar abrir link.'}
+              {step === 'email' && 'Mandamos um e-mail para você criar a senha nova. Vale só o último que chegar.'}
               {step === 'code' && (
                 <>
-                  Enviamos para <b>{email}</b>. Vale só o código do <b>último</b> e-mail.
+                  Enviamos para <b>{email}</b>. Veio um <b>código</b>? Digite abaixo. Veio só um <b>botão</b>? Toque nele neste mesmo aparelho e navegador.
                 </>
               )}
               {step === 'password' && 'Escolha a senha que você vai usar para entrar daqui pra frente.'}
@@ -163,7 +163,7 @@ export default function ResetPassword() {
               />
             </Field>
             <Button type="submit" block size="lg" loading={busy} disabled={wait > 0}>
-              {wait > 0 ? `Enviar de novo em ${wait}s` : 'Enviar código'}
+              {wait > 0 ? `Enviar de novo em ${wait}s` : 'Enviar e-mail'}
             </Button>
             {/* quem saiu do app para abrir o e-mail e voltou: não precisa pedir outro código */}
             <button
@@ -205,7 +205,7 @@ export default function ResetPassword() {
             </Button>
             <div className="reset-links">
               <button type="button" className="link-btn" onClick={send} disabled={wait > 0 || busy}>
-                {wait > 0 ? `Reenviar em ${wait}s` : 'Reenviar código'}
+                {wait > 0 ? `Reenviar em ${wait}s` : 'Reenviar e-mail'}
               </button>
               <button
                 type="button"

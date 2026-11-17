@@ -293,7 +293,7 @@ function translate(msg = '') {
   if (m.includes('invalid login')) return 'E-mail ou senha incorretos.';
   if (m.includes('already registered')) return 'Já existe uma conta com esse e-mail.';
   if (m.includes('different from the old')) return 'A senha nova precisa ser diferente da atual.';
-  if (m.includes('link is invalid')) return 'Esse link do e-mail venceu ou já foi usado. Peça um código novo abaixo (vale só o último e-mail).';
+  if (m.includes('link is invalid')) return 'Esse link do e-mail venceu ou já foi usado. Peça um e-mail novo abaixo (vale só o último).';
   if (m.includes('token has expired') || m.includes('otp_expired') || m.includes('invalid otp')) return 'Código inválido ou vencido. Confira os números ou peça um código novo (vale só o último e-mail).';
   if (m.includes('only request this after')) return 'Espere alguns segundos antes de pedir outro código.';
   if (m.includes('not authorized') && m.includes('email')) return 'O envio de e-mails ainda não está liberado para esse endereço. Fale com a equipe do Àquelas Horas.';

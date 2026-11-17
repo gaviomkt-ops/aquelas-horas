@@ -191,8 +191,8 @@ function recoveryFromUrl() {
     const expired = /expired|invalid/i.test(`${code} ${q.get('error_description') || ''}`);
     return {
       error: expired
-        ? 'Esse link do e-mail venceu ou já foi usado (alguns e-mails "abrem" o link sozinhos para checar vírus). Peça um código novo abaixo: é mais garantido.'
-        : 'Não deu para abrir o link do e-mail. Peça um código novo abaixo.',
+        ? 'Esse link do e-mail venceu ou já foi usado (alguns e-mails "abrem" o link sozinhos para checar vírus). Peça um e-mail novo abaixo e, se puder, abra no mesmo aparelho em que pediu.'
+        : 'Não deu para abrir o link do e-mail. Peça um e-mail novo abaixo.',
     };
   }
   return null;
