@@ -161,3 +161,14 @@ Base de dados com as regras de ACG/AC de 14 grupos de instituições de Joinvill
 - **Admin que também é aluno:** se o perfil do admin tem instituição, ele usa Início, Cofre e Agenda como aluno e o Painel fica na aba "Painel".
 - **Ligar no Supabase:** rodar `supabase/migracao-2026-11-16-eventos-abertos.sql` (aplicada em 16/11/2026).
 - **Demo:** contas de teste "Universitário", "Admin" e "Coordenação PP" (`coordenacao@demo.com`).
+
+## Presença no evento (estilo ponto móvel)
+
+- **Como funciona:** o check-in abre 30 min antes do início e fecha 30 min depois do fim. Com o app aberto no local, o GPS registra a entrada sozinho (automático, a cada 3 min enquanto o app está aberto no local). O aluno tira uma **foto de evidência** no evento, e pode registrar a **saída**; fora do local, a saída fica no último sinal confirmado.
+- **Quem organiza marca o local:** no cadastro do evento, "Buscar pelo endereço" (OpenStreetMap) ou "Usar minha localização", com raio de 100 a 500 m. Mudar o local volta o evento para aprovação.
+- **Regras (no banco, `attendance_ping`):** GPS com precisão pior que 1 km é recusado; a distância conta com a margem do GPS (até 100 m); uma só marcação a cada 30 s; check-in manual fora do local é recusado.
+- **Privacidade:** o banco não guarda as coordenadas do aluno, só a distância e a precisão. A foto fica em bucket privado (`attendance-photos`), visível para o aluno, a organização, a coordenação do curso, o admin e a secretaria (só de quem autorizou). Tela "Lista de presença" com planilha CSV para quem organiza.
+- **Comprovante:** código de 8 caracteres por presença, mostrado ao aluno, na lista e no cofre quando o certificado está ligado ao evento ("Presença comprovada no evento").
+- **Ligar no Supabase:** rodar `supabase/migracao-2026-11-16-presenca.sql` (depois da migração de eventos abertos). Aplicada em 16/11/2026, com teste de regras revertido no próprio banco.
+- **Limitações:** o GPS do navegador precisa de HTTPS (o site já é) e de permissão; dentro de prédios a precisão cai, e o app recusa acima de 1 km de erro. Cursos sem local com GPS não têm check-in.
+- **Demo:** simule o GPS no console (`navigator.geolocation`) para testar.

@@ -8,7 +8,7 @@ const CSP = [
   "default-src 'self'",
   "script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net blob:", // OCR (tesseract) vem do jsDelivr
   "worker-src 'self' blob: https://cdn.jsdelivr.net",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com blob: data:",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://cdn.jsdelivr.net https://tessdata.projectnaptha.com https://nominatim.openstreetmap.org blob: data:",
   "img-src 'self' data: blob: https://*.supabase.co",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",

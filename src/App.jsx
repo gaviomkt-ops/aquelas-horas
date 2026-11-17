@@ -23,6 +23,8 @@ import RegrasFicha from './screens/RegrasFicha.jsx';
 import Secretaria from './screens/Secretaria.jsx';
 import Coordenacao from './screens/Coordenacao.jsx';
 import MyEvents from './screens/MyEvents.jsx';
+import EventAttendance from './screens/EventAttendance.jsx';
+import { PresenceBanner, useAutoCheckin } from './components/Presence.jsx';
 import { isStudentLike } from './lib/roles.js';
 
 const STUDENT_TABS = [
@@ -100,6 +102,7 @@ function DemoBanner() {
 
 function Shell() {
   const { user, profile, loading, recovery } = useStore();
+  useAutoCheckin(); // aluno no local e no horário: check-in pelo GPS, em silêncio
   if (loading || user === undefined) return <Splash />;
   if (user && recovery) return <NewPassword />;
 
@@ -156,12 +159,14 @@ function Shell() {
   return (
     <>
       <main className="app-main">
+        <PresenceBanner />
         <Routes>
           {publicRoutes}
           <Route path="/explorar" element={<Explore />} />
           {/* qualquer pessoa sugere eventos; eles entram em análise (admin + coordenação do curso) */}
           <Route path="/evento/novo" element={<EventForm />} />
           <Route path="/evento/:id/editar" element={<EventForm />} />
+          <Route path="/evento/:id/presenca" element={<EventAttendance />} />
           <Route path="/meus-eventos" element={<MyEvents />} />
           <Route path="/evento/:id" element={<EventDetail />} />
           <Route path="/perfil" element={<Profile />} />

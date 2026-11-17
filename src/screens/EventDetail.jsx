@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useStore } from '../lib/store.jsx';
-import { isStudentLike } from '../lib/roles.js';
+import { coordinatesEvent, isStudentLike } from '../lib/roles.js';
+import { hasGeo } from '../lib/presence.js';
+import { PresenceCard } from '../components/Presence.jsx';
 import { eventCategory, typeForEvent, typeLabel } from '../lib/rules.js';
 import { fullDate, timeLabel, priceLabel, dateRangeLabel, isPast, isLive, ymd, safeUrl } from '../lib/format.js';
 import { formatHours } from '../lib/progress.js';
@@ -231,6 +233,8 @@ export default function EventDetail() {
           )}
         </section>
 
+        <PresenceCard event={event} />
+
         {event.description && (
           <section className="sec">
             <h2 className="sec-title sm">Sobre</h2>
@@ -258,7 +262,17 @@ export default function EventDetail() {
             <Link to={`/evento/${event.id}/editar`} className="btn btn-ghost btn-block">
               <Icon name="Pencil" size={18} /> <span>Editar evento</span>
             </Link>
+            {hasGeo(event) && (
+              <Link to={`/evento/${event.id}/presenca`} className="btn btn-ghost btn-block">
+                <Icon name="ClipboardList" size={18} /> <span>Lista de presença</span>
+              </Link>
+            )}
           </div>
+        )}
+        {!isOwner && hasGeo(event) && coordinatesEvent(profile, event) && (
+          <Link to={`/evento/${event.id}/presenca`} className="btn btn-ghost btn-block">
+            <Icon name="ClipboardList" size={18} /> <span>Lista de presença</span>
+          </Link>
         )}
       </div>
 

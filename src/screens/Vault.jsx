@@ -8,7 +8,7 @@ import CertificateForm, { CERT_STATUS } from './CertificateForm.jsx';
 import { SHORT_LABEL, listPt } from '../components/certificate.jsx';
 
 export default function Vault() {
-  const { api, profile, progress, certificates, notify } = useStore();
+  const { api, profile, progress, certificates, notify, attendanceFor } = useStore();
   const [tab, setTab] = useState('cat');
   const [form, setForm] = useState({ open: false, cert: null });
   const [openType, setOpenType] = useState(null);
@@ -189,6 +189,11 @@ export default function Vault() {
                       )}
                     </span>
                   </div>
+                  {c.event_id && attendanceFor(c.event_id)?.photo_path && (
+                    <span className="cert-presence">
+                      <Icon name="MapPinCheck" size={14} /> Presença comprovada no evento
+                    </span>
+                  )}
                   {c.missing_requirements?.length > 0 && (
                     <span className="cert-warn">
                       <Icon name="ShieldAlert" size={14} /> Falta no certificado: {listPt(c.missing_requirements.map((k) => SHORT_LABEL[k] || k))}

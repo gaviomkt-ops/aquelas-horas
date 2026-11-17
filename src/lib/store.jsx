@@ -2,6 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { api } from './backend/index.js';
 import { computeProgress } from './progress.js';
 import { isStudentLike } from './roles.js';
+import { getPosition } from './geolocate.js';
+import { compressImage } from './image.js';
 
 const Ctx = createContext(null);
 
@@ -12,6 +14,7 @@ export function StoreProvider({ children }) {
   const [counts, setCounts] = useState({});
   const [interactions, setInteractions] = useState([]);
   const [certificates, setCertificates] = useState([]);
+  const [attendance, setAttendance] = useState([]); // minhas presenças (check-in pelo GPS)
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
   const [recovery, setRecovery] = useState(false); // chegou pelo link de "esqueci a senha"
@@ -35,14 +38,21 @@ export function StoreProvider({ children }) {
       setProfile(null);
       setInteractions([]);
       setCertificates([]);
+      setAttendance([]);
       return;
     }
     try {
       const p = await api.getMyProfile();
       setProfile(p);
-      const [inter, certs] = await Promise.all([api.myInteractions(), isStudentLike(p) ? api.listCertificates() : Promise.resolve([])]);
+      const aluno = isStudentLike(p);
+      const [inter, certs, att] = await Promise.all([
+        api.myInteractions(),
+        aluno ? api.listCertificates() : Promise.resolve([]),
+        aluno ? api.myAttendance().catch(() => []) : Promise.resolve([]),
+      ]);
       setInteractions(inter || []);
       setCertificates(certs || []);
+      setAttendance(att || []);
     } catch (e) {
       notify(e.message, 'error');
     }
@@ -104,6 +114,26 @@ export function StoreProvider({ children }) {
     [user, interactions, notify],
   );
 
+  // presença: check-in/sinal/saída pelo GPS e foto de evidência
+  const keepAttendance = useCallback((row) => {
+    if (row?.event_id) setAttendance((prev) => [...prev.filter((a) => a.event_id !== row.event_id), row]);
+    return row;
+  }, []);
+  const checkIn = useCallback(
+    async (ev, mode = 'manual', pos = null) => keepAttendance(await api.attendancePing(ev.id, pos || (await getPosition()), mode)),
+    [keepAttendance],
+  );
+  const sendPresencePhoto = useCallback(
+    async (ev, file) => {
+      if (!file?.type?.startsWith('image/')) throw new Error('Envie uma foto (JPG ou PNG).');
+      const small = await compressImage(file, 1280, 0.72);
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(small.type)) throw new Error('Formato de foto não aceito. Tire a foto com a câmera do app.');
+      return keepAttendance(await api.uploadAttendancePhoto(ev.id, small));
+    },
+    [keepAttendance],
+  );
+  const attendanceFor = useCallback((eventId) => attendance.find((a) => a.event_id === eventId) || null, [attendance]);
+
   const has = useCallback((eventId, kind) => interactions.some((i) => i.event_id === eventId && i.kind === kind), [interactions]);
 
   const progress = useMemo(() => (isStudentLike(profile) ? computeProgress(profile, certificates) : null), [profile, certificates]);
@@ -116,6 +146,10 @@ export function StoreProvider({ children }) {
     counts,
     interactions,
     certificates,
+    attendance,
+    attendanceFor,
+    checkIn,
+    sendPresencePhoto,
     progress,
     loading,
     toast,

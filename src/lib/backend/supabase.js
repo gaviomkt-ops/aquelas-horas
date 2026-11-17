@@ -170,6 +170,34 @@ export function makeSupabaseBackend(url, anonKey) {
       else ok(await sb.from('interactions').delete().match({ user_id: id, event_id: eventId, kind }));
     },
 
+    // ---------- presença (check-in pelo GPS + foto de evidência) ----------
+    // O banco confere horário, distância e precisão do GPS (attendance_ping) e só guarda a distância.
+    async myAttendance() {
+      const { data: s } = await sb.auth.getSession();
+      if (!s?.session) return [];
+      return ok(await sb.from('attendance').select('*').eq('user_id', s.session.user.id));
+    },
+    async attendancePing(eventId, pos, mode = 'manual') {
+      return ok(await sb.rpc('attendance_ping', { p_event: eventId, p_lat: pos.lat, p_lng: pos.lng, p_accuracy: pos.accuracy, p_mode: mode }));
+    },
+    async uploadAttendancePhoto(eventId, blob) {
+      const id = await uidOrThrow();
+      const type = blob.type || 'image/jpeg';
+      const path = `${id}/${eventId}/${Date.now()}.${type === 'image/png' ? 'png' : type === 'image/webp' ? 'webp' : 'jpg'}`;
+      ok(await sb.storage.from('attendance-photos').upload(path, blob, { contentType: type, upsert: false }));
+      return ok(await sb.rpc('attendance_set_photo', { p_event: eventId, p_path: path }));
+    },
+    async attendancePhotoUrl(path) {
+      return ok(await sb.storage.from('attendance-photos').createSignedUrl(path, 60 * 10)).signedUrl;
+    },
+    async eventAttendance(eventId) {
+      return ok(await sb.rpc('event_attendance', { p_event: eventId }));
+    },
+    async secListAttendance() {
+      const id = await uidOrThrow();
+      return ok(await sb.from('attendance').select('*').neq('user_id', id));
+    },
+
     // ---------- certificados ----------
     async listCertificates() {
       const id = await uidOrThrow();

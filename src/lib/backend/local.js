@@ -1,6 +1,7 @@
 // MODO DEMONSTRAÇÃO: tudo fica no navegador (localStorage + IndexedDB para arquivos).
 // Serve para testar o app sem servidor. Os dados não passam de um aparelho para outro.
 import { demoSeed, REAL_EVENTS, SEED_VERSION } from '../seed.js';
+import { DEFAULT_RADIUS_M, MAX_ACCURACY_M, checkinWindow, hasGeo, positionCheck, windowState } from '../presence.js';
 
 const KEY = 'ah_demo_db_v1';
 const SESSION = 'ah_demo_session_v1';
@@ -40,6 +41,7 @@ function load() {
             else if (k === 'profiles' && row.id === 'demo-aluno') db[k][i] = { ...db[k][i], ...pickSeedAluno(row) };
           }
         }
+        db.attendance = db.attendance || [];
         db.seedVersion = SEED_VERSION;
         save(db);
       }
@@ -163,7 +165,7 @@ async function hash(text) {
 }
 
 const STUDENT_FIELDS = ['name', 'institution_id', 'institution_type', 'institution_name', 'course_id', 'entry_year', 'semester', 'goal_hours', 'onboarded', 'role', 'org_name', 'org_instagram', 'org_bio', 'accepted_terms_at', 'password_set', 'student_number', 'class_group', 'secretaria_consent_at'];
-const EVENT_FIELDS = ['title', 'description', 'category', 'hours', 'starts_at', 'ends_at', 'location', 'address', 'city', 'price', 'link', 'image_url', 'courses', 'institution_id', 'boost_status', 'capacity', 'requirements', 'cert_issuer', 'cert_signer_name', 'cert_signer_role', 'cert_participation', 'cert_delivery'];
+const EVENT_FIELDS = ['title', 'description', 'category', 'hours', 'starts_at', 'ends_at', 'location', 'address', 'city', 'price', 'link', 'image_url', 'courses', 'institution_id', 'boost_status', 'capacity', 'requirements', 'cert_issuer', 'cert_signer_name', 'cert_signer_role', 'cert_participation', 'cert_delivery', 'geo_lat', 'geo_lng', 'geo_radius_m'];
 
 export const local = {
   mode: 'demo',
@@ -331,7 +333,7 @@ export const local = {
     let contentChanged = false;
     for (const k of EVENT_FIELDS) {
       if (k in patch) {
-        if (k !== 'boost_status' && JSON.stringify(ev[k]) !== JSON.stringify(patch[k])) contentChanged = true;
+        if (k !== 'boost_status' && JSON.stringify(ev[k] ?? null) !== JSON.stringify(patch[k] ?? null)) contentChanged = true;
         ev[k] = patch[k];
       }
     }
@@ -393,6 +395,7 @@ export const local = {
     if (!ev || (ev.organizer_id !== me?.id && me?.role !== 'admin')) throw new Error('Evento não encontrado.');
     db.events = db.events.filter((x) => x.id !== id);
     db.interactions = db.interactions.filter((i) => i.event_id !== id);
+    db.attendance = (db.attendance || []).filter((a) => a.event_id !== id);
     save(db);
   },
   async track(id, kind) {
@@ -480,6 +483,86 @@ export const local = {
   async fileUrl(path) {
     const blob = await getFile(path);
     return blob ? URL.createObjectURL(blob) : null;
+  },
+
+  // ---------- presença (check-in pelo GPS + foto), mesmas regras do banco ----------
+  async myAttendance() {
+    const id = currentUserId();
+    if (!id) return [];
+    return (load().attendance || []).filter((a) => a.user_id === id);
+  },
+  async attendancePing(eventId, pos, mode = 'manual') {
+    const id = requireUser();
+    if (!['auto', 'manual', 'checkout'].includes(mode)) throw new Error('Modo inválido.');
+    const db = load();
+    db.attendance = db.attendance || [];
+    const ev = db.events.find((e) => e.id === eventId && e.status === 'approved');
+    if (!ev) throw new Error('Evento não encontrado.');
+    if (!hasGeo(ev)) throw new Error('Este evento não tem check-in por localização.');
+    const st = windowState(ev);
+    if (st === 'antes') throw new Error(`O check-in abre 30 minutos antes do início (${checkinWindow(ev).opens.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}).`);
+    if (st === 'encerrado') throw new Error('O check-in deste evento já encerrou.');
+    if (!(Number(pos?.accuracy) <= MAX_ACCURACY_M)) throw new Error('O GPS está impreciso. Ative a localização precisa do celular e tente de novo.');
+    const { distance, accuracy, inside } = positionCheck(ev, pos);
+    let a = db.attendance.find((x) => x.event_id === eventId && x.user_id === id);
+    if (!a) {
+      if (!inside) throw new Error(`Você está a ${distance} m do local do evento. O check-in funciona a até ${ev.geo_radius_m || DEFAULT_RADIUS_M} m.`);
+      a = {
+        id: uid(), event_id: eventId, user_id: id, checkin_at: now(), checkin_auto: mode === 'auto', checkin_distance_m: distance, checkin_accuracy_m: accuracy,
+        last_seen_at: now(), last_distance_m: distance, checkout_at: null, pings: 1, photo_path: null, photo_at: null,
+        receipt_code: Math.random().toString(36).slice(2, 10).toUpperCase(), created_at: now(),
+      };
+      db.attendance.push(a);
+    } else if (inside) {
+      if (mode !== 'checkout' && Date.now() - new Date(a.last_seen_at).getTime() < 30000) return a;
+      Object.assign(a, { last_seen_at: now(), last_distance_m: distance, pings: (a.pings || 0) + 1 });
+      if (mode === 'checkout') a.checkout_at = now();
+      if (mode === 'manual') a.checkout_at = null; // voltou ao local: a saída anterior não vale mais
+    } else if (mode === 'checkout') {
+      // saiu do local: a saída vale o último horário em que o app confirmou a presença
+      a.checkout_at = a.checkout_at || a.last_seen_at;
+    } else {
+      throw new Error(`Você está a ${distance} m do local. O check-in funciona a até ${ev.geo_radius_m || DEFAULT_RADIUS_M} m.`);
+    }
+    save(db);
+    return a;
+  },
+  async uploadAttendancePhoto(eventId, blob) {
+    const id = requireUser();
+    const db = load();
+    const a = (db.attendance || []).find((x) => x.event_id === eventId && x.user_id === id);
+    if (!a) throw new Error('Faça o check-in antes de enviar a foto.');
+    const ev = db.events.find((e) => e.id === eventId);
+    if (windowState(ev) === 'encerrado') throw new Error('O prazo para a foto deste evento já encerrou.');
+    const path = `${id}/${eventId}/${Date.now()}.jpg`;
+    await putFile(path, blob);
+    Object.assign(a, { photo_path: path, photo_at: now() });
+    save(db);
+    return a;
+  },
+  async attendancePhotoUrl(path) {
+    const blob = await getFile(path);
+    return blob ? URL.createObjectURL(blob) : null;
+  },
+  // lista de presença: quem organiza, coordenação do curso e admin
+  async eventAttendance(eventId) {
+    const db = load();
+    const me = myProfile(db);
+    const ev = db.events.find((e) => e.id === eventId);
+    if (!ev || !me || !(ev.organizer_id === me.id || me.role === 'admin' || coordinates(me, ev))) throw new Error('Você não pode ver a lista de presença deste evento.');
+    return (db.attendance || [])
+      .filter((a) => a.event_id === eventId)
+      .map((a) => {
+        const p = db.profiles.find((x) => x.id === a.user_id) || {};
+        return { ...a, name: p.name, email: p.email, institution_id: p.institution_id, course_id: p.course_id };
+      })
+      .sort((x, y) => String(x.checkin_at).localeCompare(String(y.checkin_at)));
+  },
+  async secListAttendance() {
+    const db = load();
+    const sec = requireSecretaria(db);
+    const visiveis = new Set((await this.secListStudents(sec.role === 'admin' ? null : sec.institution_id)).map((p) => p.id));
+    return (db.attendance || []).filter((a) => visiveis.has(a.user_id));
   },
 
   // ---------- secretaria (piloto) ----------

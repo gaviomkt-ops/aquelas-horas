@@ -4,9 +4,11 @@ import { useStore } from '../lib/store.jsx';
 import { EVENT_CATEGORIES, getInstitution } from '../lib/rules.js';
 import { dateInputValue, timeInputValue, toIso, todayYmd, safeUrl } from '../lib/format.js';
 import { compressImage } from '../lib/image.js';
-import { Button, Chip, Field, Icon } from '../components/ui.jsx';
+import { Badge, Button, Chip, Field, Icon } from '../components/ui.jsx';
 import { CertificatePreview, PARTICIPATION_OPTIONS, eventCertChecks } from '../components/certificate.jsx';
 import { COORDINATOR } from '../lib/seed.js';
+import { geocode, getPosition, mapLink } from '../lib/geolocate.js';
+import { DEFAULT_RADIUS_M, hasGeo } from '../lib/presence.js';
 
 
 const BLANK = {
@@ -35,6 +37,10 @@ const BLANK = {
   cert_signer_role: COORDINATOR.role,
   cert_participation: 'participou',
   cert_delivery: '',
+  // check-in por GPS: coordenadas do local e raio em metros
+  geo_lat: null,
+  geo_lng: null,
+  geo_radius_m: DEFAULT_RADIUS_M,
 };
 
 export default function EventForm() {
@@ -86,6 +92,9 @@ export default function EventForm() {
         cert_signer_role: ev.cert_signer_role || '',
         cert_participation: ev.cert_participation || 'participou',
         cert_delivery: ev.cert_delivery || '',
+        geo_lat: ev.geo_lat ?? null,
+        geo_lng: ev.geo_lng ?? null,
+        geo_radius_m: ev.geo_radius_m || DEFAULT_RADIUS_M,
         requirements: (ev.requirements || []).join('\n'),
         image_url: ev.image_url,
         boost: ev.boost_status !== 'none',
@@ -97,6 +106,35 @@ export default function EventForm() {
   }, [id, api, nav, notify]);
 
   const set = (k) => (e) => setF({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value });
+
+  // local do check-in: endereço (busca) ou a posição de quem está cadastrando o evento no local
+  const [geoBusy, setGeoBusy] = useState(false);
+  async function buscarEndereco() {
+    setGeoBusy(true);
+    try {
+      const base = f.address.trim() || f.location.split('·')[0].trim();
+      const r = await geocode(`${base}, ${f.city.trim() || 'Joinville'}, Brasil`);
+      setF((prev) => ({ ...prev, geo_lat: r.lat, geo_lng: r.lng }));
+      notify(`Local encontrado: ${r.label.split(',').slice(0, 3).join(',')}. Confira no mapa antes de salvar.`);
+    } catch (e) {
+      notify(e.message, 'error');
+    } finally {
+      setGeoBusy(false);
+    }
+  }
+  async function usarMinhaLocalizacao() {
+    setGeoBusy(true);
+    try {
+      const pos = await getPosition({ timeout: 20000, maximumAge: 0 });
+      setF((prev) => ({ ...prev, geo_lat: pos.lat, geo_lng: pos.lng }));
+      notify(`Local salvo pela sua posição (± ${Math.round(pos.accuracy)} m). Confira no mapa antes de salvar.`);
+    } catch (e) {
+      notify(e.message, 'error');
+    } finally {
+      setGeoBusy(false);
+    }
+  }
+  const temGeo = hasGeo(f);
 
   async function pickImage(e) {
     const raw = e.target.files?.[0];
@@ -147,6 +185,9 @@ export default function EventForm() {
         cert_participation: f.cert_participation,
         cert_delivery: f.cert_delivery.trim(),
         image_url,
+        geo_lat: f.geo_lat ?? null,
+        geo_lng: f.geo_lng ?? null,
+        geo_radius_m: Number(f.geo_radius_m) || DEFAULT_RADIUS_M,
       };
       if (!id) {
         data.institution_id = institutionId;
@@ -247,6 +288,48 @@ export default function EventForm() {
           </Field>
           <Field label="Cidade" htmlFor="ec">
             <input id="ec" value={f.city} onChange={set('city')} />
+          </Field>
+        </div>
+
+        <div className="geo-box">
+          <div className="row-between">
+            <b className="small">Check-in por GPS</b>
+            {temGeo ? <Badge tone="ok">Ativo</Badge> : <Badge tone="neutral">Desligado</Badge>}
+          </div>
+          {temGeo ? (
+            <p className="geo-ok">
+              <Icon name="MapPinCheck" size={16} />
+              <span>
+                Local marcado · raio de {f.geo_radius_m} m ·{' '}
+                <a href={mapLink(f.geo_lat, f.geo_lng)} target="_blank" rel="noopener noreferrer" className="inline-link">
+                  ver no mapa
+                </a>
+              </span>
+            </p>
+          ) : (
+            <p className="small muted">Sem local marcado, a presença por GPS não funciona neste evento. Marque o local para os alunos registrarem presença no check-in.</p>
+          )}
+          <div className="row-gap wrap">
+            <Button variant="soft" size="sm" icon="Search" onClick={buscarEndereco} disabled={geoBusy || busy}>
+              Buscar pelo endereço
+            </Button>
+            <Button variant="ghost" size="sm" icon="LocateFixed" onClick={usarMinhaLocalizacao} disabled={geoBusy || busy}>
+              Usar minha localização
+            </Button>
+            {temGeo && (
+              <Button variant="ghost" size="sm" icon="X" onClick={() => setF((prev) => ({ ...prev, geo_lat: null, geo_lng: null }))} disabled={geoBusy || busy}>
+                Remover
+              </Button>
+            )}
+          </div>
+          <Field label="Raio do check-in (metros)" htmlFor="egr" hint="Quão perto da entrada a pessoa precisa estar. Prédio grande: 200 a 300 m.">
+            <select id="egr" value={f.geo_radius_m} onChange={set('geo_radius_m')}>
+              {[100, 200, 300, 500].map((m) => (
+                <option key={m} value={m}>
+                  {m} m
+                </option>
+              ))}
+            </select>
           </Field>
         </div>
 

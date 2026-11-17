@@ -2,7 +2,10 @@
 // No modo online (Supabase) os eventos entram por supabase/eventos-iniciais.sql.
 
 // Sobe quando a lista de eventos reais muda: bancos demo antigos são atualizados.
-export const SEED_VERSION = 15;
+export const SEED_VERSION = 16;
+
+// IELUSC Campus Centro (Rua Princesa Isabel, 438), pelo OpenStreetMap: usado no check-in por GPS
+export const IELUSC_CENTRO = { geo_lat: -26.2993229, geo_lng: -48.8468081, geo_radius_m: 200 };
 
 // Eventos reais (divulgados pelo curso de PP da IELUSC e parceiros). São os mesmos que
 // supabase/eventos-iniciais.sql publica no modo online (gerado por scripts/gerar-sql-eventos.mjs).
@@ -174,7 +177,13 @@ export const REAL_EVENTS = [
     description:
       'Toda fotografia conta uma história. E o Picture já soma 10 anos de histórias para contar.\n\nPara celebrar essa trajetória, os estudantes da 2ª fase de Publicidade e Propaganda preparam uma edição especial do Picture, com convidados como Rodrigo Philipps (fotógrafo e filmmaker, com mais de 15 anos de experiência no mercado audiovisual) e Ana Dadam (designer especialista em gestão e criação de moda).\n\nVale 4 horas complementares. A entrada é gratuita e aberta ao público: não precisa ser aluno do IELUSC para participar. Na quinta-feira, as aulas de PP são direcionadas ao Picture.\n\nA próxima cena começa com você.',
   },
-].map((e) => ({ ...e, starts_at: toIso(e.starts_at), ends_at: toIso(e.ends_at), boost_until: toIso(e.boost_until) }));
+].map((e) => ({
+  ...(String(e.location || '').startsWith('IELUSC Campus Centro') ? IELUSC_CENTRO : {}),
+  ...e,
+  starts_at: toIso(e.starts_at),
+  ends_at: toIso(e.ends_at),
+  boost_until: toIso(e.boost_until),
+}));
 
 export const DEMO_ACCOUNTS = [
   { email: 'aluno@demo.com', password: 'demo123', label: 'Universitário' },
@@ -214,5 +223,5 @@ export function demoSeed() {
   ];
   const interactions = [];
   const events = REAL_EVENTS.map((e) => ({ ...e, organizer_id: 'demo-org' }));
-  return { seedVersion: SEED_VERSION, users, profiles, events, certificates, interactions };
+  return { seedVersion: SEED_VERSION, users, profiles, events, certificates, interactions, attendance: [] };
 }
